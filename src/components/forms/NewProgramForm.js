@@ -83,7 +83,7 @@ class NewProgramForm extends React.Component {
         })
         .catch((err) => this.setState({errors: { ...this.state.errors, errors: err.response.data.errors}, loading: false}))
   }
-
+// Borítókép törlése a tömbből és a szerver oldalról is
   deleteThumbnail = () => {
     this.props.deleteFile(this.state.program.thumbnailPath)
       .then(res => {
@@ -230,7 +230,7 @@ class NewProgramForm extends React.Component {
             </div>
         <Row xs ={1} md={2} lg={4} xl={4} className="g-4" >
             {
-          // A workout.workoutExercises változóban tárolt elemeket a map() függvény segtségével összekapcsoljuk az alább található HTML komponenssel
+          // A programm.workouts változóban tárolt elemeket a map() függvény segtségével összekapcsoljuk az alább található HTML komponenssel
           // A React megköveteli az egyedi key értékek használatát a map() függvény használata esetén. Az egyedi kulcsok generálása az "index" paraméterrel történt.
           program.workouts.map((workout, index) => {
             return (

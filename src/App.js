@@ -21,6 +21,7 @@ import UserManagementPage from "./components/pages/UserManagementPage";
 import NewExercisePage from "./components/pages/NewExercisePage";
 import NewWorkoutPage from "./components/pages/NewWorkoutPage";
 import NewProgramPage from "./components/pages/NewProgramPage";
+import MembershipPage from "./components/pages/MembershipPage";
 
 //Átirányítások
 import UserRoute from './components/routes/UserRoute';
@@ -44,6 +45,7 @@ const App = ({location}) => (
         <UserRoute  location={location} path='/add_exercise' exact component={NewExercisePage} />
         <UserRoute  location={location} path='/add_workout' exact component={NewWorkoutPage} />
         <UserRoute  location={location} path='/add_program' exact component={NewProgramPage} />
+        <UserRoute  location={location} path='/membership' exact component={MembershipPage} />
       </Container>
       <Footer/>
     </div>

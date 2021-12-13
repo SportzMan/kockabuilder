@@ -65,3 +65,37 @@ footer{
     color: rgb(192, 48, 48);
     opacity: 0.6
 }
+
+/* MembershipPage  CSS beállításai */
+.membership-info{
+    width: 240px;
+    height: 120px;
+    margin: 4px;
+    padding: 2px 4px;
+    bottom: 20%;
+    left: 10%;
+    position: absolute;
+    color: white;
+    background-color: black;
+    opacity: 0.73;
+    border-radius: 5%;
+    box-shadow: 0 0 10px 7px black;
+}
+
+.activeMembershipCard{
+    box-shadow: 0 0 10px 7px #0d6efd;
+    border-radius: 10px;
+}
+
+.membershipCard{
+    z-index: 1;
+}
+
+.membershipCard:hover{
+    box-shadow: 0 0 10px 7px black;
+    border-radius: 10px;
+}
+
+.membership-info{
+    z-index: inherit;
+}
