@@ -78,7 +78,7 @@ const api = {
         getWorkouts: () =>
         axios.post("/api/workouts/get_workouts").then(res => res.data.workouts),
     },
-    // Az edzésprogramokhoz köthető API hívások
+    // Az edzésprogramokkal kapcsolatos API hívások
     program: {
         addProgram: (program) => 
         axios.post("/api/programs/add_program", {program}).then(res => res.data.program),
@@ -91,8 +91,15 @@ const api = {
 
         getPrograms: () =>
         axios.post("/api/programs/get_programs").then(res => res.data.programs),
-    }
+    },
+    // A végrehajtott befizetésekkel kapcsolatos API hívások
+    purchase: {
+        addPurchase: (purchase) =>
+        axios.post("/api/purchases/add_purchase", {purchase}),
 
+        getPurchases: (user) =>
+        axios.post("/api/purchases/get_purchases", {user})
+    },
 }
 
 export default api; 
