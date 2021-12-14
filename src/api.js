@@ -47,6 +47,12 @@ const api = {
         addExercise: (exercise) => 
         axios.post("/api/exercises/add_exercise", {exercise}).then(res => res.data.exercise),
 
+        updateExercise: (exercise) => 
+        axios.post("/api/exercises/update_exercise", {exercise}).then(res => res.data.exercise),
+
+        deleteExercise: (exercise) => 
+        axios.post("/api/exercises/delete_exercise", {exercise}),
+
         // Gyakorlat előnézeti kép késztése
         createThumbnail: (data) => 
         axios.post("/api/exercises/create_thumbnail", {data}).then(res => res.data),
@@ -57,6 +63,9 @@ const api = {
         // A header konfiguráció az alábbi: Conent-Type: "multipart/form-data". A POST metódus innen tudja, hogy nem alapértelmezett JSON objektumot kell feldolgozzon a kérés során.
         uploadFile: (formData) => 
         axios.post("/api/exercises/upload_file", formData, { "Content-Type": "multipart/form-data"}).then(res => res.data),
+
+        deleteFiles: (data) => 
+        axios.post("/api/exercises/delete_files", {data}),
 
         // Az elérhető összes gyakorlat lekérése
         getExercises: (user) =>

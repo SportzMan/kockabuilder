@@ -11,3 +11,6 @@ export const uploadFile = (formData) => (dispatch) =>
 
 export const getExercises = (user) => (dispatch) =>
     api.exercise.getExercises(user)
+
+export const deleteFiles = (data) => (dispatch) =>
+    api.exercise.deleteFiles(data)

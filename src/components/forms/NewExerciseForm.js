@@ -4,7 +4,8 @@ import {Form, Button, Alert, Spinner, InputGroup, FormControl} from 'react-boots
 import {FiPlus} from "react-icons/fi";
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
-import {addExercise, uploadFile, createThumbnail} from '../../actions/exercises';
+import {addExercise, uploadFile, createThumbnail, deleteFiles} from '../../actions/exercises';
+import {MdOutlineCancel} from "react-icons/md";
 
 class NewExerciseForm extends React.Component{
 
@@ -24,7 +25,7 @@ class NewExerciseForm extends React.Component{
             exercise: { ...this.state.exercise, [e.target.name]: e.target.value }
         });
 
-
+    // Űrlap beküldésekor végrehajtott utaásítások
     onSubmit = (e) => {
         e.preventDefault();
         const errors = this.validate(this.state.exercise);
@@ -39,7 +40,16 @@ class NewExerciseForm extends React.Component{
                 .catch(err => this.setState({ errors: err.response.data.errors , loading: false}));
         } 
     }
+    // Borítókép és videó törlése a tömbből és a szerver oldalról is
+    deleteThumbnail = () => {
+        this.props.deleteFiles({thumbnailPath: this.state.exercise.thumbnailPath, filePath: this.state.exercise.filePath})
+        .then(res => {
+        this.setState({exercise: {...this.state.exercise, thumbnailPath: res.data.thumbnailPath, filePath: res.data.filePath}})
+        })
+        .catch(err => this.setState({errors: { ...this.state.errors, errors: err.response.data.errors}}))
+    }
 
+    // Videófájl betallózáskor végrehajtódó utaásítások + Borítókép generálás
     onDrop = (files) => {
 
         var formData = new FormData();
@@ -99,23 +109,27 @@ class NewExerciseForm extends React.Component{
                         {errors.name}
                     </FormControl.Feedback>
                 </InputGroup>
-                <div style={{paddingBottom: "1.5em", display: 'flex', justifyContent: 'center' }}>
-                <Dropzone onDrop={this.onDrop} multiple={false} maxSize={500000000} >
-                    {({ getRootProps, getInputProps }) => (
-                            <div style={{ width: '320px', height: '240px', border: '1px solid lightgray', display: 'flex', alignItems: "center", justifyContent: 'center' }}
-                                {...getRootProps()}
-                            >
-                                <input {...getInputProps()} />
-                                <FiPlus style={{ fontSize: '3rem' }} />
 
-                            </div>
-                        )}
-                </Dropzone>
-                {exercise.thumbnailPath !== "" &&
-                        <div className="exercise-thumbnail" style={{paddingLeft: "2rem"}}>
-                            <img src={"http://localhost:8080/"+exercise.thumbnailPath} alt="thumbnail"/>
+                <p>Borítókép</p>
+                <div style={{ padding: "1rem", display: "flex", justifyContent: "center",  width: "100%", border: "1px solid lightgray", marginBottom: "1rem", borderRadius: "5px"}}>
+                {!exercise.thumbnailPath ? 
+                    (<Dropzone onDrop={this.onDrop} multiple={false} maxSize={500000000} >
+                    {({ getRootProps, getInputProps }) => (
+                        <div style={{ width: "320px", height: "240px", border: "1px solid lightgray", display: "flex", alignItems: "center", justifyContent: "center"}}
+                        {...getRootProps()}
+                        >
+                        <input {...getInputProps()} />
+                        <FiPlus style={{ fontSize: "3rem" }} />
                         </div>
-                    }
+                    )}
+                    </Dropzone>)
+                    :
+                    (
+                    <div className="exercise-thumbnail" style={{display: "block"}}>
+                    <img src={"http://localhost:8080/"+exercise.thumbnailPath} alt="thumbnail" style={{width: "320px", height: "240px"}}/>
+                    <div className="exercise-cancel" style={{ position: "relative", left: "18rem", bottom: "15rem"}} onClick={this.deleteThumbnail}><MdOutlineCancel id="exercise-cancel-icon" /></div>
+                    </div>
+                    )}
                 </div>
 
                 {!loading ? (
@@ -147,4 +161,4 @@ NewExerciseForm.propTypes = {
     submit: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps, {addExercise, createThumbnail, uploadFile})(NewExerciseForm);
+export default connect(mapStateToProps, {addExercise, createThumbnail, uploadFile, deleteFiles})(NewExerciseForm);
