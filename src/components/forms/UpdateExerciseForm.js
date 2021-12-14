@@ -72,7 +72,7 @@ class NewExerciseForm extends React.Component{
             })
             .catch((err) => this.setState({ errors: err.response.data.errors , loading: false}))
     }
-    // A bemeneti mezők validálása
+
     validate = (data) => {
         const errors = {};
 
@@ -133,7 +133,7 @@ class NewExerciseForm extends React.Component{
                 </div>
 
                 {!loading ? (
-                    <Button variant="primary" type="submit">Hozzáad</Button>
+                    <Button variant="primary" type="submit">Módosít</Button>
                   ) : (
                     <Button variant="primary" disabled>
                         <Spinner
@@ -143,9 +143,10 @@ class NewExerciseForm extends React.Component{
                         role="status"
                         aria-hidden="true"
                         />
-                        <span className="sr-only">Hozzáadás...</span>
+                        <span className="sr-only">Módosít...</span>
                     </Button>
                   )  }
+                <Button variant="danger" >Törlés</Button>
             </Form>
         );
     }

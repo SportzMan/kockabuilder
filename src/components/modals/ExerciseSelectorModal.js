@@ -55,6 +55,7 @@ const ExerciseSelectorModal = (props) => {
                           <img
                             className="card-img"
                             src={`http://127.0.0.1:8080/${exercise.thumbnailPath}`}
+                            alt="thumbnail"
                           />
                           <div className="exercise-name">
                             <span>{exercise.name}</span>

@@ -29,9 +29,7 @@ export const getUserInfo = () => (dispatch) => api.user.getUserInfo()
         dispatch(userFetched(normalize(user, [userSchema])))
     });
 
-export const updateUserProfile = (data) => (dispatch) => api.user.updateUserProfile(data).then(() =>
-    dispatch(ProfileUpdated())
-);
+export const updateUserProfile = (data) => (dispatch) => api.user.updateUserProfile(data);
 
 export const updateMembership = (data) => (dispatch) => api.user.updateMembership(data);
 

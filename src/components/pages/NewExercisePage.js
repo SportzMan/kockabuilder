@@ -4,11 +4,12 @@ import {addExercise} from '../../actions/exercises';
 import PropTypes from 'prop-types';
 import NewExerciseForm from '../forms/NewExerciseForm';
 import {Container} from "react-bootstrap";
+import api from "../../api";
 
 class NewExercisePage extends React.Component {
 
   submit = (exercise) => 
-  this.props.addExercise(exercise).then(() => this.props.history.push("/edit_exercise/xid"));
+  api.exercise.addExercise(exercise).then((res) => this.props.history.push("/add_workout/"));
 
   render() {
       return (
@@ -21,6 +22,9 @@ class NewExercisePage extends React.Component {
   }
 
   NewExercisePage.propTypes ={
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired
+    }).isRequired,
     addExercise: PropTypes.func.isRequired
 };
 

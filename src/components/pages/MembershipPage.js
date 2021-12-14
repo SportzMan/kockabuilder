@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Alert, Container, Row, Col} from "react-bootstrap";
 import {addPurchase} from "../../actions/purchases";
 import {updateMembership} from "../../actions/users";
-import { PayPalButton } from "react-paypal-button-v2";
+import { PayPalButton } from "react-paypal-button-v2"; //Dokumentáció: https://www.npmjs.com/package/react-paypal-button-v2
 import {connect} from "react-redux";
 
 
@@ -50,7 +50,7 @@ const MembershipPage = (props) => {
                             return (
                             <Col key={`col-${index}`}>
                                 <div style={{ width: "320px", position: "relative",  marginBottom: "1rem" }} className={className}  index={index} onClick={() => selectItem(membership, index)}>
-                                <img  className="card-img" src={membership.img} />
+                                <img  className="card-img" src={membership.img} alt="thumbnail"/>
                                 <div  className="membership-info">
                                     <h2 style={{paddingLeft: "35%", paddingTop: "5%"}}> {`${membership.duration} nap`} </h2>
                                     <br/>

@@ -66,9 +66,9 @@ class UserProfileForm extends React.Component {
       this.setState({ mLoading: true});
       this.props
         .submit(this.state.data)
-        .then(() => {this.setState({mLoading: false, mSuccess: true})
+        .then(() => {this.setState({mLoading: false, mSuccess: true});
           setTimeout(() => { this.setState({ mSuccess: false})}, 5000)})
-        .catch((err) => this.setState({errors: err.response.data.errors, mLoading: false, mSuccess: false}))
+        .catch((err) => this.setState({...this.state.errors, errors: err.response.data.errors, mLoading: false, mSuccess: false}))
     }
   };
 

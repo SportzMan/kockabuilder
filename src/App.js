@@ -19,6 +19,7 @@ import ChangePasswordPage from './components/pages/ChangePasswordPage';
 import ProfilePage from "./components/pages/ProfilePage";
 import UserManagementPage from "./components/pages/UserManagementPage";
 import NewExercisePage from "./components/pages/NewExercisePage";
+import UpdateExercisePage from "./components/pages/UpdateExercisePage";
 import NewWorkoutPage from "./components/pages/NewWorkoutPage";
 import NewProgramPage from "./components/pages/NewProgramPage";
 import MembershipPage from "./components/pages/MembershipPage";
@@ -43,6 +44,7 @@ const App = ({location}) => (
         <UserRoute  location={location} path='/password' exact component={ChangePasswordPage}/>
         <UserRoute  location={location} path='/manage' exact component={UserManagementPage} />
         <UserRoute  location={location} path='/add_exercise' exact component={NewExercisePage} />
+        <UserRoute  location={location} path='/update_exercise/' exact component={UpdateExercisePage} />
         <UserRoute  location={location} path='/add_workout' exact component={NewWorkoutPage} />
         <UserRoute  location={location} path='/add_program' exact component={NewProgramPage} />
         <UserRoute  location={location} path='/membership' exact component={MembershipPage} />

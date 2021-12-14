@@ -1,7 +1,6 @@
 import React from 'react';
 import { Alert, Badge, Container, Form, Spinner } from 'react-bootstrap';
 import UserTable from "../tables/UserTable";
-import { FcOk, FcCancel } from "react-icons/fc";
 import UserProfileForm from "../forms/UserProfileForm";
 import {getAllUsers, updateUserProfile} from "../../actions/users";
 import {connect} from 'react-redux';
