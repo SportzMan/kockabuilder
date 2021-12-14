@@ -13,7 +13,7 @@ class UpdateExercisePage extends React.Component {
   render() {
       return (
         <Container fluid style={{paddingTop: "0.4rem"}}>
-          <h1 style={{paddingBottom: "1.5rem"}} >Új gyakorlat hozzáadása</h1>
+          <h1 style={{paddingBottom: "1.5rem"}} >Gyakorlat módosítása</h1>
           <UpdateExerciseForm submit={this.submit}/>
         </Container>
       );
