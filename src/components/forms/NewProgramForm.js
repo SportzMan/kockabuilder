@@ -20,7 +20,8 @@ class NewProgramForm extends React.Component {
       description: "",
       owner: this.props.user,
       workouts: [],
-      thumbnailPath: ""
+      thumbnailPath: "",
+      isfree: false
     },
     modal: false,
     loading: false,
@@ -49,11 +50,17 @@ class NewProgramForm extends React.Component {
       program: { ...this.state.program, [e.target.name]: e.target.value },
     });
 
+  checkChange = () => {
+      this.setState({
+        program: { ...this.state.program, isfree: !this.state.program.isfree },
+      })
+  };
+
   removeWorkout = (index) => {
       const workouts = this.state.program.workouts;
       workouts.splice(index, 1);
       this.setState({program: {...this.state.program, workouts: workouts}});
-  }
+  };
 
   onSubmit = (e) => {
     const {program} = this.state;
@@ -175,6 +182,15 @@ class NewProgramForm extends React.Component {
             {errors.description}
           </FormControl.Feedback>
         </InputGroup>
+        <Form.Group controlId="formUserRights" style={{margin: "1rem 0 2rem"}}>
+              <Form.Check
+                name="isFree"
+                type="checkbox"
+                label="Érvényes tagság nélkül is megtekinthetik a felhasználók"
+                onChange={this.checkChange}
+                checked={program.isfree}
+              />
+        </Form.Group>
           <p>Borítókép</p>
           <div style={{ padding: "1rem", display: "flex", justifyContent: "center",  width: "100%", border: "1px solid lightgray", marginBottom: "1rem", borderRadius: "5px"}}>
           {!program.thumbnailPath ? 
@@ -191,7 +207,7 @@ class NewProgramForm extends React.Component {
             :
             (
             <div className="program-thumbnail" style={{display: "block"}}>
-              <img src={"http://localhost:8080/"+program.thumbnailPath} alt="thumbnail"/>
+              <img src={"http://localhost:8080/"+program.thumbnailPath} alt="thumbnail" style={{width: "320px", height: "240px"}}/>
               <div className="program-cancel" style={{ position: "relative", left: "18rem", bottom: "15rem"}} onClick={this.deleteThumbnail}><MdOutlineCancel id="program-cancel-icon" /></div>
             </div>
             )}

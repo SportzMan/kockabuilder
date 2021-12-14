@@ -33,4 +33,6 @@ export const updateUserProfile = (data) => (dispatch) => api.user.updateUserProf
     dispatch(ProfileUpdated())
 );
 
-export const getAllUsers = () => (dispatch) => api.user.getAllUsers()
+export const updateMembership = (data) => (dispatch) => api.user.updateMembership(data);
+
+export const getAllUsers = () => (dispatch) => api.user.getAllUsers();

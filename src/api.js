@@ -35,7 +35,10 @@ const api = {
         axios.post("api/users/edit_user", {data}).then(res => res.data.user),
 
         getAllUsers: () =>
-        axios.get("/api/users/get_users").then(res => res.data.users)
+        axios.get("/api/users/get_users").then(res => res.data.users),
+
+        updateMembership: (data) =>
+        axios.post("api/users/membership", {data}).then(res => res.data.user),
 
     },
     // A gyakorlat objektumhoz köthető API hívások

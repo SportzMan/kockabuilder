@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {Alert, Container, Row, Col} from "react-bootstrap";
 import {addPurchase} from "../../actions/purchases";
+import {updateMembership} from "../../actions/users";
 import { PayPalButton } from "react-paypal-button-v2";
 import {connect} from "react-redux";
 
@@ -62,13 +63,14 @@ const MembershipPage = (props) => {
 
                     }
                 </Row>
+
             {!!selectedMembership &&
                 <div style={{marginTop: "5rem", justifyContent: "center", alignItems: "center", display: "flex"}}  >
                 <PayPalButton 
                     amount={selectedMembership.price}
                     onSuccess={(details, data) => {
                         props.addPurchase({user: props.user, membership: selectedMembership})
-                        setSuccess(true)
+                        props.updateMembership({user: props.user, duration: selectedMembership.duration})
                         changeSuccess();
                     }}
                     options={{
@@ -90,4 +92,4 @@ function mapStateToProps(state) {
     };
   }
 
-export default connect(mapStateToProps, {addPurchase})(MembershipPage)
+export default connect(mapStateToProps, {updateMembership, addPurchase})(MembershipPage)
