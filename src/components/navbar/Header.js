@@ -49,7 +49,8 @@ class Header extends React.Component{
                                     </Dropdown.Menu>
                                 </Dropdown> )
                             : (
-                                <Nav.Link href="/login">Belépés</Nav.Link>  )
+                                <Button variant="dark" as={Link} to="/login" style={{  width: "6.4em", position: "relative" }}> Belépés</Button>
+                              )
                             }
                             
                         </Nav>

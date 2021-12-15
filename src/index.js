@@ -22,7 +22,7 @@ const store = createStore(
 //Ebben az objektumban kerülnek eltráolásra a bejelentkjezett felhasználók adatai. 
 if(localStorage.kockaJWT){
   const payload = decode(localStorage.kockaJWT);
-  const user = {token: localStorage.kockaJWT, email: payload.email, username: payload.username, isAdmin: payload.isAdmin, isTrainer: payload.isTrainer};
+  const user = {token: localStorage.kockaJWT, email: payload.email, username: payload.username, isAdmin: payload.isAdmin, isTrainer: payload.isTrainer, membership: payload.membership};
   store.dispatch(userLoggedIn(user))
 }
 

@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from 'react-redux';
-import {addExercise} from '../../actions/exercises';
+import {updateExercise, deleteExercise, deleteFiles} from '../../actions/exercises';
 import PropTypes from 'prop-types';
 import UpdateExerciseForm from '../forms/UpdateExerciseForm';
 import {Container} from "react-bootstrap";
@@ -10,11 +10,16 @@ class UpdateExercisePage extends React.Component {
   submit = (exercise) => 
   this.props.updateExercise(exercise)
 
+  deleteItem = (exercise) => 
+    this.props.deleteExercise(exercise).then(() =>{
+      this.props.deleteFiles({thumbnailPath: exercise.thumbnailPath, filePath: exercise.filePath})
+    })
+
   render() {
       return (
         <Container fluid style={{paddingTop: "0.4rem"}}>
           <h1 style={{paddingBottom: "1.5rem"}} >Gyakorlat módosítása</h1>
-          <UpdateExerciseForm submit={this.submit}/>
+          <UpdateExerciseForm submit={this.submit} exercise={this.props.history.location.state} deleteItem={this.deleteItem}/>
         </Container>
       );
     }
@@ -29,4 +34,4 @@ class UpdateExercisePage extends React.Component {
   }).isRequired,
 };
 
-  export default connect(null, {addExercise})(UpdateExercisePage);
+  export default connect(null, {updateExercise, deleteExercise, deleteFiles})(UpdateExercisePage);

@@ -6,19 +6,27 @@ import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import {addExercise, uploadFile, createThumbnail, deleteFiles} from '../../actions/exercises';
 import {MdOutlineCancel} from "react-icons/md";
+import ItemDeleteModal from "../modals/ItemDeleteModal";
 
 class NewExerciseForm extends React.Component{
 
     state = {
         exercise: {
-            name: "",
-            owner: this.props.user,
-            filePath: "",
-            thumbnailPath: "",
+            originalName: this.props.exercise.name,
+            name: this.props.exercise.name,
+            owner: this.props.exercise.user,
+            filePath: this.props.exercise.filePath,
+            thumbnailPath: this.props.exercise.thumbnailPath,
         },
         loading: false,
-        errors: {}
+        success: false,
+        errors: {},
+        modal: false
     };
+
+    componentDidMount(){
+
+    }
 
     onChange = (e) =>
         this.setState({
@@ -36,7 +44,8 @@ class NewExerciseForm extends React.Component{
             this.setState({loading: true})
             this.props
                 .submit(this.state.exercise)
-                .then(() => this.setState({ loading: false}))
+                .then(() => this.setState({ exercise: {...this.state.exercise, originalName: this.state.exercise.name}, loading: false, success: true}, () => { setTimeout(() => {
+                    this.setState({success: false})}, 5000);}))
                 .catch(err => this.setState({ errors: err.response.data.errors , loading: false}));
         } 
     }
@@ -82,19 +91,33 @@ class NewExerciseForm extends React.Component{
         return errors;
     }
 
+    hideModal = () => {
+        this.setState({modal: false})
+    };
+
+    showModal = () => {
+        this.setState({modal: true})
+    };
+
+
+
     render(){
-        const {exercise, errors, loading} = this.state;
+        const {exercise, errors, loading, success, modal} = this.state;
 
         return(
             <Form noValidate onSubmit={this.onSubmit} >
+            <ItemDeleteModal modal={modal} name=" gyakorlatot" item={exercise} buttonName="Gyakorlat" hideModal={this.hideModal} deleteItem={this.props.deleteItem}/>
 
+                {!loading&&success &&<Alert variant="success" >A gyakorlat sikeresen módosítva!</Alert>}
                 {errors.global && <Alert variant="danger" >
                     <Alert.Heading>Hiba!</Alert.Heading>
                     <p>{errors.global}</p>
                     </Alert>}
+
                 {errors.filePath && <Alert variant="danger" >
                     {errors.filePath}
                     </Alert>}
+
                 <InputGroup controlid="exerciseName" style={{paddingBottom: "1.5rem"}}>
                     <InputGroup.Text >Gyakorlat neve</InputGroup.Text>
                     <FormControl
@@ -110,7 +133,7 @@ class NewExerciseForm extends React.Component{
                     </FormControl.Feedback>
                 </InputGroup>
 
-                <p>Borítókép</p>
+                <p>Videófájl</p>
                 <div style={{ padding: "1rem", display: "flex", justifyContent: "center",  width: "100%", border: "1px solid lightgray", marginBottom: "1rem", borderRadius: "5px"}}>
                 {!exercise.thumbnailPath ? 
                     (<Dropzone onDrop={this.onDrop} multiple={false} maxSize={500000000} >
@@ -146,7 +169,8 @@ class NewExerciseForm extends React.Component{
                         <span className="sr-only">Módosít...</span>
                     </Button>
                   )  }
-                <Button variant="danger" >Törlés</Button>
+                <Button variant="secondary" style={{marginLeft: "1rem"}}>Vissza</Button>
+                <Button variant="danger" style={{position: "absolute", right: "25px"}} onClick={this.showModal}>Törlés</Button>
             </Form>
         );
     }

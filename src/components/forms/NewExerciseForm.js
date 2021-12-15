@@ -37,7 +37,7 @@ class NewExerciseForm extends React.Component{
             this.props
                 .submit(this.state.exercise)
                 .then(() => this.setState({ loading: false}))
-                .catch(err => this.setState({ errors: err.response.data.errors , loading: false}));
+                .catch(err => console.log(err));
         } 
     }
     // Borítókép és videó törlése a tömbből és a szerver oldalról is
@@ -110,7 +110,7 @@ class NewExerciseForm extends React.Component{
                     </FormControl.Feedback>
                 </InputGroup>
 
-                <p>Borítókép</p>
+                <p>Videófájl</p>
                 <div style={{ padding: "1rem", display: "flex", justifyContent: "center",  width: "100%", border: "1px solid lightgray", marginBottom: "1rem", borderRadius: "5px"}}>
                 {!exercise.thumbnailPath ? 
                     (<Dropzone onDrop={this.onDrop} multiple={false} maxSize={500000000} >

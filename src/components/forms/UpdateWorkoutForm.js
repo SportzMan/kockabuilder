@@ -6,30 +6,32 @@ import {MdOutlineCancel} from "react-icons/md";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { uploadFile, deleteFile } from "../../actions/workouts";
-import { getExercises} from "../../actions/exercises";
+import { getExercises, getExercise} from "../../actions/exercises";
 import ExerciseSelectorModal from "../modals/ExerciseSelectorModal";
-import { addWorkout } from "../../actions/workouts";
+import ItemDeleteModal from "../modals/ItemDeleteModal";
 
-
-class NewWorkoutForm extends React.Component {
+class UpdateWorkoutForm extends React.Component {
 
   state = {
     workout: {
-      name: "",
-      description: "",
+      originalName: this.props.workout.name,
+      name: this.props.workout.name,
+      description: this.props.workout.description,
       owner: this.props.user,
-      workoutExercises: [],
-      thumbnailPath: ""
+      workoutExercises: this.props.workout.workoutExercises,
+      thumbnailPath: this.props.workout.thumbnailPath,
+      errors: {}
     },
     modal: false,
+    deleteModal: false,
     loading: false,
     success: false,
     Exercises: [],
     // A komplexebb struktúrájú "workout" állapotváltozó végett szükségessé vált egy hasonló struktúrát követő "errors" állaptováltozó
     // Az elgondolás az, hogy minden workout.workoutExercises tömbben található elemhez tartozni fog egy errors.workoutExerciseErrors tömbben tárolt elem.
-    // Az lehetővé teszi az űrlapok beviteli mezőinek validdálását.
+    // Az lehetővé teszi az űrlapok beviteli mezőinek validálását.
     errors: {
-        workoutExerciseErrors:[],
+        workoutExerciseErrors:[this.props.workout.workoutExercises.length],
         errors: {}
     }
   };
@@ -39,9 +41,12 @@ class NewWorkoutForm extends React.Component {
   // Az oldal betöltésekor lekérdezzük az adatbázisban található összes gyakorlatot tulajdonostól függetlenül, és eltároljuk azokat az "Exercises" változóban
   // Az első render után lefut a metódus és lekérdezi az adatbázisban elérhető összes gyakorlat objektumot
   componentDidMount() {
-    this.props.getExercises().then(res => {this.setState( {...this.state.Exercises, Exercises: res, loading: false, success: true})})
-    .catch(err => {this.setState( {errors: { ...this.state.errors, errors: err.response.data.errors}, loading: false, success: false})})
+    this.props.getExercises()
+      .then(res => {this.setState( {...this.state.Exercises, Exercises: res, loading: false})})
+      .catch(err => {this.setState( {errors: { ...this.state.errors, errors: err.response.data.errors}, loading: false, success: false})})
+      
   }
+
   
   // Az egyszerűbb struktúrával rendelkező objektumokhoz kapcsolodó beviteli mezők változás kezelő függvénye
   // A paraméterként megkapott esemény változó segítségével meghatározásra kerül az eseményt kiváltó komponens neve és értéke, és beállítja az ezekhez kapcsolódó állapot változókat.
@@ -60,7 +65,7 @@ class NewWorkoutForm extends React.Component {
         for(let i = 0; i<this.state.workout.workoutExercises.length; i++){
             if ( i === index){
 
-                workoutExercises.push({Exercise: exerciseToEdit.Exercise, reps: exerciseToEdit.reps, rest: exerciseToEdit.rest})
+                workoutExercises.push({Exercise: exerciseToEdit.Exercise, name: exerciseToEdit.name, thumbnailPath: exerciseToEdit.thumbnailPath, reps: exerciseToEdit.reps, rest: exerciseToEdit.rest})
             }else {
                 workoutExercises.push(this.state.workout.workoutExercises[i])
 
@@ -78,7 +83,7 @@ class NewWorkoutForm extends React.Component {
         for(let i = 0; i<this.state.workout.workoutExercises.length; i++){
             if ( i === index){
 
-                workoutExercises.push({Exercise: exerciseToEdit.Exercise, reps: exerciseToEdit.reps, rest: exerciseToEdit.rest})
+                workoutExercises.push({Exercise: exerciseToEdit.Exercise, name: exerciseToEdit.name, thumbnailPath: exerciseToEdit.thumbnailPath, reps: exerciseToEdit.reps, rest: exerciseToEdit.rest})
             }else {
                 workoutExercises.push(this.state.workout.workoutExercises[i])
 
@@ -101,13 +106,14 @@ class NewWorkoutForm extends React.Component {
     if (Object.keys(errors).length > 2){
         this.setState({errors});
 
-    } else {
+    } else 
         this.setState({loading: true});
           this.props.submit(workout)
-          .then(() => this.setState({ loading: false}))
-          .catch(err => console.log(err));
-      }
+          .then(() => this.setState({ workout: {...this.state.workout, originalName: this.state.workout.name},loading: false, success: true}, () => { setTimeout(() => {
+            this.setState({success: false})}, 5000);}))
+          .catch(err => this.setState({errors: { ...this.state.errors, errors: err.response.data.errors}, loading: false}));
   }
+
   // Hasonlóan a NewExerciseForm-hoz
   onDrop = (files) => {
 
@@ -134,22 +140,22 @@ class NewWorkoutForm extends React.Component {
 
   hideModal = () => this.setState({ modal: false });
 
+  showDeleteModal = () => this.setState({ deleteModal: true });
+
+  hideDeleteModal = () => this.setState({ deleteModal: false });
+
   // A workout.workoutExercises állapot változó töltéséért felelős függvény
   addWorkoutExercise = (exercise) => {
-      let workoutExercise = {Exercise: exercise, reps: "", rest: ""};
+      let workoutExercise = {Exercise: exercise, name: exercise.name, thumbnailPath: exercise.thumbnailPath, reps: "", rest: ""};
       var add = this.state.workout.workoutExercises;
       add.push(workoutExercise);
-      this.setState({workout: {...this.state.workout, workoutExercises: add }});
+      this.setState({workout: {...this.state.workout, workoutExercises: add }}, ()=> console.log(this.state.workout));
 
-      let workoutExerciseError = { errors: {}};
-      add = this.state.errors.workoutExerciseErrors;
-      add.push(workoutExerciseError);
-      this.setState({errors: {...this.state.errors, workoutExerciseErrors: add }})
     };
 
 // Az űrlap mezőinek kliens oldali ellenőrzéséhez használt validátor függvény
   validate = (data) => {
-
+    const workout = data;
     const errors = this.state.errors;
     // Az "Edzés neve" mező nem lehet üres és nem lehet rövidebb 6 karakternél (ismert gyakorlatokat átnézve nem találtam ennél rövdiebb karakterláncú gyakorlatot)
     if (!data.name) errors.errors.name = "A mező nem maradhat üresen!";
@@ -161,12 +167,12 @@ class NewWorkoutForm extends React.Component {
         }
     // Az egyes gyakorlatokhoz tartozó "Ismétlések száma" mezők értéke legyen nagyobb 0-nál továbbá a "Pihenő" mezők értéke legyen legalább 0
     for(let i=0 ; i<data.workoutExercises.length; i++){
-        if(!data.workoutExercises[i].reps) errors.workoutExerciseErrors[i].errors.reps = "A mező nem maradhat üresen!";
-        else{if(data.workoutExercises[i].reps < 1) errors.workoutExerciseErrors[i].errors.reps = "Az ismétlések száma nem lehet 0!"
+        if(!data.workoutExercises[i].reps) workout.workoutExercises[i].repsError = "A mező nem maradhat üresen!";
+        else{if(data.workoutExercises[i].reps < 1) workout.workoutExercises[i].repsError = "Az ismétlések száma nem lehet 0!"
             }
 
-        if(!data.workoutExercises[i].rest) errors.workoutExerciseErrors[i].errors.rest = "A mező nem maradhat üresen!";
-        else{if(data.workoutExercises[i].rest < 0) errors.workoutExerciseErrors[i].errors.rest = "A pihenés ideje nem lehet negatív!"
+        if(!data.workoutExercises[i].rest) workout.workoutExercises[i].restError = "A mező nem maradhat üresen!";
+        else{if(data.workoutExercises[i].rest < 0) workout.workoutExercises[i].restError = "A pihenés ideje nem lehet negatív!"
             }
     }
     // Nem hiányozhat az előnézeti kép
@@ -179,16 +185,23 @@ class NewWorkoutForm extends React.Component {
   };
 
   render() {
-    const { workout, errors, loading, Exercises, modal } = this.state;
+    const { workout, errors, loading, success, Exercises, modal, deleteModal } = this.state;
 
     return (
       <Form noValidate onSubmit={this.onSubmit}>
+        <ItemDeleteModal modal={deleteModal} name="z edzést" item={workout} buttonName="Edzés" hideModal={this.hideDeleteModal} deleteItem={this.props.deleteItem}/>
+
+        {!loading&&success &&<Alert variant="success" >A gyakorlat sikeresen módosítva!</Alert>}
+
         {errors.errors.global && (
           <Alert variant="danger">
             <Alert.Heading>Hiba!</Alert.Heading>
             <p>{errors.errors.global}</p>
           </Alert>
         )}
+
+        {errors.errors.filePath && <Alert variant="danger" > {errors.errors.thumbnailPath} </Alert>}
+
         <ExerciseSelectorModal modal={modal} Exercises={Exercises} hideModal={this.hideModal} addWorkoutExercise={this.addWorkoutExercise}/>
         <InputGroup controlid="workoutName" style={{ paddingBottom: "1.5rem" }}>
           <InputGroup.Text>Edzés neve</InputGroup.Text>
@@ -288,11 +301,11 @@ class NewWorkoutForm extends React.Component {
             return (
                 <Col key={`col-${index}`}>
                     <Card index={index} style={{width: "320px"}}>
-                        <Card.Img variant="top" src={`http://127.0.0.1:8080/${exercise.Exercise.thumbnailPath}`}  style={{width: "320px"}}/>
+                        <Card.Img variant="top" src={`http://localhost:8080/${exercise.thumbnailPath}`}  style={{width: "320px"}}/>
                         <div className="workout-cancel" style={{position: "absolute", right: 0}}><MdOutlineCancel id="workout-cancel-icon" onClick={() => this.removeWorkoutExercise(index)}/></div>
                         <div className="workout-index" > <p>{`${index+1}. gyakorlat`}</p></div>
                         <Card.Body>
-                            <Card.Title>{exercise.Exercise.name}</Card.Title>
+                            <Card.Title>{exercise.name}</Card.Title>
                             <InputGroup controlid="workoutDesc" style={{ paddingBottom: "1rem", width: "85%"}}>
                                 <InputGroup.Text>Ismétlések száma:</InputGroup.Text>
                                 <FormControl
@@ -301,14 +314,14 @@ class NewWorkoutForm extends React.Component {
                                     placeholder="db"
                                     value={workout.workoutExercises[index].reps}
                                     onChange={this.updateReps(index)}
-                                    isInvalid={!!errors.workoutExerciseErrors[index].errors.reps}
+                                    isInvalid={!!workout.workoutExercises[index].repsError}
                                     style={{
                                         borderTopRightRadius: "5px",
                                         borderBottomRightRadius: "5px",
                                     }}
                                 />
                                     <FormControl.Feedback type="invalid">
-                                        {errors.workoutExerciseErrors[index].errors.reps}
+                                        {workout.workoutExercises[index].repsError}
                                     </FormControl.Feedback>
                             </InputGroup>
                             <InputGroup controlid="workoutDesc" style={{ paddingBottom: "1.5rem", width: "75%"}}>
@@ -319,14 +332,14 @@ class NewWorkoutForm extends React.Component {
                                     placeholder="másodperc"
                                     value={workout.workoutExercises[index].rest}
                                     onChange={this.updateRest(index)}
-                                    isInvalid={!!errors.workoutExerciseErrors[index].errors.rest}
+                                    isInvalid={!!workout.workoutExercises[index].restError}
                                     style={{
                                         borderTopRightRadius: "5px",
                                         borderBottomRightRadius: "5px",
                                     }}
                                 />
                                     <FormControl.Feedback type="invalid">
-                                        {errors.workoutExerciseErrors[index].errors.rest}
+                                        {workout.workoutExercises[index].restError}
                                     </FormControl.Feedback>
                             </InputGroup>
                         </Card.Body>
@@ -351,6 +364,8 @@ class NewWorkoutForm extends React.Component {
             <span className="sr-only">Mentés...</span>
           </Button>
         )}
+        <Button variant="secondary" style={{marginLeft: "1rem", marginBottom: "4rem"}}>Vissza</Button>
+        <Button variant="danger" style={{position: "absolute", right: "25px"}} onClick={this.showDeleteModal}>Törlés</Button>
       </Form>
     );
   }
@@ -362,9 +377,9 @@ function mapStateToProps(state) {
   };
 }
 
-NewWorkoutForm.propTypes = {
+UpdateWorkoutForm.propTypes = {
   submit: PropTypes.func.isRequired
 };
 
 
-export default connect(mapStateToProps, {addWorkout, getExercises, uploadFile, deleteFile})(NewWorkoutForm);
+export default connect(mapStateToProps, {getExercises, getExercise, uploadFile, deleteFile})(UpdateWorkoutForm);

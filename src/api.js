@@ -71,6 +71,10 @@ const api = {
         getExercises: (user) =>
         axios.post("/api/exercises/get_exercises", {user}).then(res => res.data.exercises),
 
+        // Egy konkrét gyakorlat lekérdezése
+        getExercise: (exercise) =>
+        axios.post("/api/exercises/get_exercise", {exercise}).then(res => res.data.exercise),
+
         // Az felhasználó(edző) által kezelt gyakorlatok lekérése
         // A két kérés összevonható lenne, azonban lehetőséget szeretnék biztosítani az esetleges különböző adattartamok lekérésére
         getMyExercises: () =>
@@ -79,7 +83,13 @@ const api = {
     // Az edzésekhez köthető API hívások
     workout: {
         addWorkout: (workout) => 
-        axios.post("/api/workouts/add_workout", {workout}).then(res => res.data.exercise),
+        axios.post("/api/workouts/add_workout", {workout}).then(res => res.data.workout),
+
+        updateWorkout: (workout) => 
+        axios.post("/api/workouts/update_workout", {workout}).then(res => res.data.workout),
+
+        deleteWorkout: (workout) => 
+        axios.post("/api/workouts/delete_workout", {workout}),
 
         uploadFile: (formData) => 
         axios.post("/api/workouts/upload_file", formData, { "Content-Type": "multipart/form-data"}).then((res) => res.data),

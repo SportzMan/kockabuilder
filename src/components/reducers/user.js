@@ -1,4 +1,4 @@
-import  {USERS_FETCHED, USER_LOGGED_IN, USER_LOGGED_OUT, USER_UPDATED} from "../../types";
+import  { USER_LOGGED_IN, USER_LOGGED_OUT, USER_UPDATED} from "../../types";
 
 
 export default function user(state ={}, action = {}) {
@@ -9,8 +9,6 @@ export default function user(state ={}, action = {}) {
             return {};
         case USER_UPDATED:
             return action.user;
-        case USERS_FETCHED:
-            return {}
         default: return state;
     }
 }

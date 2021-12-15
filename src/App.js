@@ -4,7 +4,6 @@ import { Route } from "react-router-dom";
 import PropTypes from 'prop-types';
 
 //components
-import Footer from './components/footer/Footer';
 import Navbar from "./components/navbar/Header";
 //Oldalak
 import HomePage from './components/pages/HomePage';
@@ -21,12 +20,15 @@ import UserManagementPage from "./components/pages/UserManagementPage";
 import NewExercisePage from "./components/pages/NewExercisePage";
 import UpdateExercisePage from "./components/pages/UpdateExercisePage";
 import NewWorkoutPage from "./components/pages/NewWorkoutPage";
+import UpdateWorkoutPage from "./components/pages/UpdateWorkoutPage";
 import NewProgramPage from "./components/pages/NewProgramPage";
 import MembershipPage from "./components/pages/MembershipPage";
 
 //Átirányítások
 import UserRoute from './components/routes/UserRoute';
 import GuestRoute from './components/routes/GuestRoute';
+import TrainerRoute from "./components/routes/TrainerRoute";
+import AdminRoute from "./components/routes/AdminRoute";
 
 const App = ({location}) => (
     <div>
@@ -42,14 +44,14 @@ const App = ({location}) => (
         <UserRoute  location={location} path='/training' exact component={TrainingPage}/>
         <UserRoute  location={location} path='/profile' exact component={ProfilePage}/>
         <UserRoute  location={location} path='/password' exact component={ChangePasswordPage}/>
-        <UserRoute  location={location} path='/manage' exact component={UserManagementPage} />
-        <UserRoute  location={location} path='/add_exercise' exact component={NewExercisePage} />
-        <UserRoute  location={location} path='/update_exercise/' exact component={UpdateExercisePage} />
-        <UserRoute  location={location} path='/add_workout' exact component={NewWorkoutPage} />
-        <UserRoute  location={location} path='/add_program' exact component={NewProgramPage} />
+        <AdminRoute  location={location} path='/manage' exact component={UserManagementPage} />
+        <TrainerRoute  location={location} path='/add_exercise' exact component={NewExercisePage} />
+        <TrainerRoute  location={location} path='/update_exercise/' exact component={UpdateExercisePage} />
+        <TrainerRoute  location={location} path='/add_workout' exact component={NewWorkoutPage} />
+        <TrainerRoute  location={location} path='/update_workout' exact component={UpdateWorkoutPage} />
+        <TrainerRoute  location={location} path='/add_program' exact component={NewProgramPage} />
         <UserRoute  location={location} path='/membership' exact component={MembershipPage} />
       </Container>
-      <Footer/>
     </div>
 )
 
