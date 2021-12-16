@@ -18,3 +18,6 @@ export const deleteFile = (file) => (dispatch) =>
 export const getPrograms = (user) => (dispatch) =>
     api.program.getPrograms(user)
 
+export const getProgram = (program) => (dispatch) =>
+    api.program.getProgram(program)
+

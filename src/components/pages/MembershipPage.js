@@ -42,7 +42,7 @@ const MembershipPage = (props) => {
                 <hr style={{ boxShadow: "0 0 8px 1px black"}}/>
             </div>
                 {successPayment &&<Alert variant="success"> Sikeres tranzakció!</Alert>}
-                <Row xs={1} md={2} lg={2} xl={4} style={{width: "100%", marginTop: "5%"}}>
+                <Row xs={1} md={2} lg={2} xl={4} style={{ marginTop: "5%"}}>
 
                     {
                         Memberships.map((membership, index) => {
@@ -50,13 +50,13 @@ const MembershipPage = (props) => {
                             return (
                             <Col key={`col-${index}`}>
                                 <div style={{ width: "320px", position: "relative",  marginBottom: "1rem" }} className={className}  index={index} onClick={() => selectItem(membership, index)}>
-                                <img  className="card-img" src={membership.img} alt="thumbnail"/>
-                                <div  className="membership-info">
-                                    <h2 style={{paddingLeft: "35%", paddingTop: "5%"}}> {`${membership.duration} nap`} </h2>
-                                    <br/>
-                                    <h5 style={{paddingLeft: "38%"}}>{`${membership.price} Ft`}</h5>
+                                    <img  className="card-img" src={membership.img} alt="thumbnail"/>
+                                    <div  className="membership-info">
+                                        <h2 style={{paddingLeft: "35%", paddingTop: "5%"}}> {`${membership.duration} nap`} </h2>
+                                        <br/>
+                                        <h5 style={{paddingLeft: "38%"}}>{`${membership.price} Ft`}</h5>
+                                    </div>
                                 </div>
-                            </div>
                             </Col>
                             )
                         })

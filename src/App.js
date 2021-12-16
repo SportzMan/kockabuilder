@@ -10,7 +10,7 @@ import HomePage from './components/pages/HomePage';
 import ConfirmationPage from './components/pages/ConfirmationPage';
 import LoginPage from './components/pages/LoginPage';
 import RegisterPage from './components/pages/RegisterPage';
-import ProgramPage from './components/pages/ProgramPage';
+import ProgramBrowserPage from './components/pages/ProgramBrowserPage';
 import TrainingPage from './components/pages/TrainingPage';
 import ForgotPasswordPage from './components/pages/ForgotPasswordPage';
 import ResetPasswordPage from './components/pages/ResetPasswordPage';
@@ -24,6 +24,7 @@ import UpdateWorkoutPage from "./components/pages/UpdateWorkoutPage";
 import NewProgramPage from "./components/pages/NewProgramPage";
 import UpdateProgramPage from "./components/pages/UpdateProgramPage";
 import MembershipPage from "./components/pages/MembershipPage";
+import ProgramPage from './components/pages/ProgramPage';
 
 //Átirányítások
 import UserRoute from './components/routes/UserRoute';
@@ -41,7 +42,8 @@ const App = ({location}) => (
         <GuestRoute location={location} path='/register' exact component={RegisterPage}/>
         <GuestRoute location={location} path='/forgot_password' exact component={ForgotPasswordPage}/>
         <GuestRoute location={location} path='/reset_password/:token' exact component={ResetPasswordPage}/>
-        <UserRoute  location={location} path='/programs' exact component={ProgramPage}/>
+        <UserRoute  location={location} path='/programbrowser' exact component={ProgramBrowserPage}/>
+        <UserRoute  location={location} path='/program' exact component={ProgramPage}/>
         <UserRoute  location={location} path='/training' exact component={TrainingPage}/>
         <UserRoute  location={location} path='/profile' exact component={ProfilePage}/>
         <UserRoute  location={location} path='/password' exact component={ChangePasswordPage}/>

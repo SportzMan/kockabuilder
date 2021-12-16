@@ -18,3 +18,5 @@ export const deleteFile = (file) => (dispatch) =>
 export const getWorkouts = (user) => (dispatch) =>
     api.workout.getWorkouts(user)
 
+export const getWorkout = (workout) => (dispatch) =>
+    api.workout.getWorkout(workout)

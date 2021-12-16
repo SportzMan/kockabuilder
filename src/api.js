@@ -99,6 +99,9 @@ const api = {
 
         getWorkouts: () =>
         axios.post("/api/workouts/get_workouts").then(res => res.data.workouts),
+
+        getWorkout: (workout) =>
+        axios.post("/api/workouts/get_workout", {workout}).then(res => res.data.workout),
     },
     // Az edzésprogramokkal kapcsolatos API hívások
     program: {
@@ -119,6 +122,9 @@ const api = {
 
         getPrograms: () =>
         axios.post("/api/programs/get_programs").then(res => res.data.programs),
+
+        getProgram: (program) =>
+        axios.post("/api/programs/get_program", {program}).then(res => res.data.program),
     },
     // A végrehajtott befizetésekkel kapcsolatos API hívások
     purchase: {
