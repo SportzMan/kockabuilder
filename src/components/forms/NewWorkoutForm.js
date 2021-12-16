@@ -122,7 +122,7 @@ class NewWorkoutForm extends React.Component {
   }
 
   deleteThumbnail = () => {
-    this.props.deleteFile(this.state.workout.thumbnailPath)
+    this.props.deleteFile({thumbnailPath: this.state.workout.thumbnailPath})
       .then(res => {
       this.setState({workout: {...this.state.workout, thumbnailPath: res.data.thumbnailPath}})
     })

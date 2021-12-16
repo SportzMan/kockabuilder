@@ -24,9 +24,6 @@ class NewExerciseForm extends React.Component{
         modal: false
     };
 
-    componentDidMount(){
-
-    }
 
     onChange = (e) =>
         this.setState({

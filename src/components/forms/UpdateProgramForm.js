@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import { uploadFile, deleteFile } from "../../actions/programs";
 import {getWorkouts} from "../../actions/workouts";
 import WorkoutSelectorModal from "../modals/WorkoutSelectorModal";
+import ItemDeleteModal from "../modals/ItemDeleteModal";
 
 
 
@@ -16,14 +17,16 @@ class NewProgramForm extends React.Component {
 
   state = {
     program: {
-      name: "",
-      description: "",
+      originalName: this.props.program.name,
+      name: this.props.program.name,
+      description: this.props.program.description,
       owner: this.props.user,
-      workouts: [],
-      thumbnailPath: "",
-      isfree: false
+      workouts: this.props.program.workouts,
+      thumbnailPath: this.props.program.thumbnailPath,
+      isfree: this.props.program.isfree
     },
     modal: false,
+    deleteModal: false,
     loading: false,
     success: false,
     Workouts: [],
@@ -103,6 +106,10 @@ class NewProgramForm extends React.Component {
 
   hideModal = () => this.setState({ modal: false });
 
+  showDeleteModal = () => this.setState({ deleteModal: true });
+
+  hideDeleteModal = () => this.setState({ deleteModal: false });
+
   // A program.workouts állapot változó töltéséért felelős függvény
   addWorkout = (workout) => {
       var add = this.state.program.workouts;
@@ -133,10 +140,13 @@ class NewProgramForm extends React.Component {
   };
 
   render() {
-    const { program, errors, loading, Workouts, modal } = this.state;
+    const { program, errors, loading, success, Workouts, modal, deleteModal } = this.state;
 
     return (
       <Form noValidate onSubmit={this.onSubmit}>
+
+        <ItemDeleteModal modal={deleteModal} name=" programot" item={program} buttonName="Program" hideModal={this.hideDeleteModal} deleteItem={this.props.deleteItem}/>
+
         {errors.global && (
           <Alert variant="danger">
             <Alert.Heading>Hiba!</Alert.Heading>
@@ -266,7 +276,7 @@ class NewProgramForm extends React.Component {
         </Row>
         </Container>
         {!loading ? (
-          <Button style={{marginBottom: "4rem"}} variant="primary" type="submit"> Mentés </Button>
+          <Button style={{marginBottom: "1rem"}} variant="primary" type="submit"> Mentés </Button>
         ) : (
           <Button variant="primary" disabled style={{marginBottom: "4rem"}}>
             <Spinner
@@ -279,6 +289,8 @@ class NewProgramForm extends React.Component {
             <span className="sr-only">Mentés...</span>
           </Button>
         )}
+        <Button variant="secondary" style={{marginLeft: "1rem", marginBottom: "1rem"}}>Vissza</Button>
+        <Button variant="danger" style={{position: "absolute", right: "25px"}} onClick={this.showDeleteModal}>Törlés</Button>
       </Form>
     );
   }

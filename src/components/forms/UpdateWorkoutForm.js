@@ -31,8 +31,6 @@ class UpdateWorkoutForm extends React.Component {
     // Az elgondolás az, hogy minden workout.workoutExercises tömbben található elemhez tartozni fog egy errors.workoutExerciseErrors tömbben tárolt elem.
     // Az lehetővé teszi az űrlapok beviteli mezőinek validálását.
     errors: {
-        workoutExerciseErrors:[this.props.workout.workoutExercises.length],
-        errors: {}
     }
   };
 
@@ -103,7 +101,7 @@ class UpdateWorkoutForm extends React.Component {
     const {workout} = this.state;
     e.preventDefault();
     const errors = this.validate(workout);
-    if (Object.keys(errors).length > 2){
+    if (Object.keys(errors).length > 0){
         this.setState({errors});
 
     } else 
@@ -128,7 +126,7 @@ class UpdateWorkoutForm extends React.Component {
   }
 
   deleteThumbnail = () => {
-    this.props.deleteFile(this.state.workout.thumbnailPath)
+    this.props.deleteFile({thumbnailPath: this.state.workout.thumbnailPath})
       .then(res => {
       this.setState({workout: {...this.state.workout, thumbnailPath: res.data.thumbnailPath}})
     })
@@ -158,29 +156,30 @@ class UpdateWorkoutForm extends React.Component {
     const workout = data;
     const errors = this.state.errors;
     // Az "Edzés neve" mező nem lehet üres és nem lehet rövidebb 6 karakternél (ismert gyakorlatokat átnézve nem találtam ennél rövdiebb karakterláncú gyakorlatot)
-    if (!data.name) errors.errors.name = "A mező nem maradhat üresen!";
-    else{if (data.name.length < 6) errors.errors.name = "A név mező értéke legalább 6 karakter hosszú kell legyen!"
+    if (!data.name) errors.name = "A mező nem maradhat üresen!";
+    else{if (data.name.length < 6) errors.name = "A név mező értéke legalább 6 karakter hosszú kell legyen!"
         } 
     // Az "Edzés leírása" mező nem lehet üres és nem lehet rövidebb 32 karakternél (érdemi leírás érdekében)
-    if (!data.description) errors.errors.description = "A mező nem maradhat üresen!";
-    else{if (data.description.length < 32) errors.errors.description = "A leírás mező értéke legalább 32 karakter hosszú kell legyen!"
+    if (!data.description) errors.description = "A mező nem maradhat üresen!";
+    else{if (data.description.length < 32) errors.edescription = "A leírás mező értéke legalább 32 karakter hosszú kell legyen!"
         }
     // Az egyes gyakorlatokhoz tartozó "Ismétlések száma" mezők értéke legyen nagyobb 0-nál továbbá a "Pihenő" mezők értéke legyen legalább 0
     for(let i=0 ; i<data.workoutExercises.length; i++){
-        if(!data.workoutExercises[i].reps) workout.workoutExercises[i].repsError = "A mező nem maradhat üresen!";
-        else{if(data.workoutExercises[i].reps < 1) workout.workoutExercises[i].repsError = "Az ismétlések száma nem lehet 0!"
+        if(!data.workoutExercises[i].reps){ workout.workoutExercises[i].repsError = "A mező nem maradhat üresen!"; errors.repsError = "flag" }
+        else{if(data.workoutExercises[i].reps < 1){ workout.workoutExercises[i].repsError = "Az ismétlések száma nem lehet 0!"; errors.repsError = "flag" }
             }
 
-        if(!data.workoutExercises[i].rest) workout.workoutExercises[i].restError = "A mező nem maradhat üresen!";
-        else{if(data.workoutExercises[i].rest < 0) workout.workoutExercises[i].restError = "A pihenés ideje nem lehet negatív!"
+        if(!data.workoutExercises[i].rest){ workout.workoutExercises[i].restError = "A mező nem maradhat üresen!"; errors.restError = "flag"}
+        else{if(data.workoutExercises[i].rest < 0) { workout.workoutExercises[i].restError = "A pihenés ideje nem lehet negatív!"; errors.restError = "flag" }
             }
     }
     // Nem hiányozhat az előnézeti kép
-    if(!data.thumbnailPath) errors.errors.global = "Az űrlap leadásához szükség van egy előnézeti képre!"
+    if(!data.thumbnailPath) errors.global = "Az űrlap leadásához szükség van egy előnézeti képre!"
 
     // Tartalmaznia kell legalább 3 gyakorlatot
-    if(data.workoutExercises.length < 3) errors.errors.global = "Az űrlap leadásához szükség van legalább három gyakorlat megadására!"
+    if(data.workoutExercises.length < 3) errors.global = "Az űrlap leadásához szükség van legalább három gyakorlat megadására!"
 
+    this.setState({...this.state.workout, workout: workout});
     return errors;
   };
 
@@ -193,14 +192,14 @@ class UpdateWorkoutForm extends React.Component {
 
         {!loading&&success &&<Alert variant="success" >A gyakorlat sikeresen módosítva!</Alert>}
 
-        {errors.errors.global && (
+        {errors.global && (
           <Alert variant="danger">
             <Alert.Heading>Hiba!</Alert.Heading>
-            <p>{errors.errors.global}</p>
+            <p>{errors.global}</p>
           </Alert>
         )}
 
-        {errors.errors.filePath && <Alert variant="danger" > {errors.errors.thumbnailPath} </Alert>}
+        {errors.filePath && <Alert variant="danger" > {errors.thumbnailPath} </Alert>}
 
         <ExerciseSelectorModal modal={modal} Exercises={Exercises} hideModal={this.hideModal} addWorkoutExercise={this.addWorkoutExercise}/>
         <InputGroup controlid="workoutName" style={{ paddingBottom: "1.5rem" }}>
@@ -211,14 +210,14 @@ class UpdateWorkoutForm extends React.Component {
             placeholder="Az edzés neve."
             value={workout.name}
             onChange={this.onChange}
-            isInvalid={!!errors.errors.name}
+            isInvalid={!!errors.name}
             style={{
               borderTopRightRadius: "5px",
               borderBottomRightRadius: "5px",
             }}
           />
           <FormControl.Feedback type="invalid">
-            {errors.errors.name}
+            {errors.name}
           </FormControl.Feedback>
         </InputGroup>
         <InputGroup controlid="workoutDesc" style={{ paddingBottom: "1.5rem" }}>
@@ -230,14 +229,14 @@ class UpdateWorkoutForm extends React.Component {
             row="3"
             value={workout.description}
             onChange={this.onChange}
-            isInvalid={!!errors.errors.description}
+            isInvalid={!!errors.description}
             style={{
               borderTopRightRadius: "5px",
               borderBottomRightRadius: "5px",
             }}
           />
           <FormControl.Feedback type="invalid">
-            {errors.errors.description}
+            {errors.description}
           </FormControl.Feedback>
         </InputGroup>
           <p>Borítókép</p>

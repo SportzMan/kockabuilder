@@ -105,6 +105,12 @@ const api = {
         addProgram: (program) => 
         axios.post("/api/programs/add_program", {program}).then(res => res.data.program),
 
+        updateProgram: (program) => 
+        axios.post("/api/programs/update_program", {program}).then(res => res.data.program),
+
+        deleteProgram: (program) => 
+        axios.post("/api/programs/delete_program", {program}),
+
         uploadFile: (formData) => 
         axios.post("/api/programs/upload_file", formData, { "Content-Type": "multipart/form-data"}).then((res) => res.data),
 

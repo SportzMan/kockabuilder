@@ -5,9 +5,14 @@ import PropTypes from "prop-types";
 import NewProgramForm from "../forms/NewProgramForm";
 import {Container} from "react-bootstrap";
 
-class NewProgramPage extends React.Component {
+class UpdateProgramPage extends React.Component {
 
-  submit = (program) => this.props.addProgram(program)//.then(() => this.props.history.push("/edit_program/pid"))
+  submit = (program) => this.props.addProgram(program).then(res => 
+    this.props.history.push({
+        pathname: "/update_program",
+        state: {name: res.name, owner: res.owner, description: res.description, thumbnailPath: res.thumbnailPath, workouts: res.workouts, isfree: res.isFree}
+    })
+  )
 
 
   render(){
@@ -24,8 +29,8 @@ class NewProgramPage extends React.Component {
   };
 }
 
-NewProgramPage.propTypes = {
+UpdateProgramPage.propTypes = {
   addProgram: PropTypes.func.isRequired
 };
 
-export default connect(null, {addProgram})(NewProgramPage);
+export default connect(null, {addProgram})(UpdateProgramPage);

@@ -7,7 +7,7 @@ import {Container} from "react-bootstrap";
 
 class UpdateWorkoutPage extends React.Component {
 
-  submit = (workout) => this.props.updateWorkout(workout)//.then(() => this.props.history.push("/edit_workout/wid"))
+  submit = (workout) => this.props.updateWorkout(workout)
 
   deleteItem = (workout) => 
   this.props.deleteWorkout(workout).then(() =>{
