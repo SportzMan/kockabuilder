@@ -15,12 +15,11 @@ class UpdateWorkoutPage extends React.Component {
   })
 
   render(){
-    console.log(this.props.history.location.state)
     return (
 
       <Container fluid style={{ paddingTop: "0.4rem" }}>
       <div id="title-container" style={{ marginBottom: "1rem" }}>
-        <h1>Új edzés létrehozása</h1>
+        <h1>Edzés módosítása</h1>
         <hr />
       </div>
       <UpdateWorkoutForm submit={this.submit} workout={this.props.history.location.state} deleteItem={this.deleteItem}/>
@@ -30,7 +29,7 @@ class UpdateWorkoutPage extends React.Component {
 }
 
 UpdateWorkoutPage.propTypes = {
-  addWorkout: PropTypes.func.isRequired
+  updateWorkout: PropTypes.func.isRequired
 };
 
 export default connect(null, {updateWorkout, deleteWorkout, deleteFile})(UpdateWorkoutPage);
