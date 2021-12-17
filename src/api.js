@@ -128,7 +128,15 @@ const api = {
         axios.post("/api/purchases/add_purchase", {purchase}),
 
         getPurchases: (user) =>
-        axios.post("/api/purchases/get_purchases", {user})
+        axios.post("/api/purchases/get_purchases", {user}),
+    },
+    // A naptár eseményekkel kapcsolatos API hívások
+    event: {
+        addEvent: (event) =>
+        axios.post("/api/events/add_event", {event}),
+
+        getEvents: (user) =>
+        axios.post("/api/events/get_events", {user}).then(res => res.data.events),
     },
 }
 

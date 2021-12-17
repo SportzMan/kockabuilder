@@ -40,7 +40,7 @@ class WorkoutPage extends React.Component{
                 <div style={{margin: "2rem 5% 0 5%", padding: " 5px 15px", backgroundColor: "rgba(190, 183, 183, 0.829)", borderRadius: "15px", boxShadow: "0 0 7px 7px rgba(190, 183, 183, 0.829)"}}>
                 <h5> Leírás </h5>
                 <p style={{ wordWrap: "break-word"}}>{workout.description}</p>
-                </div>
+            </div>
                      <ListGroup style={{margin: "4rem 0 0 15%", borderRadius: "10px", boxShadow: "0 0 7px 7px rgba(190, 183, 183, 0.829)", width: "70%"}}>
                      <ListGroup.Item >Körök száma</ListGroup.Item>
                     {

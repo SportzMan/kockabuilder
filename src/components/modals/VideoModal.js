@@ -9,7 +9,7 @@ const ItemDeleteModal = (props) => {
                 <Modal.Title>{props.exercise.name} </Modal.Title>
             </Modal.Header>
 
-            <video src={props.exercise.filePath} style={{width: "100%"}} controls></video>
+            <video src={props.exercise.filePath} style={{width: "100%"}} controls />
 
         </Modal>
     )

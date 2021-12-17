@@ -26,6 +26,7 @@ import UpdateProgramPage from "./components/pages/UpdateProgramPage";
 import MembershipPage from "./components/pages/MembershipPage";
 import ProgramPage from './components/pages/ProgramPage';
 import WorkoutPage from './components/pages/WorkoutPage';
+import CalendarPage from './components/pages/CalendarPage';
 
 //Átirányítások
 import UserRoute from './components/routes/UserRoute';
@@ -57,6 +58,7 @@ const App = ({location}) => (
         <TrainerRoute  location={location} path='/add_program' exact component={NewProgramPage} />
         <TrainerRoute  location={location} path='/update_program' exact component={UpdateProgramPage} />
         <UserRoute  location={location} path='/membership' exact component={MembershipPage} />
+        <UserRoute  location={location} path='/calendar' exact component={CalendarPage} />
       </Container>
     </div>
 )

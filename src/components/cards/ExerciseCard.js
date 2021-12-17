@@ -28,7 +28,6 @@ class ExerciseCard extends React.Component{
 
     render(){
         const {exercise, modal} = this.state;
-        console.log(exercise)
         return(
             
             <div  className="exerciseCard" >
