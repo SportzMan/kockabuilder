@@ -73,12 +73,8 @@ const api = {
 
         // Egy konkrét gyakorlat lekérdezése
         getExercise: (exercise) =>
-        axios.post("/api/exercises/get_exercise", {exercise}).then(res => res.data.exercise),
+        axios.post("/api/exercises/get_exercise", {exercise}).then(res => res.data),
 
-        // Az felhasználó(edző) által kezelt gyakorlatok lekérése
-        // A két kérés összevonható lenne, azonban lehetőséget szeretnék biztosítani az esetleges különböző adattartamok lekérésére
-        getMyExercises: () =>
-        axios.post("/api/exercises/get_my_exercises").then(res => res.data.exercises)
     },
     // Az edzésekhez köthető API hívások
     workout: {

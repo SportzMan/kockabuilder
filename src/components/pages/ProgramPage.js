@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import WorkoutCard from "../cards/WorkoutCard";
 
 
-class ProgramBrowserPage extends React.Component{
+class ProgramPage extends React.Component{
 
     state={
         program: {
@@ -40,12 +40,12 @@ class ProgramBrowserPage extends React.Component{
                 </div>
                 <div style={{margin: "2rem 5% 0 5%", padding: " 5px 15px", backgroundColor: "rgba(190, 183, 183, 0.829)", borderRadius: "15px", boxShadow: "0 0 7px 7px rgba(190, 183, 183, 0.829)"}}>
                     <h5> Edzések </h5>
-                    <Row xs={1} md={2} lg={2} xl={4} style={{ marginTop: "5%"}}>
+                    <Row xs={1} md={2} lg={2} xl={4} style={{ marginTop: "1.5rem"}}>
                     {
                         program.workouts.map((workout, index) =>{
                             return(
                             <Col key={`col-${index}`}>
-                                <WorkoutCard workout={workout}/>
+                                <WorkoutCard workout={workout} open={this.props.history.push}/>
                             </Col>
                             )
 
@@ -63,4 +63,4 @@ class ProgramBrowserPage extends React.Component{
 
 }
 
-export default connect(null, {getProgram})(ProgramBrowserPage);
+export default connect(null, {getProgram})(ProgramPage);

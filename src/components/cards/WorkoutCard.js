@@ -9,9 +9,7 @@ class WorkoutCard extends React.Component{
     }
 
     componentDidMount(){
-        console.log(this.props.workout)
         this.props.getWorkout(this.props.workout).then(res => {
-            console.log(res)
             this.setState({...this.state.workout, workout: res})
         })
     }
@@ -19,8 +17,9 @@ class WorkoutCard extends React.Component{
     render(){
         const {workout} = this.state;
         return(
-            <div style={{ width: "320px", position: "relative",  marginBottom: "1rem" }} className="workoutCard" >
-                <img  className="card-img" src={workout.thumbnailPath} alt="thumbnail"/>
+            <div style={{ width: "320px", position: "relative",  marginBottom: "1rem" }} className="workoutCard" 
+            onClick={() => this.props.open({pathname: "/workout", state: {workout: workout}})}>
+                <img  className="card-img" src={workout.thumbnailPath} alt="thumbnail" style={{width: "320px", height:"240px"}}/>
                 <div  className="workout-info">
                     <h3> {`${workout.name}`} </h3>
 

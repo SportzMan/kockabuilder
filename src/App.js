@@ -25,6 +25,7 @@ import NewProgramPage from "./components/pages/NewProgramPage";
 import UpdateProgramPage from "./components/pages/UpdateProgramPage";
 import MembershipPage from "./components/pages/MembershipPage";
 import ProgramPage from './components/pages/ProgramPage';
+import WorkoutPage from './components/pages/WorkoutPage';
 
 //Átirányítások
 import UserRoute from './components/routes/UserRoute';
@@ -44,6 +45,7 @@ const App = ({location}) => (
         <GuestRoute location={location} path='/reset_password/:token' exact component={ResetPasswordPage}/>
         <UserRoute  location={location} path='/programbrowser' exact component={ProgramBrowserPage}/>
         <UserRoute  location={location} path='/program' exact component={ProgramPage}/>
+        <UserRoute  location={location} path='/workout' exact component={WorkoutPage}/>
         <UserRoute  location={location} path='/training' exact component={TrainingPage}/>
         <UserRoute  location={location} path='/profile' exact component={ProfilePage}/>
         <UserRoute  location={location} path='/password' exact component={ChangePasswordPage}/>
