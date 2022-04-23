@@ -425,21 +425,27 @@ removeWorkoutExercise = (groupIndex, exerciseIndex) => {
             </div>
        
         </Container>
+        <div className="command-button-container">
+          {!loading ? 
+            (
+              <Button style={{marginBottom: "4rem"}} variant="primary" type="submit"> Mentés </Button>
+            ) 
+            : 
+            (
+              <Button variant="primary" disabled style={{marginBottom: "4rem"}}>
+                <Spinner
+                  as="span"
+                  animation="border"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+                <span className="sr-only">Mentés...</span>
+              </Button>
+            )
+          }
+        </div>
 
-        {!loading ? (
-          <Button style={{marginBottom: "4rem"}} variant="primary" type="submit"> Mentés </Button>
-        ) : (
-          <Button variant="primary" disabled style={{marginBottom: "4rem"}}>
-            <Spinner
-              as="span"
-              animation="border"
-              size="sm"
-              role="status"
-              aria-hidden="true"
-            />
-            <span className="sr-only">Mentés...</span>
-          </Button>
-        )}
       </Form>
       </div>
     );

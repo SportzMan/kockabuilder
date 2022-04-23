@@ -71,3 +71,8 @@
 .exercise-thumbnail{
     width: 180px;
 }
+
+.command-button-container{
+    position: absolute;
+    right: 2.5rem;
+}
