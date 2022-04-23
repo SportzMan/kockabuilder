@@ -20,7 +20,7 @@ class Header extends React.Component{
                     <Navbar.Collapse style={{padding: "5px"}}>
                         <Nav className="justify-content-end" style={{ width: "100%" }}>
 
-                            <Button variant="dark" as={Link} to="/" style={{  width: "6.4em", position: "relative" }}> Programok</Button>
+                            <Button variant="dark" as={Link} to="/programbrowser" style={{  width: "6.4em", position: "relative" }}> Programok</Button>
                             {(this.props.user.isTrainer || this.props.user.isAdmin) && 
                                 <Dropdown > 
                                     <Dropdown.Toggle variant="dark" >Vezérlőpult</Dropdown.Toggle>
@@ -44,6 +44,7 @@ class Header extends React.Component{
                                     <Dropdown.Menu align="end" variant="dark">
                                         <Dropdown.Item as={Link} to="/profile">Profil</Dropdown.Item>
                                         <Dropdown.Item as={Link} to="/password">Jelszócsere</Dropdown.Item>
+                                        <Dropdown.Item as={Link} to="/calendar">Edzésnapló</Dropdown.Item>
                                         <Dropdown.Divider />
                                         <Dropdown.Item onClick={() => this.props.logout()}>Kijelentkezés</Dropdown.Item>
                                     </Dropdown.Menu>

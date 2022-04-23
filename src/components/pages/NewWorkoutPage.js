@@ -8,10 +8,7 @@ import {Container} from "react-bootstrap";
 class NewWorkoutPage extends React.Component {
 
   submit = (workout) => this.props.addWorkout(workout).then(res => 
-    this.props.history.push({
-        pathname: "/update_workout",
-        state: {name: res.name, owner: res.owner, description: res.description, thumbnailPath: res.thumbnailPath, workoutExercises: res.exercises}
-    })
+    this.props.history.push(`/update_workout/${res._id}`)
   )
 
   render(){

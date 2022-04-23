@@ -1,29 +1,41 @@
 import React from "react";
 import {getWorkout} from "../../actions/workouts";
 import {connect} from "react-redux";
+import {Spinner} from "react-bootstrap";
 
 class WorkoutCard extends React.Component{
 
     state = {
-        workout: {}
+        workout: {},
+        loading: true,
+        errors: {}
     }
 
     componentDidMount(){
-        this.props.getWorkout(this.props.workout).then(res => {
-            this.setState({...this.state.workout, workout: res})
+        this.props.getWorkout(this.props.workout)
+        .then(res => {
+            this.setState({...this.state.workout, workout: res, loading: false})
         })
+        .catch(err => this.setState({ errors: err.response.data.errors , loading: false}))
+
     }
 
     render(){
-        const {workout} = this.state;
+        const {workout, loading} = this.state;
+
         return(
-            <div style={{ width: "320px", position: "relative",  marginBottom: "1rem" }} className="workoutCard" 
-            onClick={() => this.props.open({pathname: "/workout", state: {workout: workout}})}>
-                <img  className="card-img" src={workout.thumbnailPath} alt="thumbnail" style={{width: "320px", height:"240px"}}/>
+            <div style={{ width: "240px", position: "relative",  marginBottom: "1rem" }} className="workoutCard" 
+            onClick={() => this.props.open("/workout/"+this.state.workout._id)}>
+                {loading ? (<Spinner animation="border" size="xxl" role="status"  aria-hidden="true" style={{margin: "5% 50% 0"}}/>) 
+            : (
+                <div>
+                <img  className="card-img" src={`http://127.0.0.1:8080/${workout.thumbnailPath}`} alt="thumbnail" style={{width: "240px", height:"160px"}}/>
                 <div  className="workout-info">
-                    <h3> {`${workout.name}`} </h3>
+                    <h4> {`${this.props.index+1}. nap`} </h4>
+                    <h5> {`${workout.name}`} </h5>
 
                 </div>
+                </div> )}
             </div>
         )
     }

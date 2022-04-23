@@ -1,11 +1,20 @@
 import React from "react";
 import {connect} from 'react-redux';
-import {updateExercise, deleteExercise, deleteFiles} from '../../actions/exercises';
+import {getExercise, updateExercise, deleteExercise, deleteFiles} from '../../actions/exercises';
 import PropTypes from 'prop-types';
 import UpdateExerciseForm from '../forms/UpdateExerciseForm';
 import {Container} from "react-bootstrap";
 
 class UpdateExercisePage extends React.Component {
+
+  state = {
+    exercise: {}
+  }
+
+  componentDidMount() {
+    this.props.getExercise(this.props.match.params.exercise)
+    .then(res => this.setState({...this.state.exercise, exercise: res}))
+  }
 
   submit = (exercise) => 
   this.props.updateExercise(exercise)
@@ -19,7 +28,7 @@ class UpdateExercisePage extends React.Component {
       return (
         <Container fluid style={{paddingTop: "0.4rem"}}>
           <h1 style={{paddingBottom: "1.5rem"}} >Gyakorlat módosítása</h1>
-          <UpdateExerciseForm submit={this.submit} exercise={this.props.history.location.state} deleteItem={this.deleteItem}/>
+          <UpdateExerciseForm submit={this.submit} exercise={this.state.exercise} deleteItem={this.deleteItem}/>
         </Container>
       );
     }
@@ -29,9 +38,9 @@ class UpdateExercisePage extends React.Component {
     addExercise: PropTypes.func.isRequired,
     match: PropTypes.shape({
       params: PropTypes.shape({
-          xid: PropTypes.string.isRequired
+          exercise: PropTypes.string.isRequired
       }).isRequired
   }).isRequired,
 };
 
-  export default connect(null, {updateExercise, deleteExercise, deleteFiles})(UpdateExercisePage);
+  export default connect(null, {getExercise, updateExercise, deleteExercise, deleteFiles})(UpdateExercisePage);

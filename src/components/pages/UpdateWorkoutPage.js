@@ -1,11 +1,23 @@
 import React from "react";
 import {connect} from "react-redux";
-import {updateWorkout, deleteWorkout, deleteFile} from "../../actions/workouts";
+import {getWorkout, updateWorkout, deleteWorkout, deleteFile} from "../../actions/workouts";
 import PropTypes from "prop-types";
 import UpdateWorkoutForm from "../forms/UpdateWorkoutForm";
-import {Container} from "react-bootstrap";
+import {Container, Spinner} from "react-bootstrap";
 
 class UpdateWorkoutPage extends React.Component {
+
+  state = {
+    workout: {},
+    loading: true,
+    success: false
+  }
+
+  componentDidMount() {
+    this.props.getWorkout(this.props.match.params.workout)
+      .then(res => this.setState({...this.state.workout, workout: res, loading: false, succes: true}))
+      .catch(err => {this.setState({...this.state.errors, errors: err.response.data.errors, loading:false, success: false})})
+  }
 
   submit = (workout) => this.props.updateWorkout(workout)
 
@@ -15,6 +27,7 @@ class UpdateWorkoutPage extends React.Component {
   })
 
   render(){
+    const {workout, loading, success} = this.state;
     return (
 
       <Container fluid style={{ paddingTop: "0.4rem" }}>
@@ -22,14 +35,22 @@ class UpdateWorkoutPage extends React.Component {
         <h1>Edzés módosítása</h1>
         <hr />
       </div>
-      <UpdateWorkoutForm submit={this.submit} workout={this.props.history.location.state} deleteItem={this.deleteItem}/>
+      {loading ? (<Spinner animation="border" size="xxl" role="status"  aria-hidden="true" style={{margin: "5% 50% 0"}}/>) 
+      : (
+      <UpdateWorkoutForm submit={this.submit} workout={workout} deleteItem={this.deleteItem}/>
+      )}
     </Container>
     )
   };
 }
 
 UpdateWorkoutPage.propTypes = {
-  updateWorkout: PropTypes.func.isRequired
+  updateWorkout: PropTypes.func.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+        exercise: PropTypes.string.isRequired
+    }).isRequired
+  }).isRequired,
 };
 
-export default connect(null, {updateWorkout, deleteWorkout, deleteFile})(UpdateWorkoutPage);
+export default connect(null, {getWorkout, updateWorkout, deleteWorkout, deleteFile})(UpdateWorkoutPage);

@@ -45,18 +45,18 @@ const App = ({location}) => (
         <GuestRoute location={location} path='/forgot_password' exact component={ForgotPasswordPage}/>
         <GuestRoute location={location} path='/reset_password/:token' exact component={ResetPasswordPage}/>
         <UserRoute  location={location} path='/programbrowser' exact component={ProgramBrowserPage}/>
-        <UserRoute  location={location} path='/program' exact component={ProgramPage}/>
-        <UserRoute  location={location} path='/workout' exact component={WorkoutPage}/>
+        <UserRoute  location={location} path='/program/:program' exact component={ProgramPage}/>
+        <UserRoute  location={location} path='/workout/:workout' exact component={WorkoutPage}/>
         <UserRoute  location={location} path='/training' exact component={TrainingPage}/>
         <UserRoute  location={location} path='/profile' exact component={ProfilePage}/>
         <UserRoute  location={location} path='/password' exact component={ChangePasswordPage}/>
         <AdminRoute  location={location} path='/manage' exact component={UserManagementPage} />
         <TrainerRoute  location={location} path='/add_exercise' exact component={NewExercisePage} />
-        <TrainerRoute  location={location} path='/update_exercise/' exact component={UpdateExercisePage} />
+        <TrainerRoute  location={location} path='/edit_exercise/:exercise' exact component={UpdateExercisePage} />
         <TrainerRoute  location={location} path='/add_workout' exact component={NewWorkoutPage} />
-        <TrainerRoute  location={location} path='/update_workout' exact component={UpdateWorkoutPage} />
+        <TrainerRoute  location={location} path='/edit_workout/:workout' exact component={UpdateWorkoutPage} />
         <TrainerRoute  location={location} path='/add_program' exact component={NewProgramPage} />
-        <TrainerRoute  location={location} path='/update_program' exact component={UpdateProgramPage} />
+        <TrainerRoute  location={location} path='/edit_program' exact component={UpdateProgramPage} />
         <UserRoute  location={location} path='/membership' exact component={MembershipPage} />
         <UserRoute  location={location} path='/calendar' exact component={CalendarPage} />
       </Container>

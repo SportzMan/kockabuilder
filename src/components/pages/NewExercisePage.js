@@ -9,11 +9,8 @@ import api from "../../api";
 class NewExercisePage extends React.Component {
 
   submit = (exercise) => 
-  api.exercise.addExercise(exercise).then(res => 
-    this.props.history.push({
-        pathname: "/update_exercise",
-        state: {name: res.name, owner: res.owner, filePath: res.filePath, thumbnailPath: res.thumbnailPath}
-  })
+  api.exercise.addExercise(exercise).then(res =>
+    this.props.history.push(`/update_exercise/${res._id}`)
 );
 
   render() {

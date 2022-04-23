@@ -18,8 +18,9 @@ class UpdateWorkoutForm extends React.Component {
       name: this.props.workout.name,
       description: this.props.workout.description,
       owner: this.props.user,
-      workoutExercises: this.props.workout.workoutExercises,
+      workoutExercises: this.props.workout.exercises,
       thumbnailPath: this.props.workout.thumbnailPath,
+      rounds: this.props.workout.rounds,
       errors: {}
     },
     modal: false,
@@ -107,7 +108,7 @@ class UpdateWorkoutForm extends React.Component {
     } else 
         this.setState({loading: true});
           this.props.submit(workout)
-          .then(() => this.setState({ workout: {...this.state.workout, originalName: this.state.workout.name},loading: false, success: true}, () => { setTimeout(() => {
+          .then(() => this.setState({ workout: {...this.state.workout, originalName: this.state.workout.name}, loading: false, success: true}, () => { setTimeout(() => {
             this.setState({success: false})}, 5000);}))
           .catch(err => this.setState({errors: { ...this.state.errors, errors: err.response.data.errors}, loading: false}));
   }
@@ -147,17 +148,17 @@ class UpdateWorkoutForm extends React.Component {
       let workoutExercise = {Exercise: exercise, name: exercise.name, thumbnailPath: exercise.thumbnailPath, reps: "", rest: ""};
       var add = this.state.workout.workoutExercises;
       add.push(workoutExercise);
-      this.setState({workout: {...this.state.workout, workoutExercises: add }}, ()=> console.log(this.state.workout));
-
+      this.setState({workout: {...this.state.workout, workoutExercises: add }});
     };
 
 // Az űrlap mezőinek kliens oldali ellenőrzéséhez használt validátor függvény
   validate = (data) => {
     const workout = data;
-    const errors = this.state.errors;
+    const errors = {};
     // Az "Edzés neve" mező nem lehet üres és nem lehet rövidebb 6 karakternél (ismert gyakorlatokat átnézve nem találtam ennél rövdiebb karakterláncú gyakorlatot)
     if (!data.name) errors.name = "A mező nem maradhat üresen!";
     else{if (data.name.length < 6) errors.name = "A név mező értéke legalább 6 karakter hosszú kell legyen!"
+    
         } 
     // Az "Edzés leírása" mező nem lehet üres és nem lehet rövidebb 32 karakternél (érdemi leírás érdekében)
     if (!data.description) errors.description = "A mező nem maradhat üresen!";
@@ -178,6 +179,9 @@ class UpdateWorkoutForm extends React.Component {
 
     // Tartalmaznia kell legalább 3 gyakorlatot
     if(data.workoutExercises.length < 3) errors.global = "Az űrlap leadásához szükség van legalább három gyakorlat megadására!"
+
+    // A körök száma 0-nál nagyobb kell legyen
+    if (data.rounds < 1) errors.errors.rounds = "A körök száma legalább 1 kell legyen!"
 
     this.setState({...this.state.workout, workout: workout});
     return errors;
@@ -239,7 +243,9 @@ class UpdateWorkoutForm extends React.Component {
             {errors.description}
           </FormControl.Feedback>
         </InputGroup>
-          <p>Borítókép</p>
+
+          <h6>Borítókép</h6>
+
           <div style={{ padding: "1rem", display: "flex", justifyContent: "center",  width: "100%", border: "1px solid lightgray", marginBottom: "1rem", borderRadius: "5px"}}>
           {!workout.thumbnailPath ? 
             (<Dropzone onDrop={this.onDrop} multiple={false} maxSize={500000000} >
@@ -261,7 +267,26 @@ class UpdateWorkoutForm extends React.Component {
             )}
           </div>
 
-        <p>Gyakorlatok</p>
+        <h6>Gyakorlatok</h6>
+        <InputGroup controlid="workoutRounds" style={{ paddingBottom: "1.5rem" }}>
+          <InputGroup.Text>Körök száma</InputGroup.Text>
+          <FormControl
+            name="rounds"
+            type="number"
+            placeholder="A gyakorlat sorozat ismétléséinek száma"
+            value={workout.rounds}
+            onChange={this.onChange}
+            isInvalid={!!errors.rounds}
+            style={{
+              borderTopRightRadius: "5px",
+              borderBottomRightRadius: "5px",
+            }}
+          />
+          <FormControl.Feedback type="invalid">
+            {errors.rounds}
+          </FormControl.Feedback>
+        </InputGroup>
+
         <Container fluid style={{
             padding: "1rem",
             marginBottom: "1rem",

@@ -14,7 +14,7 @@ class NewExerciseForm extends React.Component{
         exercise: {
             originalName: this.props.exercise.name,
             name: this.props.exercise.name,
-            owner: this.props.exercise.user,
+            owner: this.props.exercise.owner,
             filePath: this.props.exercise.filePath,
             thumbnailPath: this.props.exercise.thumbnailPath,
         },
@@ -102,6 +102,9 @@ class NewExerciseForm extends React.Component{
         const {exercise, errors, loading, success, modal} = this.state;
 
         return(
+            <div>
+                {loading ? (<Spinner animation="border" size="xxl" role="status"  aria-hidden="true" style={{margin: "5% 50% 0"}}/>) 
+            : (
             <Form noValidate onSubmit={this.onSubmit} >
             <ItemDeleteModal modal={modal} name=" gyakorlatot" item={exercise} buttonName="Gyakorlat" hideModal={this.hideModal} deleteItem={this.props.deleteItem}/>
 
@@ -168,7 +171,8 @@ class NewExerciseForm extends React.Component{
                   )  }
                 <Button variant="secondary" style={{marginLeft: "1rem"}}>Vissza</Button>
                 <Button variant="danger" style={{position: "absolute", right: "25px"}} onClick={this.showModal}>Törlés</Button>
-            </Form>
+            </Form> )}
+            </div>
         );
     }
 }

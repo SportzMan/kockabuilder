@@ -38,12 +38,11 @@ class NewProgramForm extends React.Component {
   // Az oldal betöltésekor lekérdezzük az adatbázisban található összes gyakorlatot tulajdonostól függetlenül, és eltároljuk azokat az "Workouts" változóban
   // Az első render után lefut a metódus és lekérdezi az adatbázisban elérhető összes gyakorlat objektumot
   componentDidMount() {
-    this._isMounted = true;
-    this.props.getWorkouts().then(res => {
-      if(this._isMounted)this.setState( {...this.state.Workouts, Workouts: res, loading: false, success: true})})
-    .catch(err => {
-      if(this._isMounted)this.setState( {errors: { ...this.state.errors, errors: err.response.data.errors}, loading: false, success: false})})
+    this.props.getWorkouts().then(res => 
+      this.setState( {...this.state.Workouts, Workouts: res, loading: false, success: true}))
+      .catch(err => this.setState( {errors: { ...this.state.errors, errors: err.response.data.errors}, loading: false, success: false}))
   }
+  
   
   // Az egyszerűbb struktúrával rendelkező objektumokhoz kapcsolodó beviteli mezők változás kezelő függvénye
   // A paraméterként megkapott esemény változó segítségével meghatározásra kerül az eseményt kiváltó komponens neve és értéke, és beállítja az ezekhez kapcsolódó állapot változókat.
@@ -69,7 +68,7 @@ class NewProgramForm extends React.Component {
     const {program} = this.state;
     e.preventDefault();
     const errors = this.validate(program);
-    if (Object.keys(errors).length > 2){
+    if (Object.keys(errors).length > 0){
         this.setState({errors});
 
     } else if(this._isMounted){
@@ -120,7 +119,7 @@ class NewProgramForm extends React.Component {
 // Az űrlap mezőinek kliens oldali ellenőrzéséhez használt validátor függvény
   validate = (data) => {
 
-    const errors = this.state.errors;
+    const errors = {};
     // Az "Edzés neve" mező nem lehet üres és nem lehet rövidebb 6 karakternél (ismert gyakorlatokat átnézve nem találtam ennél rövdiebb karakterláncú gyakorlatot)
     if (!data.name) errors.name = "A mező nem maradhat üresen!";
     else{if (data.name.length < 6) errors.name = "A név mező értéke legalább 6 karakter hosszú kell legyen!"

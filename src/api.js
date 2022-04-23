@@ -73,7 +73,7 @@ const api = {
 
         // Egy konkrét gyakorlat lekérdezése
         getExercise: (exercise) =>
-        axios.post("/api/exercises/get_exercise", {exercise}).then(res => res.data),
+        axios.post("/api/exercises/get_exercise", {exercise}).then(res => res.data.exercise),
 
     },
     // Az edzésekhez köthető API hívások

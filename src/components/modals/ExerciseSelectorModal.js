@@ -18,7 +18,7 @@ const ExerciseSelectorModal = (props) => {
         setIndex(null);
         setExercise(null);
       }else{
-        props.addWorkoutExercise(selectedExercise)
+        props.addWorkoutExercise(selectedExercise, props.index)
         props.hideModal();
         setIndex(null);
         setExercise(null);
