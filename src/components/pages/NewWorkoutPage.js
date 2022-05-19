@@ -4,11 +4,12 @@ import {addWorkout} from "../../actions/workouts";
 import PropTypes from "prop-types";
 import NewWorkoutForm from "../forms/NewWorkoutForm";
 import {Container} from "react-bootstrap";
+import "../CSS/pages/NewWorkoutPage.css";
 
 class NewWorkoutPage extends React.Component {
 
   submit = (workout) => this.props.addWorkout(workout).then(res => 
-    this.props.history.push(`/update_workout/${res._id}`)
+    this.props.history.push(`/edit_workout/${res._id}`)
   )
 
   render(){

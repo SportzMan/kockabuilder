@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import { uploadFile, deleteFile, addWorkout } from "../../actions/workouts";
 import { getExercises} from "../../actions/exercises";
 import ExerciseSelectorModal from "../modals/ExerciseSelectorModal";
-import "../CSS/components/forms/NewWorkoutForm.css";
+
 
 
 
@@ -106,6 +106,7 @@ class NewWorkoutForm extends React.Component {
     e.preventDefault();
     const errors = this.validate(workout);
     if (Object.keys(errors).length > 0){
+        console.log(errors);
         this.setState({errors});
 
     } else {
@@ -151,7 +152,7 @@ class NewWorkoutForm extends React.Component {
   ///////////////////////////////////
   // Új gyakorlat hozzáadása a csoporthoz
   addWorkoutExercise = (exercise, index) => {
-    let workoutExercise = {Exercise: exercise, name: exercise.name, thumbnailPath: exercise.thumbnailPath, reps: "", rest: "", type: false};
+    let workoutExercise = {exercise: exercise, name: exercise.name, thumbnailPath: exercise.thumbnailPath, reps: "", rest: "", type: false};
     var groups = this.state.workout.workoutGroups;
     groups[index].workoutExercises.push(workoutExercise);
     this.setState({workout: {...this.state.workout, workoutGroups: groups }});
@@ -181,21 +182,21 @@ class NewWorkoutForm extends React.Component {
 //
 ///////////////////////////////////
 
-///////////////////////////////////
-// Kiválasztott gyakorlat törlése
-removeWorkoutExercise = (groupIndex, exerciseIndex) => {
-    const workoutGroups = this.state.workout.workoutGroups;
+  ///////////////////////////////////
+  // Kiválasztott gyakorlat törlése
+  removeWorkoutExercise = (groupIndex, exerciseIndex) => {
+      const workoutGroups = this.state.workout.workoutGroups;
 
-    for( let i = 0; i <workoutGroups.length; i++ ){
-      if(i === groupIndex){
-        workoutGroups[groupIndex].workoutExercises.splice(exerciseIndex, 1);
+      for( let i = 0; i <workoutGroups.length; i++ ){
+        if(i === groupIndex){
+          workoutGroups[groupIndex].workoutExercises.splice(exerciseIndex, 1);
+        }
       }
-    }
 
-    this.setState({workout: {...this.state.workout, workoutGroups: workoutGroups}});
-}
-//
-///////////////////////////////////
+      this.setState({workout: {...this.state.workout, workoutGroups: workoutGroups}});
+  }
+  //
+  ///////////////////////////////////
 
   ///////////////////////////////////
   //// Az űrlap mezőinek kliens oldali ellenőrzéséhez használt validátor függvény
@@ -209,26 +210,31 @@ removeWorkoutExercise = (groupIndex, exerciseIndex) => {
         } 
     // Az "Edzés leírása" mező nem lehet üres és nem lehet rövidebb 32 karakternél (érdemi leírás érdekében)
     if (!data.description) errors.description = "A mező nem maradhat üresen!";
-    else{if (data.description.length < 32) errors.edescription = "A leírás mező értéke legalább 32 karakter hosszú kell legyen!"
+    else{if (data.description.length < 32) errors.description = "A leírás mező értéke legalább 32 karakter hosszú kell legyen!"
         }
+
     // Az egyes gyakorlatokhoz tartozó "Ismétlések száma" mezők értéke legyen nagyobb 0-nál továbbá a "Pihenő" mezők értéke legyen legalább 0
-    for(let i=0 ; i<data.workoutExercises.length; i++){
-        if(!data.workoutExercises[i].reps){ workout.workoutExercises[i].repsError = "A mező nem maradhat üresen!"; errors.repsError = "flag" }
-        else{if(data.workoutExercises[i].reps < 1){ workout.workoutExercises[i].repsError = "Az ismétlések száma nem lehet 0!"; errors.repsError = "flag" }
+    for(let i= 0; i<data.workoutGroups.length; i++){
+
+      // A körök száma 0-nál nagyobb kell legyen
+      if (data.workoutGroups[i].rounds < 1) errors.rounds = "A körök száma legalább 1 kell legyen!"
+
+      for(let j=0; j<data.workoutGroups[i].workoutExercises.length; j++){
+
+        if(!data.workoutGroups[i].workoutExercises[j].reps){ workout.workoutGroups[i].workoutExercises[j].repsError = "A mező nem maradhat üresen!"; errors.repsError = "flag" }
+        else{if(data.workoutGroups[i].workoutExercises[j].reps < 1){ workout.workoutGroups[i].workoutExercises[j].repsError = "Az ismétlések száma nem lehet 0!"; errors.repsError = "flag" }
             }
 
-        if(!data.workoutExercises[i].rest){ workout.workoutExercises[i].restError = "A mező nem maradhat üresen!"; errors.restError = "flag"}
-        else{if(data.workoutExercises[i].rest < 0) { workout.workoutExercises[i].restError = "A pihenés ideje nem lehet negatív!"; errors.restError = "flag" }
+        if(!data.workoutGroups[i].workoutExercises[j].rest){ workout.workoutGroups[i].workoutExercises[j].restError = "A mező nem maradhat üresen!"; errors.restError = "flag"}
+        else{if(data.workoutGroups[i].workoutExercises[j].rest < 0) { workout.workoutGroups[i].workoutExercises[j].restError = "A pihenés ideje nem lehet negatív!"; errors.restError = "flag" }
             }
     }
+  }
     // Nem hiányozhat az előnézeti kép
     if(!data.thumbnailPath) errors.global = "Az űrlap leadásához szükség van egy előnézeti képre!"
 
     // Tartalmaznia kell legalább 3 gyakorlatot
-    if(data.workoutExercises.length < 3) errors.global = "Az űrlap leadásához szükség van legalább három gyakorlat megadására!"
-
-    // A körök száma 0-nál nagyobb kell legyen
-    if (data.rounds < 1) errors.rounds = "A körök száma legalább 1 kell legyen!"
+    if(data.workoutGroups[0].workoutExercises.length < 3) errors.global = "Az űrlap leadásához szükség van legalább három gyakorlat megadására!"
 
     this.setState({...this.state.workout, workout: workout});
     return errors;
@@ -351,8 +357,8 @@ removeWorkoutExercise = (groupIndex, exerciseIndex) => {
                         </div>   
                         <div className="exercise-header-container">
                           <div className="exercise-img-container">
-                            <img className="exercise-thumbnail" src={`http://127.0.0.1:8080/${exercise.Exercise.thumbnailPath}`}/>
-                            <p className="exercise-name-paragraph">{exercise.Exercise.name}</p>
+                            <img className="exercise-thumbnail" src={`http://127.0.0.1:8080/${exercise.exercise.thumbnailPath}`}/>
+                            <p className="exercise-name-paragraph">{exercise.exercise.name}</p>
                           </div>
                         </div>
                         <div className="exercise-container">

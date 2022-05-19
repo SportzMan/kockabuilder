@@ -14,7 +14,7 @@
     opacity: 0.75;
 }
 
-#wgroup-cancel-button{
+.cancel-button-container #wgroup-cancel-button{
     border-radius: 100%;
     display: flex;
     align-items: center;
@@ -25,7 +25,7 @@
     border-style: none;
 }
 
-#wgroup-cancel-icon{
+.cancel-button-container #wgroup-cancel-button #wgroup-cancel-icon{
     font-size: 1.5rem;
 }
 
@@ -37,7 +37,7 @@
     opacity: 0.8;
 }
 
-#exercise-cancel-button{
+.exercise-cancel-button-container #exercise-cancel-button{
     border-radius: 100%;
     display: flex;
     align-items: center;
@@ -48,7 +48,7 @@
     border-style: none;
 }
 
-#exercise-cancel-button #exercise-cancel-icon{
+.exercise-cancel-button-container #exercise-cancel-button #exercise-cancel-icon{
     font-size: 1.25rem;
 }
 .exercise-img-container{
@@ -74,5 +74,5 @@
 
 .command-button-container{
     position: absolute;
-    right: 2.5rem;
+    right: 1.5rem;
 }
