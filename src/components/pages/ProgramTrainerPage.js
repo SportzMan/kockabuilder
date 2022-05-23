@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 
 
 
-class ProgramBrowserPage extends React.Component{
+class ProgramTrainerPage extends React.Component{
 
     state={
         programs: [],
@@ -15,7 +15,7 @@ class ProgramBrowserPage extends React.Component{
     }
 
     componentDidMount(){
-        this.props.getPrograms()
+        this.props.getPrograms(this.props.user)
             .then(res => this.setState({...this.state.programs, programs: res, loading: false, success: true}))
             .catch(err => this.setState({...this.state.errors, errors: err.response.data.errors, loading: false, success: false}))
     }
@@ -41,7 +41,7 @@ class ProgramBrowserPage extends React.Component{
                             return (
                             <Col key={`col-${index}`}>
                                 <div style={{ width: "320px", position: "relative",  marginBottom: "1rem", border:"1px" }} className="programCard"  index={index} 
-                                onClick={() => this.props.history.push("/program/"+program._id)}>
+                                onClick={() => this.props.history.push("/edit_program/"+program._id)}>
                                     <img  className="card-img" src={program.thumbnailPath} alt="thumbnail" style={{ width: "320px", height: "240px"}}/>
                                     <div  className="program-info">
                                         <h4 > {`${program.name}`} </h4>
@@ -53,10 +53,18 @@ class ProgramBrowserPage extends React.Component{
                     }
                 </Row>
             }
+        {!loading && success && (programs.length === 0) && <Alert variant='warning'> Még nem töltött fel programot a rendszerbe!</Alert>}
+
         </Container>
         )
     }
 
 }
 
-export default connect(null, {getPrograms})(ProgramBrowserPage);
+function mapStateToProps(state){
+    return{
+        user: state.user
+    };
+  }
+
+export default connect(mapStateToProps, {getPrograms})(ProgramTrainerPage);

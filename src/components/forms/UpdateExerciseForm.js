@@ -50,8 +50,8 @@ class NewExerciseForm extends React.Component{
     deleteThumbnail = () => {
         this.props.deleteFiles({thumbnailPath: this.state.exercise.thumbnailPath, filePath: this.state.exercise.filePath})
         .then(res => {
-        this.setState({exercise: {...this.state.exercise, thumbnailPath: res.data.thumbnailPath, filePath: res.data.filePath}})
-        })
+            this.setState({exercise: {...this.state.exercise, thumbnailPath: res.data.thumbnailPath, filePath: res.data.filePath}})
+            })
         .catch(err => this.setState({errors: { ...this.state.errors, errors: err.response.data.errors}}))
     }
 
@@ -82,7 +82,7 @@ class NewExerciseForm extends React.Component{
     validate = (data) => {
         const errors = {};
 
-        if (!data.name) errors.name = "Ez a mező nem maradhat üresen!";
+        if (!data.name) errors.name = "A név mező nem maradhat üresen!";
         if (!data.filePath) errors.filePath = "Nincs kiválasztva feltöltendő fájl!";
 
         return errors;
@@ -102,13 +102,12 @@ class NewExerciseForm extends React.Component{
         const {exercise, errors, loading, success, modal} = this.state;
 
         return(
-            <div>
-                {loading ? (<Spinner animation="border" size="xxl" role="status"  aria-hidden="true" style={{margin: "5% 50% 0"}}/>) 
-            : (
+
             <Form noValidate onSubmit={this.onSubmit} >
             <ItemDeleteModal modal={modal} name=" gyakorlatot" item={exercise} buttonName="Gyakorlat" hideModal={this.hideModal} deleteItem={this.props.deleteItem}/>
 
                 {!loading&&success &&<Alert variant="success" >A gyakorlat sikeresen módosítva!</Alert>}
+
                 {errors.global && <Alert variant="danger" >
                     <Alert.Heading>Hiba!</Alert.Heading>
                     <p>{errors.global}</p>
@@ -134,46 +133,51 @@ class NewExerciseForm extends React.Component{
                 </InputGroup>
 
                 <p>Videófájl</p>
-                <div style={{ padding: "1rem", display: "flex", justifyContent: "center",  width: "100%", border: "1px solid lightgray", marginBottom: "1rem", borderRadius: "5px"}}>
+                <div className="dropzone-container" >
                 {!exercise.thumbnailPath ? 
                     (<Dropzone onDrop={this.onDrop} multiple={false} maxSize={500000000} >
                     {({ getRootProps, getInputProps }) => (
-                        <div style={{ width: "320px", height: "240px", border: "1px solid lightgray", display: "flex", alignItems: "center", justifyContent: "center"}}
+                        <div className="plus-button"
                         {...getRootProps()}
                         >
-                        <input {...getInputProps()} />
-                        <FiPlus style={{ fontSize: "3rem" }} />
+                            <input {...getInputProps()} />
+                            <FiPlus style={{ fontSize: "3rem" }} />
                         </div>
                     )}
                     </Dropzone>)
                     :
                     (
-                    <div className="exercise-thumbnail" style={{display: "block"}}>
-                    <img src={"http://localhost:8080/"+exercise.thumbnailPath} alt="thumbnail" style={{width: "320px", height: "240px"}}/>
-                    <div className="exercise-cancel" style={{ position: "relative", left: "18rem", bottom: "15rem"}} onClick={this.deleteThumbnail}><MdOutlineCancel id="exercise-cancel-icon" /></div>
+                    <div className="exercise-thumbnail-container" >
+                        <div className="exercise-thumbnail" >
+                            <Button variant="outline-secondary" id="exercise-cancel-button" onClick={() => this.deleteThumbnail}>
+                                <MdOutlineCancel id="exercise-cancel-icon"/>
+                            </Button>
+                            <img src={"http://localhost:8080/"+exercise.thumbnailPath} alt="thumbnail" style={{width: "320px", height: "240px", borderRadius:"11px"}}/>
+                        </div>
                     </div>
                     )}
                 </div>
+                <div className="button-container" style={{position: "absolute", right: "1.5rem"}}>
 
-                {!loading ? (
-                    <Button variant="primary" type="submit">Módosít</Button>
-                  ) : (
-                    <Button variant="primary" disabled>
-                        <Spinner
-                        as="span"
-                        animation="border"
-                        size="sm"
-                        role="status"
-                        aria-hidden="true"
-                        />
-                        <span className="sr-only">Módosít...</span>
-                    </Button>
-                  )  }
-                <Button variant="secondary" style={{marginLeft: "1rem"}}>Vissza</Button>
-                <Button variant="danger" style={{position: "absolute", right: "25px"}} onClick={this.showModal}>Törlés</Button>
-            </Form> )}
-            </div>
-        );
+                    {!loading ? (
+                        <Button variant="primary" type="submit" style={{marginLeft: "0.5rem"}}>Módosít</Button>
+                    ) : (
+                        <Button variant="primary" disabled style={ {marginLeft: "0.5rem"}}>
+                            <Spinner
+                            as="span"
+                            animation="border"
+                            size="sm"
+                            role="status"
+                            aria-hidden="true"
+                            />
+                            <span className="sr-only">Módosít...</span>
+                        </Button>
+                    )  }
+                    <Button variant="danger" style={{marginLeft: "0.5rem"}} onClick={this.showModal}>Törlés</Button>
+                    <Button variant="secondary" style={{marginLeft: "0.5rem"}}>Vissza</Button>
+                </div>
+            </Form> )
+
     }
 }
 

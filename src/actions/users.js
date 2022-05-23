@@ -17,7 +17,7 @@ export const updateMyProfile = (data) => (dispatch) => api.user.updateMyProfile(
     dispatch(ProfileUpdated(user))
 });
 
-export const getUserInfo = () => (dispatch) => api.user.getUserInfo();
+export const getUserInfo = ()  => api.user.getUserInfo();
 
 export const updateUserProfile = (data) => (dispatch) => api.user.updateUserProfile(data);
 

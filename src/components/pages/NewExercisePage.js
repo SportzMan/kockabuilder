@@ -10,7 +10,7 @@ class NewExercisePage extends React.Component {
 
   submit = (exercise) => 
   api.exercise.addExercise(exercise).then(res =>
-    this.props.history.push(`/update_exercise/${res._id}`)
+    this.props.history.push(`/edit_exercise/${res._id}`)
 );
 
   render() {

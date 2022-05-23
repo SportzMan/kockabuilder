@@ -93,8 +93,8 @@ const api = {
         deleteFile: (file) => 
         axios.post("/api/workouts/delete_file", {file}),
 
-        getWorkouts: () =>
-        axios.post("/api/workouts/get_workouts").then(res => res.data.workouts),
+        getWorkouts: (user) =>
+        axios.post("/api/workouts/get_workouts", {user}).then(res => res.data.workouts),
 
         getWorkout: (workout) =>
         axios.post("/api/workouts/get_workout", {workout}).then(res => res.data.workout),
@@ -116,8 +116,8 @@ const api = {
         deleteFile: (file) => 
         axios.post("/api/programs/delete_file", {file}),
 
-        getPrograms: () =>
-        axios.post("/api/programs/get_programs").then(res => res.data.programs),
+        getPrograms: (user) =>
+        axios.post("/api/programs/get_programs", {user}).then(res => res.data.programs),
 
         getProgram: (program) =>
         axios.post("/api/programs/get_program", {program}).then(res => res.data.program),

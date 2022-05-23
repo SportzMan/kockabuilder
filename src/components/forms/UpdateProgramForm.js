@@ -258,10 +258,11 @@ class NewProgramForm extends React.Component {
           // A programm.workouts változóban tárolt elemeket a map() függvény segtségével összekapcsoljuk az alább található HTML komponenssel
           // A React megköveteli az egyedi key értékek használatát a map() függvény használata esetén. Az egyedi kulcsok generálása az "index" paraméterrel történt.
           program.workouts.map((workout, index) => {
+            console.log(workout)
             return (
                 <Col key={`col-${index}`}>
                     <Card index={index} style={{width: "320px"}}>
-                        <Card.Img variant="top" src={`http://127.0.0.1:8080/${workout.thumbnailPath}`}  style={{width: "320px", height: "240px"}}/>
+                        <Card.Img variant="top" src={`http://localhost:8080/${workout.thumbnailPath}`}  style={{width: "320px", height: "240px"}}/>
                         <div className="workout-cancel" style={{position: "absolute", right: 0}}><MdOutlineCancel id="workout-cancel-icon" onClick={() => this.removeWorkout(index)}/></div>
                         <div className="workout-index" > <p>{`${index+1}. gyakorlat`}</p></div>
                         <Card.Body>

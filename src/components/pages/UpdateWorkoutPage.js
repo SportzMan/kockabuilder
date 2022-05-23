@@ -39,11 +39,7 @@ class UpdateWorkoutPage extends React.Component {
         </div>
         {loading && !success && <Spinner animation="border" size="xxl" role="status"  aria-hidden="true" style={{margin: "5% 50% 0"}}/> }
         {!loading && success && <UpdateWorkoutForm submit={this.submit} workout={workout} deleteItem={this.deleteItem}/>}
-        {errors.global && <Alert variant="danger">
-          <Alert.Heading>Hiba!</Alert.Heading>
-            <p>{errors.global}</p>
-          </Alert>
-        }
+        {!loading && !success && errors.global && <Alert variant="danger"> <p>{errors.global}</p></Alert>}
       </Container>
     )
   };

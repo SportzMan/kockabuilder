@@ -27,8 +27,13 @@ class Header extends React.Component{
                                     <Dropdown.Menu align="end" variant="dark">
                                 {this.props.user.isTrainer &&<>
                                     <Dropdown.Header>  Edzések kezelése  </Dropdown.Header>
+                                    <Dropdown.Item as={Link} to="/my_exercises">Gyakorlatok</Dropdown.Item>
                                     <Dropdown.Item as={Link} to="/add_exercise">Új gyakorlat</Dropdown.Item>
+                                    <Dropdown.Divider/>
+                                    <Dropdown.Item href="/my_workouts">Edzések</Dropdown.Item>
                                     <Dropdown.Item href="/add_workout">Új edzés</Dropdown.Item>
+                                    <Dropdown.Divider/> 
+                                    <Dropdown.Item href="/my_programs">Porgramok</Dropdown.Item>
                                     <Dropdown.Item href="/add_program">Új program</Dropdown.Item>
                                 </>}
                                 {this.props.user.isAdmin && <>
