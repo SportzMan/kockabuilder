@@ -258,7 +258,7 @@ class NewWorkoutForm extends React.Component {
           </Alert>
         )}
 
-        <InputGroup controlid="workoutName" style={{ paddingBottom: "1.5rem" }}>
+        <InputGroup controlid="workoutName" id="workoutName" >
           <InputGroup.Text>Edzés neve</InputGroup.Text>
           <FormControl
             name="name"
@@ -267,14 +267,13 @@ class NewWorkoutForm extends React.Component {
             value={workout.name}
             onChange={this.onChange}
             isInvalid={!!errors.name}
-            style={{ borderTopRightRadius: "5px", borderBottomRightRadius: "5px" }}
           />
           <FormControl.Feedback type="invalid">
             {errors.name}
           </FormControl.Feedback>
         </InputGroup>
 
-        <InputGroup controlid="workoutDesc" style={{ paddingBottom: "1.5rem" }}>
+        <InputGroup controlid="workoutDesc" id="workoutDesc">
           <InputGroup.Text>Edzés leírása</InputGroup.Text>
           <FormControl
             as="textarea"
@@ -284,7 +283,6 @@ class NewWorkoutForm extends React.Component {
             value={workout.description}
             onChange={this.onChange}
             isInvalid={!!errors.description}
-            style={{ borderTopRightRadius: "5px", borderBottomRightRadius: "5px" }}
           />
           <FormControl.Feedback type="invalid">
             {errors.description}
@@ -292,41 +290,39 @@ class NewWorkoutForm extends React.Component {
         </InputGroup>
 
         <h6>Borítókép</h6>
-          <div className= "dropzone-container" style={{ padding: "1rem", display: "flex", justifyContent: "center",  width: "100%", border: "1px solid lightgray", marginBottom: "1rem", borderRadius: "5px"}}>
+          <div className= "dropzone-container" >
           {!workout.thumbnailPath ? 
-            (<Dropzone id="thunmbnail-dropzone" onDrop={this.onDrop} multiple={false} maxSize={500000000} >
+            (<Dropzone id="thumbnail-dropzone" onDrop={this.onDrop} multiple={false} maxSize={500000000} >
               {({ getRootProps, getInputProps }) => (
-                <div style={{ width: "320px", height: "240px", border: "1px solid lightgray", display: "flex", alignItems: "center", justifyContent: "center"}}
-                  {...getRootProps()}
-                >
+                <div className="plus-button-container" {...getRootProps()} >
                   <input {...getInputProps()} />
-                  <FiPlus style={{ fontSize: "3rem" }} />
+                  <FiPlus id="plus-button" />
                 </div>
               )}
             </Dropzone>)
             :
             (
-            <div className="workout-thumbnail-container" style={{display: "block"}}>
-              <img src={"http://localhost:8080/"+workout.thumbnailPath} alt="thumbnail" style={{width: "320px", height: "240px"}}/>
-              <div className="workout-cancel" style={{ position: "relative", left: "18rem", bottom: "15rem"}} onClick={this.deleteThumbnail}><MdOutlineCancel id="workout-cancel-icon" /></div>
+            <div className="workout-thumbnail-container">
+              <img src={"http://localhost:8080/"+workout.thumbnailPath} alt="thumbnail"/>
+              <div className="workout-cancel"  onClick={this.deleteThumbnail}><MdOutlineCancel id="workout-cancel-icon" /></div>
             </div>
             )}
           </div>
 
-        <Container fluid style={{ padding: "1rem", marginBottom: "1rem", border: "1px solid lightgray", borderRadius: "5px"}}>
+        <Container fluid id="exercise-container">
           <h6>Gyakorlatok</h6>
             {workout.workoutGroups.map((group, groupIndex) => {
               return(
 
-              <ListGroup key={`group-${groupIndex}`} style={{margin: "2rem 0.25rem 2rem 0.25rem", borderRadius: "10px", boxShadow: "0 0 7px 7px rgba(190, 183, 183, 0.829)", width: "auto"}}>
+              <ListGroup key={`group-${groupIndex}`} >
                 <ListGroup.Item>
                   <div className="cancel-button-container">
                     <Button variant="outline-secondary" id="wgroup-cancel-button" onClick={() => this.removeWorkoutGroup(groupIndex)}>
                       <MdOutlineCancel id="wgroup-cancel-icon"/>
                     </Button>
                   </div>     
-                  <InputGroup controlid="workoutRounds" style={{ margin: "1.5rem 0rem 0.5rem 0rem"}}>
-                    <Form.Label style={{ margin: "0.35rem 0rem 0rem"}}>Körök száma: </Form.Label> 
+                  <InputGroup controlid="workoutRounds" id="workoutRounds">
+                    <Form.Label >Körök száma: </Form.Label> 
                     <FormControl 
                       name="rounds"
                       type="number"
@@ -334,10 +330,6 @@ class NewWorkoutForm extends React.Component {
                       value={workout.workoutGroups[groupIndex].rounds}
                       onChange={this.updateRounds(groupIndex)}
                       isInvalid={!!workout.workoutGroups[groupIndex].roundsError}
-                      style={{
-                        margin: "0rem 0rem 0rem 1.5rem",
-                        borderRadius: "5px"
-                      }}
                     />
                     <FormControl.Feedback type="invalid">
                       {workout.workoutGroups[groupIndex].roundsError}
@@ -365,10 +357,9 @@ class NewWorkoutForm extends React.Component {
 
                           <Form.Check id="exercise-repetition-type" type="switch" label="Intervallum gyakorlat" 
                             checked={workout.workoutGroups[groupIndex].workoutExercises[exerciseIndex].type}
-                            onChange={this.updateChange(groupIndex, exerciseIndex, 'type')}
-                            style={{marginBottom: "1rem"}}/>
+                            onChange={this.updateChange(groupIndex, exerciseIndex, 'type')}/>
 
-                          <InputGroup controlid="workoutReps" style={{ paddingBottom: "1rem"}}>
+                          <InputGroup controlid="workoutReps" id="workoutReps">
                             <InputGroup.Text>{workout.workoutGroups[groupIndex].workoutExercises[exerciseIndex].type ? 'Intervallum ideje:' : 'Ismétlések száma:'}</InputGroup.Text>
                               <FormControl
                                 type="number"
@@ -377,14 +368,13 @@ class NewWorkoutForm extends React.Component {
                                 value={workout.workoutGroups[groupIndex].workoutExercises[exerciseIndex].reps}
                                 onChange={this.updateChange(groupIndex, exerciseIndex, 'reps')}
                                 isInvalid={!!workout.workoutGroups[groupIndex].workoutExercises[exerciseIndex].repsError}
-                                style={{ borderTopRightRadius: "5px", borderBottomRightRadius: "5px"}}
                               />
                               <FormControl.Feedback type="invalid">
                                 {workout.workoutGroups[groupIndex].workoutExercises[exerciseIndex].repsError}
                               </FormControl.Feedback>
                           </InputGroup>
                          
-                          <InputGroup controlid="workoutRest" style={{ paddingBottom: "1rem"}}>
+                          <InputGroup controlid="workoutRest" id="workoutRest">
                             <InputGroup.Text>Pihenő:</InputGroup.Text>
                               <FormControl
                                 type="number"
@@ -393,7 +383,6 @@ class NewWorkoutForm extends React.Component {
                                 value={workout.workoutGroups[groupIndex].workoutExercises[exerciseIndex].rest}
                                 onChange={this.updateChange(groupIndex, exerciseIndex, 'rest')}
                                 isInvalid={!!workout.workoutGroups[groupIndex].workoutExercises[exerciseIndex].restError}
-                                style={{ borderTopRightRadius: "5px", borderBottomRightRadius: "5px" }}
                               />
                               <FormControl.Feedback type="invalid">
                                 {workout.workoutGroups[groupIndex].workoutExercises[exerciseIndex].restError}
@@ -405,15 +394,8 @@ class NewWorkoutForm extends React.Component {
                    )
                   })}
 
-                  <div className="add-exercise-button-container" style={{
-                    margin: "0.5rem 0rem 0.5rem",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    borderRadius: "5px",
-                    }}
-                  >
-                    <Button id="exercise-button" variant="outline-secondary" style={{ width: "2.5rem", height: "2.5rem", borderRadius: "100%", margin: "0", display: "flex", alignItems: "center", justifyContent: "center" }}
+                  <div className="add-exercise-button-container">
+                    <Button id="exercise-button" variant="outline-secondary"
                       onClick={() => this.showModal(groupIndex)}
                     >
                       <FiPlus />
@@ -422,8 +404,8 @@ class NewWorkoutForm extends React.Component {
               </ListGroup>
             )})}
 
-            <div className="add-group-button-container" style={{ display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "5px" }} >
-              <Button id="group-button" variant="outline-primary" style={{ width: "3rem", height: "3rem", borderRadius: "100%", margin: "0", display: "flex", alignItems: "center", justifyContent: "center" }}
+            <div className="add-group-button-container" >
+              <Button id="group-button" variant="outline-primary" 
                 onClick={this.addWorkoutGroup}
               >
                 <FiPlus />
@@ -434,11 +416,11 @@ class NewWorkoutForm extends React.Component {
         <div className="command-button-container">
           {!loading ? 
             (
-              <Button style={{marginBottom: "4rem"}} variant="primary" type="submit"> Mentés </Button>
+              <Button variant="primary" type="submit"> Mentés </Button>
             ) 
             : 
             (
-              <Button variant="primary" disabled style={{marginBottom: "4rem"}}>
+              <Button variant="primary" disabled>
                 <Spinner
                   as="span"
                   animation="border"

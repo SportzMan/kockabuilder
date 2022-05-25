@@ -145,7 +145,7 @@ class NewProgramForm extends React.Component {
         )}
         <WorkoutSelectorModal modal={modal} Workouts={Workouts} hideModal={this.hideModal} addWorkout={this.addWorkout}/>
 
-        <InputGroup controlid="programName" style={{ paddingBottom: "1.5rem" }}>
+        <InputGroup controlid="programName" id="programName">
           <InputGroup.Text>Program neve</InputGroup.Text>
           <FormControl
             name="name"
@@ -163,7 +163,7 @@ class NewProgramForm extends React.Component {
             {errors.name}
           </FormControl.Feedback>
         </InputGroup>
-        <InputGroup controlid="programDesc" style={{ paddingBottom: "1.5rem" }}>
+        <InputGroup controlid="programDesc" id="programDesc" >
           <InputGroup.Text>Program leírása</InputGroup.Text>
           <FormControl
             as="textarea"
@@ -191,57 +191,35 @@ class NewProgramForm extends React.Component {
                 checked={program.isfree}
               />
         </Form.Group>
-          <p>Borítókép</p>
-          <div style={{ padding: "1rem", display: "flex", justifyContent: "center",  width: "100%", border: "1px solid lightgray", marginBottom: "1rem", borderRadius: "5px"}}>
+          <h6>Borítókép</h6>
+          <div className="thumbnail-container" >
           {!program.thumbnailPath ? 
             (<Dropzone onDrop={this.onDrop} multiple={false} maxSize={500000000} >
               {({ getRootProps, getInputProps }) => (
-                <div style={{ width: "320px", height: "240px", border: "1px solid lightgray", display: "flex", alignItems: "center", justifyContent: "center"}}
+                <div className="plus-button-container"
                   {...getRootProps()}
                 >
                   <input {...getInputProps()} />
-                  <FiPlus style={{ fontSize: "3rem" }} />
+                  <FiPlus id="plus-button" />
                 </div>
               )}
             </Dropzone>)
             :
             (
-            <div className="program-thumbnail" style={{display: "block"}}>
-              <img src={"http://localhost:8080/"+program.thumbnailPath} alt="thumbnail" style={{width: "320px", height: "240px"}}/>
-              <div className="program-cancel" style={{ position: "relative", left: "18rem", bottom: "15rem"}} onClick={this.deleteThumbnail}><MdOutlineCancel id="program-cancel-icon" /></div>
+            <div className="program-thumbnail">
+              <img src={"http://localhost:8080/"+program.thumbnailPath} alt="thumbnail"/>
+              <div className="program-cancel" onClick={this.deleteThumbnail}>
+                <MdOutlineCancel id="program-cancel-icon" />
+              </div>
             </div>
             )}
           </div>
 
-        <p>Edzések</p>
-        <Container fluid style={{
-            padding: "1rem",
-            marginBottom: "1rem",
-            border: "1px solid lightgray",
-            borderRadius: "5px",
-
-          }}
-        >
-            <div className="add-button-container" style={{
-                marginBottom: "1.5rem",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                borderRadius: "5px",
-                }}
-            >
-                <Button variant="outline-secondary" style={{
-                    width: "2.5rem",
-                    height: "2.5rem",
-                    borderRadius: "100%",
-                    margin: "0",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                }}
-                onClick={this.showModal}
-                >
-                <FiPlus />
+        <h6>Edzések</h6>
+        <Container fluid id="training-container" >
+            <div className="add-button-container" >
+                <Button variant="outline-secondary" onClick={this.showModal} >
+                  <FiPlus />
                 </Button>
             </div>
         <Row xs ={1} md={2} lg={4} xl={4} className="g-4" >
@@ -251,10 +229,10 @@ class NewProgramForm extends React.Component {
           program.workouts.map((workout, index) => {
             return (
                 <Col key={`col-${index}`}>
-                    <Card index={index} style={{width: "320px"}}>
-                        <Card.Img variant="top" src={`http://127.0.0.1:8080/${workout.thumbnailPath}`}  style={{width: "320px", height: "240px"}}/>
-                        <div className="workout-cancel" style={{position: "absolute", right: 0}}><MdOutlineCancel id="workout-cancel-icon" onClick={() => this.removeWorkout(index)}/></div>
-                        <div className="workout-index" > <p>{`${index+1}. gyakorlat`}</p></div>
+                    <Card index={index}>
+                        <Card.Img variant="top" src={`http://127.0.0.1:8080/${workout.thumbnailPath}`} />
+                        <div className="workout-cancel" ><MdOutlineCancel id="workout-cancel-icon" onClick={() => this.removeWorkout(index)}/></div>
+                        <div className="workout-index" > <p>{`${index+1}. nap`}</p></div>
                         <Card.Body>
                             <Card.Title>{workout.name}</Card.Title>
                         </Card.Body>
@@ -266,9 +244,9 @@ class NewProgramForm extends React.Component {
         </Row>
         </Container>
         {!loading ? (
-          <Button style={{marginBottom: "4rem"}} variant="primary" type="submit"> Mentés </Button>
+          <Button id="save-button" variant="primary" type="submit"> Mentés </Button>
         ) : (
-          <Button variant="primary" disabled style={{marginBottom: "4rem"}}>
+          <Button id="loading-save-button" variant="primary" disabled >
             <Spinner
               as="span"
               animation="border"

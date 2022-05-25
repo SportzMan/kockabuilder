@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import NewExerciseForm from '../forms/NewExerciseForm';
 import {Container} from "react-bootstrap";
 import api from "../../api";
+import "../CSS/pages/NewExercisePage.css";
 
 class NewExercisePage extends React.Component {
 
@@ -15,8 +16,9 @@ class NewExercisePage extends React.Component {
 
   render() {
       return (
-        <Container fluid style={{paddingTop: "0.4rem"}}>
-          <h1 style={{paddingBottom: "1.5rem"}} >Új gyakorlat hozzáadása</h1>
+        <Container id="container" fluid>
+          <h1 >Új gyakorlat hozzáadása</h1>
+          <hr/>
           <NewExerciseForm submit={this.submit}/>
         </Container>
       );

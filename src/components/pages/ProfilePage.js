@@ -15,6 +15,7 @@ class ProfilePage extends React.Component {
       return (
         <Container fluid>
           <h1>Profilom</h1>
+          <hr/>
           <ProfileForm submit={this.submit} user={this.props.user}/>
         </Container>
       );

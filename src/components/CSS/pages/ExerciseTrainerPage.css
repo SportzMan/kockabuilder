@@ -1,0 +1,6 @@
+.exerciseCard{
+    width: 320px;
+    position: relative;
+    margin-bottom: 1rem;
+    border:1px
+}

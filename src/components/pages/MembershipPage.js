@@ -4,6 +4,7 @@ import {addPurchase} from "../../actions/purchases";
 import {updateMembership} from "../../actions/users";
 import { PayPalButton } from "react-paypal-button-v2"; //Dokumentáció: https://www.npmjs.com/package/react-paypal-button-v2
 import {connect} from "react-redux";
+import "../CSS/pages/MembershipPage.css";
 
 
 const MembershipPage = (props) => {
@@ -37,32 +38,31 @@ const MembershipPage = (props) => {
     return(
 
         <Container fluid>
-            <div id="title-container" style={{ marginBottom: "1rem" }}>
+            <div id="title-container" >
                 <h1>Tagság vásárlása</h1>
-                <hr style={{ boxShadow: "0 0 8px 1px black"}}/>
+                <hr />
             </div>
-                {successPayment &&<Alert variant="success"> Sikeres tranzakció!</Alert>}
-                <Row xs={1} md={2} lg={2} xl={4} style={{ marginTop: "5%"}}>
-
-                    {
-                        Memberships.map((membership, index) => {
-                            const className = (activeIndex === index) ? "activeMembershipCard" : "membershipCard"
-                            return (
+            {successPayment &&<Alert variant="success"> Sikeres tranzakció!</Alert>}
+            <Row xs={1} md={2} lg={2} xl={4} >
+                {
+                    Memberships.map((membership, index) => {
+                        const className = (activeIndex === index) ? "activeMembershipCard" : "membershipCard"
+                        return (
                             <Col key={`col-${index}`}>
-                                <div style={{ width: "320px", position: "relative",  marginBottom: "1rem" }} className={className}  index={index} onClick={() => selectItem(membership, index)}>
+                                <div className={className}  index={index} onClick={() => selectItem(membership, index)}>
                                     <img  className="card-img" src={membership.img} alt="thumbnail"/>
                                     <div  className="membership-info">
-                                        <h2 style={{paddingLeft: "35%", paddingTop: "5%"}}> {`${membership.duration} nap`} </h2>
+                                        <h2> {`${membership.duration} nap`} </h2>
                                         <br/>
-                                        <h5 style={{paddingLeft: "38%"}}>{`${membership.price} Ft`}</h5>
+                                        <h5>{`${membership.price} Ft`}</h5>
                                     </div>
                                 </div>
                             </Col>
-                            )
-                        })
+                        )
+                    })
 
-                    }
-                </Row>
+                }
+            </Row>
 
             {!!selectedMembership &&
                 <div style={{marginTop: "5rem", justifyContent: "center", alignItems: "center", display: "flex"}}  >
@@ -80,7 +80,6 @@ const MembershipPage = (props) => {
                     />
                 </div>
             }
-            
         </Container>
 
     )

@@ -6,100 +6,14 @@ hr{
     box-shadow: 0 0 8px 1px black;
 }
 
-/* NewExercisePage és az ahhoz tartozó komponensek CSS beállításai */
-/*#exercise-cancel-icon{
-    margin: 1px;
-    font-size: 2rem;
-    color:dimgray;
-    opacity: 0.75;
-}
-*/
+
 /* NewWorkoutPage és az ahhoz tartozó komponensek CSS beállításai */
-.activeCard{
-    box-shadow: 0 0 10px 7px #0d6efd;
-    border-radius: 10px;
-}
 
-#workout-cancel-icon{
-    margin: 1px;
-    font-size: 2rem;
-    color: rgb(192, 48, 48);
-    opacity: 0.6
-}
-
-.workout-index{
-    height: 2rem;
-    position: absolute;
-    margin: 4px;
-    padding: 2px 4px;
-    letter-spacing: 1px;
-    top: 12.5rem;
-    left: 0;
-    background-color: black;
-    opacity: 0.7;
-    border-radius: 10px;
-}
-
-.workout-index p{
-    color: white;
-}
-
-.exercise-name{
-    margin: 4px;
-    padding: 2px 4px;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    color: white;
-    background-color: black;
-    opacity: 0.8;
-    border-radius: 5%;
-}
-
-.card-img{
-    width: 100%;
-    border-radius: 10px;
-}
 
 /* NewProgramPage és az ahhoz tartozó komponensek CSS beállításai */
-#program-cancel-icon{
-    margin: 1px;
-    font-size: 2rem;
-    color: rgb(192, 48, 48);
-    opacity: 0.6
-}
 
 /* MembershipPage  CSS beállításai */
-.membership-info{
-    width: 240px;
-    height: 120px;
-    margin: 4px;
-    padding: 2px 4px;
-    bottom: 20%;
-    left: 10%;
-    position: absolute;
-    color: white;
-    background-color: black;
-    opacity: 0.73;
-    border-radius: 5%;
-    box-shadow: 0 0 10px 7px black;
-}
 
-.activeMembershipCard{
-    box-shadow: 0 0 10px 7px #0d6efd;
-    border-radius: 10px;
-}
-
-.membershipCard{
-    box-shadow: 3px 2px 10px 7px grey;
-    border-radius: 11px;
-
-}
-
-.membershipCard:hover{
-    box-shadow: 0 0 10px 7px black;
-    border-radius: 10px;
-}
 
 
 /* UserProgramPage  CSS beállításai */

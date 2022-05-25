@@ -1,0 +1,91 @@
+#programName, #programDesc{
+    padding-bottom: 1.5rem;
+}
+
+.thumbnail-container{
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    border: 1px solid lightgray;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+}
+
+.thumbnail-container .plus-button-container{
+    width: 320px;
+    height: 240px;
+    border: 1px solid lightgray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.thumbnail-container .plus-button-container #plus-button{
+    font-size: 3rem;
+}
+
+.program-thumbnail{
+    display: block;
+}
+
+.program-thumbnail img{
+    width: 320px;
+    height: 240px;
+}
+
+.program-thumbnail .program-cancel{
+    position: relative;
+    left: 18rem;
+    bottom: 15rem;
+}
+
+.program-thumbnail .program-cancel #program-cancel-icon{
+    margin: 1px;
+    font-size: 2rem;
+    color: rgb(192, 48, 48);
+    opacity: 0.6
+}
+
+#training-container{
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+#training-container .add-button-container{
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+#training-container .add-button-container button{
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.row .col .card .card-img-top{
+    width: 320px;
+    height: 240px;
+}
+
+.card{
+    width: 320px;
+}
+
+.card .workout-cancel{
+    position: absolute;
+    right: 0;
+}
+
+.btn #save-button, .btn #loading-save-button{
+    margin-bottom: 4rem;
+}

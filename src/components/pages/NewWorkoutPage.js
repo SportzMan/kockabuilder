@@ -15,12 +15,10 @@ class NewWorkoutPage extends React.Component {
   render(){
 
     return (
-      <Container fluid style={{ paddingTop: "0.4rem" }}>
-      <div id="title-container" style={{ marginBottom: "1rem" }}>
+      <Container fluid >
         <h1>Új edzés létrehozása</h1>
         <hr />
-      </div>
-      <NewWorkoutForm submit={this.submit}/>
+        <NewWorkoutForm submit={this.submit}/>
     </Container>
     )
   };

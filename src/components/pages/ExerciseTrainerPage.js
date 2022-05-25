@@ -2,7 +2,7 @@ import React from 'react';
 import {Alert, Container, Row, Col, Spinner} from "react-bootstrap"
 import {getExercises} from "../../actions/exercises";
 import {connect} from "react-redux";
-
+import "../CSS/pages/ExerciseTrainerPage.css";
 
 
 class ExerciseTrainerPage extends React.Component{
@@ -40,7 +40,7 @@ class ExerciseTrainerPage extends React.Component{
                         exercises.map((exercise, index) => {
                             return (
                             <Col key={`col-${index}`}>
-                                <div style={{ width: "320px", position: "relative",  marginBottom: "1rem", border:"1px" }} className="exerciseCard"  index={index} 
+                                <div className="exerciseCard"  index={index} 
                                 onClick={() => this.props.history.push("/edit_exercise/"+exercise._id)}>
                                     <img  className="card-img" src={exercise.thumbnailPath} alt="thumbnail" style={{ width: "320px", height: "240px"}}/>
                                     <div  className="exercise-info">

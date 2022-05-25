@@ -95,7 +95,7 @@ class NewExerciseForm extends React.Component{
                 {errors.filePath && <Alert variant="danger" >
                     {errors.filePath}
                     </Alert>}
-                <InputGroup controlid="exerciseName" style={{paddingBottom: "1.5rem"}}>
+                <InputGroup controlid="exerciseName" id="exerciseName" >
                     <InputGroup.Text >Gyakorlat neve</InputGroup.Text>
                     <FormControl
                         name="name"
@@ -110,24 +110,24 @@ class NewExerciseForm extends React.Component{
                     </FormControl.Feedback>
                 </InputGroup>
 
-                <p>Videófájl</p>
-                <div style={{ padding: "1rem", display: "flex", justifyContent: "center",  width: "100%", border: "1px solid lightgray", marginBottom: "1rem", borderRadius: "5px"}}>
+                <h6>Videófájl</h6>
+                <div className="thumbnail-container">
                 {!exercise.thumbnailPath ? 
                     (<Dropzone onDrop={this.onDrop} multiple={false} maxSize={500000000} >
-                    {({ getRootProps, getInputProps }) => (
-                        <div style={{ width: "320px", height: "240px", border: "1px solid lightgray", display: "flex", alignItems: "center", justifyContent: "center"}}
-                        {...getRootProps()}
-                        >
-                        <input {...getInputProps()} />
-                        <FiPlus style={{ fontSize: "3rem" }} />
-                        </div>
-                    )}
+                        {({ getRootProps, getInputProps }) => (
+                            <div className="plus-button-container"
+                                {...getRootProps()}
+                                >
+                                <input {...getInputProps()} />
+                                <FiPlus id="plus-button" />
+                            </div>
+                        )}
                     </Dropzone>)
                     :
                     (
-                    <div className="exercise-thumbnail" style={{display: "block"}}>
-                    <img src={"http://localhost:8080/"+exercise.thumbnailPath} alt="thumbnail" style={{width: "320px", height: "240px"}}/>
-                    <div className="exercise-cancel" style={{ position: "relative", left: "18rem", bottom: "15rem"}} onClick={this.deleteThumbnail}><MdOutlineCancel id="exercise-cancel-icon" /></div>
+                    <div className="exercise-thumbnail" >
+                        <img src={"http://localhost:8080/"+exercise.thumbnailPath} alt="thumbnail" />
+                        <div className="exercise-cancel"  onClick={this.deleteThumbnail}><MdOutlineCancel id="exercise-cancel-icon" /></div>
                     </div>
                     )}
                 </div>

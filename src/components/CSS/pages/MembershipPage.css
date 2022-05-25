@@ -1,0 +1,48 @@
+h2{
+    padding-left: 35%;
+    padding-top: 5%;
+}
+
+h5{
+    padding-left: 38%;
+}
+
+.row{
+    margin-top: 5%;
+}
+
+.activeMembershipCard{
+    box-shadow: 0 0 10px 7px #0d6efd;
+    border-radius: 10px;
+    width: 320px;
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.membershipCard{
+    box-shadow: 3px 2px 10px 7px grey;
+    border-radius: 11px;
+    width: 320px;
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.membership-info{
+    width: 240px;
+    height: 120px;
+    margin: 4px;
+    padding: 2px 4px;
+    bottom: 20%;
+    left: 10%;
+    position: absolute;
+    color: white;
+    background-color: black;
+    opacity: 0.73;
+    border-radius: 5%;
+    box-shadow: 0 0 10px 7px black;
+}
+
+.membershipCard:hover{
+    box-shadow: 0 0 10px 7px black;
+    border-radius: 10px;
+}

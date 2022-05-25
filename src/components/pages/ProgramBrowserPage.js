@@ -26,10 +26,8 @@ class ProgramBrowserPage extends React.Component{
 
         return(
         <Container fluid id="course">
-            <div id="title-container" style={{ marginBottom: "1rem" }}>
-                <h1>Programok</h1>
-                <hr />
-            </div>
+            <h1>Programok</h1>
+            <hr />
             {!loading && errors.global && <Alert> <p>{errors.global}</p> </Alert>}
 
             {loading && !success && <Spinner animation="border" size="xxl" role="status"  aria-hidden="true" style={{margin: "5% 50% 0"}}/> }

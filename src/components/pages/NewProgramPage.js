@@ -4,6 +4,7 @@ import {addProgram} from "../../actions/programs";
 import PropTypes from "prop-types";
 import NewProgramForm from "../forms/NewProgramForm";
 import {Container} from "react-bootstrap";
+import "../CSS/pages/NewProgramPage.css";
 
 class UpdateProgramPage extends React.Component {
 
@@ -18,12 +19,10 @@ class UpdateProgramPage extends React.Component {
   render(){
 
     return (
-      <Container fluid style={{ paddingTop: "0.4rem" }}>
-      <div id="title-container" style={{ marginBottom: "1rem" }}>
+      <Container fluid >
         <h1>Új edzésprogram létrehozása</h1>
         <hr />
-      </div>
-      <NewProgramForm submit={this.submit}/>
+        <NewProgramForm submit={this.submit}/>
     </Container>
     )
   };
