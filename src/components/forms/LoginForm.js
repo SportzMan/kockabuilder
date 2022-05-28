@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Button, Alert, Spinner} from 'react-bootstrap';
+import {Form, Button, Alert, Spinner, InputGroup, FormControl} from 'react-bootstrap';
 import Validator from 'validator';
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
@@ -54,9 +54,9 @@ class LoginForm extends React.Component{
                     <Alert.Heading>Amanóba! Hiba történt a művelet végrehajtása közben.</Alert.Heading>
                     <p>{errors.global}</p>
                     </Alert>}
-                <Form.Group controlId="formBasicEmail">
-                    <Form.Label >Email</Form.Label>
-                    <Form.Control
+                <InputGroup controlId="formBasicEmail">
+                    <InputGroup.Text >Email</InputGroup.Text>
+                    <FormControl
                         name="email"
                         type="email" 
                         placeholder="Enter email"
@@ -64,13 +64,14 @@ class LoginForm extends React.Component{
                         onChange={this.onChange}
                         isInvalid={!!errors.email}
                     />
-                    <Form.Control.Feedback type='invalid'>
+                    <FormControl.Feedback type='invalid'>
                         {errors.email}
-                    </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group controlId="formBasicPassword">
-                    <Form.Label>Jelszó</Form.Label>
-                    <Form.Control
+                    </FormControl.Feedback>
+                </InputGroup>
+
+                <InputGroup controlId="formBasicPassword">
+                    <InputGroup.Text>Jelszó</InputGroup.Text>
+                    <FormControl
                         name="password"
                         type="password" 
                         placeholder="Password"
@@ -78,11 +79,10 @@ class LoginForm extends React.Component{
                         onChange={this.onChange}
                         isInvalid={!!errors.password}
                     />
-                    <Form.Control.Feedback type='invalid'>
+                    <FormControl.Feedback type='invalid'>
                         {errors.password}
-                    </Form.Control.Feedback>
-                </Form.Group>
-                <br></br>
+                    </FormControl.Feedback>
+                </InputGroup>
                 <span><Link to="/forgot_password">Elfelejtett jelszó?</Link></span>
                 <br></br>
                 {!loading ? (

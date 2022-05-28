@@ -43,7 +43,7 @@ class NewExerciseForm extends React.Component{
                 .submit(this.state.exercise)
                 .then(() => this.setState({ exercise: {...this.state.exercise, originalName: this.state.exercise.name}, loading: false, success: true}, () => { setTimeout(() => {
                     this.setState({success: false})}, 5000);}))
-                .catch(err => this.setState({ errors: err.response.data.errors , loading: false}));
+                .catch(err => this.setState({ errors: err.response.data.errors , loading: false, success: false}));
         } 
     }
     // Borítókép és videó törlése a tömbből és a szerver oldalról is
@@ -117,7 +117,7 @@ class NewExerciseForm extends React.Component{
                     {errors.filePath}
                     </Alert>}
 
-                <InputGroup controlid="exerciseName" style={{paddingBottom: "1.5rem"}}>
+                <InputGroup controlid="exerciseName" id="exerciseName" >
                     <InputGroup.Text >Gyakorlat neve</InputGroup.Text>
                     <FormControl
                         name="name"
@@ -132,16 +132,14 @@ class NewExerciseForm extends React.Component{
                     </FormControl.Feedback>
                 </InputGroup>
 
-                <p>Videófájl</p>
+                <h6>Videófájl</h6>
                 <div className="dropzone-container" >
                 {!exercise.thumbnailPath ? 
                     (<Dropzone onDrop={this.onDrop} multiple={false} maxSize={500000000} >
                     {({ getRootProps, getInputProps }) => (
-                        <div className="plus-button"
-                        {...getRootProps()}
-                        >
+                        <div className="plus-button" {...getRootProps()} >
                             <input {...getInputProps()} />
-                            <FiPlus style={{ fontSize: "3rem" }} />
+                            <FiPlus id="plus-button" />
                         </div>
                     )}
                     </Dropzone>)
@@ -152,17 +150,17 @@ class NewExerciseForm extends React.Component{
                             <Button variant="outline-secondary" id="exercise-cancel-button" onClick={() => this.deleteThumbnail}>
                                 <MdOutlineCancel id="exercise-cancel-icon"/>
                             </Button>
-                            <img src={"http://localhost:8080/"+exercise.thumbnailPath} alt="thumbnail" style={{width: "320px", height: "240px", borderRadius:"11px"}}/>
+                            <img src={"http://localhost:8080/"+exercise.thumbnailPath} alt="thumbnail"/>
                         </div>
                     </div>
                     )}
                 </div>
-                <div className="button-container" style={{position: "absolute", right: "1.5rem"}}>
+                <div className="button-container">
 
                     {!loading ? (
-                        <Button variant="primary" type="submit" style={{marginLeft: "0.5rem"}}>Módosít</Button>
+                        <Button variant="primary" type="submit" >Módosít</Button>
                     ) : (
-                        <Button variant="primary" disabled style={ {marginLeft: "0.5rem"}}>
+                        <Button variant="primary" disabled >
                             <Spinner
                             as="span"
                             animation="border"
@@ -173,8 +171,8 @@ class NewExerciseForm extends React.Component{
                             <span className="sr-only">Módosít...</span>
                         </Button>
                     )  }
-                    <Button variant="danger" style={{marginLeft: "0.5rem"}} onClick={this.showModal}>Törlés</Button>
-                    <Button variant="secondary" style={{marginLeft: "0.5rem"}}>Vissza</Button>
+                    <Button variant="danger" onClick={this.showModal}>Törlés</Button>
+                    <Button variant="secondary">Vissza</Button>
                 </div>
             </Form> )
 

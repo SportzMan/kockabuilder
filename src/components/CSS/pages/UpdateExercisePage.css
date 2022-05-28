@@ -52,3 +52,30 @@
     right: 0.075rem;
     top: 0.075rem;
 }
+
+#loading-spinner{
+    margin: 5% 50% 0;
+}
+
+#exerciseName{
+    padding-bottom: 1.5rem;
+}
+
+#plus-button{
+    font-size: 3rem;
+}
+
+.exercise-thumbnail-container .exercise-thumbnail img{
+    width: 320px;
+    height: 240px;
+    border-radius: 11px;
+}
+
+.button-container{
+    position: absolute;
+    right: 1.5rem;
+}
+
+.button-container .btn{
+    margin-left: 0.5rem
+}

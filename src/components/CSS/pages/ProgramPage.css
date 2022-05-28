@@ -1,0 +1,27 @@
+p{
+    word-wrap: break-word; 
+}
+
+#loading-spinner{
+    margin: 5% 50% 0;
+}
+
+.program-header{
+    margin: 2rem 5% 0 5%;
+    padding: 5px 15px;
+    background-color: rgba(255, 255, 255, 0.76);
+    border-radius: 15px;
+    box-shadow: 0 0 7px 7px rgba(190, 183, 183, 0.829);
+}
+
+.workouts-container{
+    margin: 2rem 5% 0 5%;
+    padding: 5px 15px;
+    background-color: rgba(255, 255, 255, 0.76);
+    border-radius: 15px;
+    box-shadow: 0 0 7px 7px rgba(190, 183, 183, 0.829);
+}
+
+.workouts-container .row{
+    margin-top: 1.5rem;
+}

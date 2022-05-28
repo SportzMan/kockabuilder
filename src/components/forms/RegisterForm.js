@@ -1,8 +1,8 @@
 import React from 'react';
-import {Form, Button, Alert, Spinner} from 'react-bootstrap';
+import {Form, Button, Alert, Spinner, InputGroup, FormControl} from 'react-bootstrap';
 import Validator from 'validator';
 import PropTypes from 'prop-types';
-//import InlineError from '../messages/InlineError'
+
 
 class RegisterForm extends React.Component{
 
@@ -59,9 +59,9 @@ class RegisterForm extends React.Component{
                     <Alert.Heading>Amanóba! Hiba történt a művelet végrehajtása közben.</Alert.Heading>
                     <p>{errors.global}</p>
                     </Alert>}
-                <Form.Group controlId="formBasicEmail">
-                    <Form.Label >Felhasználónév</Form.Label>
-                    <Form.Control
+                <InputGroup controlId="formBasicEmail">
+                    <InputGroup.Text >Felhasználónév</InputGroup.Text>
+                    <FormControl
                         name="username"
                         type="username" 
                         placeholder="Adjon meg egy felhasználónevet"
@@ -69,13 +69,13 @@ class RegisterForm extends React.Component{
                         onChange={this.onChange}
                         isInvalid={!!errors.username}
                     />
-                    <Form.Control.Feedback type='invalid'>
+                    <FormControl.Feedback type='invalid'>
                         {errors.email}
-                    </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group controlId="formBasicEmail">
-                    <Form.Label >Email</Form.Label>
-                    <Form.Control
+                    </FormControl.Feedback>
+                </InputGroup>
+                <InputGroup controlId="formBasicEmail">
+                    <InputGroup.Text >Email</InputGroup.Text>
+                    <FormControl
                         name="email"
                         type="email" 
                         placeholder="Adja meg az email címét"
@@ -83,13 +83,13 @@ class RegisterForm extends React.Component{
                         onChange={this.onChange}
                         isInvalid={!!errors.email}
                     />
-                    <Form.Control.Feedback type='invalid'>
+                    <FormControl.Feedback type='invalid'>
                         {errors.email}
-                    </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group controlId="formBasicPassword">
-                    <Form.Label>Jelszó</Form.Label>
-                    <Form.Control
+                    </FormControl.Feedback>
+                </InputGroup>
+                <InputGroup controlId="formBasicPassword">
+                    <InputGroup.Text>Jelszó</InputGroup.Text>
+                    <FormControl
                         name="password"
                         type="password" 
                         placeholder="******"
@@ -97,11 +97,10 @@ class RegisterForm extends React.Component{
                         onChange={this.onChange}
                         isInvalid={!!errors.password}
                     />
-                    <Form.Control.Feedback type='invalid'>
+                    <FormControl.Feedback type='invalid'>
                         {errors.password}
-                    </Form.Control.Feedback>
-                </Form.Group>
-                <br></br>
+                    </FormControl.Feedback>
+                </InputGroup>
                 {!loading ? (
                     <Button variant="primary" type="submit">Regisztráció</Button>
                   ) : (

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {register} from '../../actions/users';
 import { Container } from "react-bootstrap";
-
+import "../CSS/pages/RegisterPage.css";
 
 
 class RegisterPage extends React.Component{
@@ -16,7 +16,7 @@ class RegisterPage extends React.Component{
         return(
             <Container fluid>
                 <h1 id="title">Regisztráció</h1>
-    
+                <hr/>
                 <RegisterForm submit={this.submit}/>
             </Container>
         );

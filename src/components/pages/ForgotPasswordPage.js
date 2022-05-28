@@ -18,7 +18,8 @@ class ForgotPasswordPage extends React.Component{
     render(){
         return(
             <Container fluid>
-                <h2>Új jelszó igénylése</h2>
+                <h1>Új jelszó igénylése</h1>
+                <hr/>
                 {this.state.success ? <div><Alert variant="primary"> A levelet elküldtük a megadott címre!</Alert>
                 <Button variant="secondary" as={Link} to="/login">Vissza</Button> </div>: 
                 <ForgotPasswordForm submit ={this.submit}/>}

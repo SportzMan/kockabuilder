@@ -1,0 +1,19 @@
+.programCard{
+    width: 320px;
+    position: relative;
+    margin-bottom: 1rem;
+    border: 1px;
+}
+
+#loading-spinner{
+    margin: 5% 50% 0;
+}
+
+.card-img{
+    width: 320px;
+    height: 240px;
+}
+
+.row{
+    margin-top: 2%;
+}

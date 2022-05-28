@@ -11,7 +11,6 @@ import ConfirmationPage from './components/pages/ConfirmationPage';
 import LoginPage from './components/pages/LoginPage';
 import RegisterPage from './components/pages/RegisterPage';
 import ProgramBrowserPage from './components/pages/ProgramBrowserPage';
-import TrainingPage from './components/pages/TrainingPage';
 import ForgotPasswordPage from './components/pages/ForgotPasswordPage';
 import ResetPasswordPage from './components/pages/ResetPasswordPage';
 import ChangePasswordPage from './components/pages/ChangePasswordPage';
@@ -50,7 +49,6 @@ const App = ({location}) => (
         <UserRoute  location={location} path='/programbrowser' exact component={ProgramBrowserPage}/>
         <UserRoute  location={location} path='/program/:program' exact component={ProgramPage}/>
         <UserRoute  location={location} path='/workout/:workout' exact component={WorkoutPage}/>
-        <UserRoute  location={location} path='/training' exact component={TrainingPage}/>
         <UserRoute  location={location} path='/profile' exact component={ProfilePage}/>
         <UserRoute  location={location} path='/password' exact component={ChangePasswordPage}/>
         <AdminRoute  location={location} path='/manage' exact component={UserManagementPage} />

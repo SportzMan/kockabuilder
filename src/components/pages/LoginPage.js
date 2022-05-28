@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import LoginForm from '../forms/LoginForm';
 import {Container} from "react-bootstrap";
 
+
 class LoginPage extends React.Component {
   
   submit = (data) => 
@@ -14,6 +15,7 @@ class LoginPage extends React.Component {
       return (
         <Container fluid>
           <h1>Belépés</h1>
+          <hr/>
           <LoginForm submit={this.submit}/>
         </Container>
       );

@@ -3,9 +3,10 @@ import {connect} from "react-redux";
 import {getProgram, updateProgram, deleteProgram, deleteFile} from "../../actions/programs";
 import PropTypes from "prop-types";
 import UpdateProgramForm from "../forms/UpdateProgramForm";
-import {Container, Spinner} from "react-bootstrap";
+import {Alert, Container, Spinner} from "react-bootstrap";
+import "../CSS/pages/UpdateProgramPage.css";
 
-class NewProgramPage extends React.Component {
+class UpdateProgramPage extends React.Component {
 
   state = {
     program: {},
@@ -37,20 +38,21 @@ class NewProgramPage extends React.Component {
         <h1>Edzésprogram módosítása</h1>
         <hr />
       </div>
-      {loading && !success && <Spinner animation="border" size="xxl" role="status"  aria-hidden="true" style={{margin: "5% 50% 0"}}/> }
+      {!loading && !success && <Alert variant="danger"> {errors.global} </Alert>}
+      {loading && !success && <Spinner id="loading-spinner" animation="border" size="xxl" role="status"  aria-hidden="true"/> }
       {!loading && success && <UpdateProgramForm submit={this.submit} program={program} deleteItem={this.deleteItem} /> }
     </Container>
     )
   };
 }
 
-NewProgramPage.propTypes = {
+UpdateProgramPage.propTypes = {
   updateProgram: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
-        exercise: PropTypes.string.isRequired
+        program: PropTypes.string.isRequired
     }).isRequired
   }).isRequired,
 };
 
-export default connect(null, {getProgram, updateProgram, deleteProgram, deleteFile})(NewProgramPage);
+export default connect(null, {getProgram, updateProgram, deleteProgram, deleteFile})(UpdateProgramPage);

@@ -6,7 +6,7 @@ import NewProgramForm from "../forms/NewProgramForm";
 import {Container} from "react-bootstrap";
 import "../CSS/pages/NewProgramPage.css";
 
-class UpdateProgramPage extends React.Component {
+class NewProgramPage extends React.Component {
 
   submit = (program) => this.props.addProgram(program).then(res => 
     this.props.history.push({
@@ -28,8 +28,8 @@ class UpdateProgramPage extends React.Component {
   };
 }
 
-UpdateProgramPage.propTypes = {
+NewProgramPage.propTypes = {
   addProgram: PropTypes.func.isRequired
 };
 
-export default connect(null, {addProgram})(UpdateProgramPage);
+export default connect(null, {addProgram})(NewProgramPage);

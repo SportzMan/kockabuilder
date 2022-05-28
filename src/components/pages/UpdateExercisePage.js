@@ -34,13 +34,13 @@ class UpdateExercisePage extends React.Component {
     const {exercise, loading, success, errors} = this.state;
 
     return (
-      <Container fluid style={{paddingTop: "0.4rem"}}>
+      <Container fluid >
         <h1 >Gyakorlat módosítása</h1>
         <hr />
 
-        {loading && !success && <Spinner animation="border" size="xxl" role="status"  aria-hidden="true" style={{margin: "5% 50% 0"}}/>}
+        {loading && !success && <Spinner id="lodaing-spinner" animation="border" size="xxl" role="status"  aria-hidden="true"/>}
 
-        {!loading && !success &&errors.global && <Alert variant="danger"> {errors.global} </Alert>}
+        {!loading && !success && errors.global && <Alert variant="danger"> {errors.global} </Alert>}
                   
         {!loading && success && <UpdateExerciseForm submit={this.submit} exercise={exercise} deleteItem={this.deleteItem}/>}
 
