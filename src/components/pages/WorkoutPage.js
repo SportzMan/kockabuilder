@@ -7,6 +7,7 @@ import ExerciseCard from "../cards/ExerciseCard";
 import StopWatch from "../stopwatch/StopWatch";
 import SaveEventModal from "../modals/SaveEventModal";
 import PropTypes from "prop-types";
+import "../CSS/pages/WorkoutPage.css";
 
 
 class WorkoutPage extends React.Component{

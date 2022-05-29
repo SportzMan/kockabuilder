@@ -17,7 +17,7 @@ class UpdateProgramPage extends React.Component {
 
   componentDidMount() {
     this.props.getProgram(this.props.match.params.program)
-      .then(res => this.setState({ ...this.state.program, program: res, loading: false, success: true }))
+      .then(res => this.setState({ ...this.state.program, program: res, loading: false, success: true })).then(() => console.log(this.state.program))
       .catch((err) => {this.setState({...this.state.errors, errors: err.response.data.errors, loading: false, success: false})})
   }
 

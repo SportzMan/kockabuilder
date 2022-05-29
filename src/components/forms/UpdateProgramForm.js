@@ -1,6 +1,6 @@
 import React from "react";
 import Dropzone from "react-dropzone";
-import {Card, Container, Form,Button,Alert,Spinner,InputGroup,FormControl, Row, Col} from "react-bootstrap";
+import {Container, Form,Button,Alert,Spinner,InputGroup,FormControl} from "react-bootstrap";
 import { FiPlus } from "react-icons/fi";
 import {MdOutlineCancel} from "react-icons/md";
 import PropTypes from "prop-types";
@@ -23,7 +23,7 @@ class NewProgramForm extends React.Component {
       owner: this.props.user,
       workouts: this.props.program.workouts,
       thumbnailPath: this.props.program.thumbnailPath,
-      isfree: this.props.program.isfree
+      isFree: this.props.program.isFree
     },
     modal: false,
     deleteModal: false,
@@ -60,7 +60,7 @@ class NewProgramForm extends React.Component {
   // A checkbox mező változását nyomonkövető eseménykezelő
   checkChange = () => {
       this.setState({
-        program: { ...this.state.program, isfree: !this.state.program.isfree },
+        program: { ...this.state.program, isFree: !this.state.program.isFree },
       })
   };
   //
@@ -225,7 +225,7 @@ class NewProgramForm extends React.Component {
                 type="checkbox"
                 label="Érvényes tagság nélkül is megtekinthetik a felhasználók"
                 onChange={this.checkChange}
-                checked={program.isfree}
+                checked={program.isFree}
               />
         </Form.Group>
         <h6>Borítókép</h6>
@@ -241,9 +241,13 @@ class NewProgramForm extends React.Component {
             </Dropzone>)
             :
             (
-            <div className="program-thumbnail">
-              <img src={"http://localhost:8080/"+program.thumbnailPath} alt="thumbnail"/>
-              <div className="program-cancel" onClick={this.deleteThumbnail}><MdOutlineCancel id="program-cancel-icon" /></div>
+            <div className="program-thumbnail-container" >
+              <div className="program-thumbnail" >
+                  <Button variant="outline-secondary" id="program-cancel-button" onClick={() => this.deleteThumbnail()}>
+                      <MdOutlineCancel id="program-cancel-icon"/>
+                  </Button>
+                  <img src={"http://localhost:8080/"+program.thumbnailPath} alt="thumbnail"/>
+              </div>
             </div>
             )}
         </div>

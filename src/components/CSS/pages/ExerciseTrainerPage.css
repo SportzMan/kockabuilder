@@ -2,5 +2,28 @@
     width: 320px;
     position: relative;
     margin-bottom: 1rem;
-    border:1px
+    border: 1px;
+}
+
+.exerciseCard .card-img{
+    width: 320px;
+    height: 240px;
+}
+
+.exercise-info{
+    width: 80%;
+    height: 70px;
+    margin: 0 10% 0 10%;
+    bottom: 4%;
+    position: absolute;
+    color: white;
+    background-color: black;
+    opacity: 0.73;
+    border-radius: 5%;
+    box-shadow: 0 0 10px 7px black;
+}
+
+.exerciseCard:hover{
+    box-shadow: 0 0 10px 7px black;
+    border-radius: 11px;
 }

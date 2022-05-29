@@ -63,16 +63,6 @@ hr{
 }
 
 /* WorkoutPage CSS veállításai*/
-.exercise-info{
-    width: auto;
-    height: auto;
-    margin: 1rem 1rem 1rem 2rem;
-    display: inline-block;
-    color:black;
-    opacity: 0.73;
-    border-radius: 5%;
-
-}
 
 /* StopWatch CSS*/
 .stopwatch {

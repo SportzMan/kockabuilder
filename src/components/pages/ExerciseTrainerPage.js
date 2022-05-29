@@ -26,10 +26,8 @@ class ExerciseTrainerPage extends React.Component{
 
         return(
         <Container fluid id="course">
-            <div id="title-container" style={{ marginBottom: "1rem" }}>
-                <h1>Gyakorlatok</h1>
-                <hr />
-            </div>
+            <h1>Gyakorlatok</h1>
+             <hr />
             {!loading && errors.global && <Alert> <p>{errors.global}</p> </Alert>}
 
             {loading && !success && <Spinner animation="border" size="xxl" role="status"  aria-hidden="true" style={{margin: "5% 50% 0"}}/> }
@@ -40,9 +38,8 @@ class ExerciseTrainerPage extends React.Component{
                         exercises.map((exercise, index) => {
                             return (
                             <Col key={`col-${index}`}>
-                                <div className="exerciseCard"  index={index} 
-                                onClick={() => this.props.history.push("/edit_exercise/"+exercise._id)}>
-                                    <img  className="card-img" src={exercise.thumbnailPath} alt="thumbnail" style={{ width: "320px", height: "240px"}}/>
+                                <div className="exerciseCard"  index={index} onClick={() => this.props.history.push("/edit_exercise/"+exercise._id)}>
+                                    <img  className="card-img" src={exercise.thumbnailPath} alt="thumbnail"/>
                                     <div  className="exercise-info">
                                         <h4 > {`${exercise.name}`} </h4>
                                     </div>

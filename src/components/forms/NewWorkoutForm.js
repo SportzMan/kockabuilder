@@ -1,6 +1,6 @@
 import React from "react";
 import Dropzone from "react-dropzone";
-import {Card, Container, Form,Button,Alert,Spinner,InputGroup,FormControl, Row, Col, ListGroup} from "react-bootstrap";
+import {Container, Form,Button,Alert,Spinner,InputGroup,FormControl, ListGroup} from "react-bootstrap";
 import { FiPlus } from "react-icons/fi";
 import {MdOutlineCancel} from "react-icons/md";
 import PropTypes from "prop-types";
@@ -290,7 +290,7 @@ class NewWorkoutForm extends React.Component {
         </InputGroup>
 
         <h6>Borítókép</h6>
-          <div className= "dropzone-container" >
+          <div className= "workout-dropzone-container" >
           {!workout.thumbnailPath ? 
             (<Dropzone id="thumbnail-dropzone" onDrop={this.onDrop} multiple={false} maxSize={500000000} >
               {({ getRootProps, getInputProps }) => (
@@ -302,9 +302,13 @@ class NewWorkoutForm extends React.Component {
             </Dropzone>)
             :
             (
-            <div className="workout-thumbnail-container">
-              <img src={"http://localhost:8080/"+workout.thumbnailPath} alt="thumbnail"/>
-              <div className="workout-cancel"  onClick={this.deleteThumbnail}><MdOutlineCancel id="workout-cancel-icon" /></div>
+            <div className="workout-thumbnail-container" >
+              <div className="workout-thumbnail" >
+                  <Button variant="outline-secondary" id="workout-cancel-button" onClick={() => this.deleteThumbnail()}>
+                      <MdOutlineCancel id="workout-cancel-icon"/>
+                  </Button>
+                  <img src={"http://localhost:8080/"+workout.thumbnailPath} alt="thumbnail"/>
+              </div>
             </div>
             )}
           </div>

@@ -3,6 +3,7 @@ import {getExercise} from "../../actions/exercises";
 import {connect} from "react-redux";
 import VideoModal from "../modals/VideoModal";
 import {Spinner} from "react-bootstrap";
+import "../CSS/pages/ExercisePage.css";
 
 class ExerciseCard extends React.Component{
 
@@ -42,7 +43,7 @@ class ExerciseCard extends React.Component{
                 <div>
                 <VideoModal modal={modal} hideModal={this.hideModal} exercise={exercise.exercise}/>
                 <img  className="card-img" src={`http://127.0.0.1:8080/${exercise.exercise.thumbnailPath}`} alt="thumbnail" style={{width: "96px", height:"72px", margin: "0 0 2rem 0"}} onClick={() => this.showModal()}/>
-                <div className="exercise-info">
+                <div className="card-exercise-info">
                     <h5> {`${exercise.exercise.name}`} </h5> 
                     <p>{`${exercise.reps} ismétlés`}</p>
                     <p >{`Pihenés: ${exercise.reps} másodperc`}</p>

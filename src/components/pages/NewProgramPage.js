@@ -10,7 +10,7 @@ class NewProgramPage extends React.Component {
 
   submit = (program) => this.props.addProgram(program).then(res => 
     this.props.history.push({
-        pathname: "/update_program",
+        pathname: `/edit_program/${res._id}`,
         state: {name: res.name, owner: res.owner, description: res.description, thumbnailPath: res.thumbnailPath, workouts: res.workouts, isfree: res.isFree}
     })
   )

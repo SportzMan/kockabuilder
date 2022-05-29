@@ -10,12 +10,12 @@ const ItemDeleteModal = (props) => {
             </Modal.Header>
 
             <Modal.Body>
-                <p>Biztosan törölni szeretné a{props.name}? </p>
+                <p>Biztosan törölni szeretné {props.name}? </p>
             </Modal.Body>
 
             <Modal.Footer>
                 <Button variant="secondary" onClick={() => props.hideModal()}>Mégse</Button>
-                <Button variant="primary" onClick={() => props.deleteItem(props.item)}>{props.buttonName} törlése</Button>
+                <Button variant="danger" onClick={() => props.deleteItem(props.item)}>{props.buttonName} törlése</Button>
             </Modal.Footer>
         </Modal>
     )

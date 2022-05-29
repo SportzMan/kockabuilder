@@ -12,14 +12,16 @@ import { FaUser} from "react-icons/fa"
 class Header extends React.Component{
 
     render(){
-    
+        const today = new Date();
+        const membership = new Date(this.props.user.membership)
         return(
             <Navbar fixed="top" collapseOnSelect expand="lg" bg="dark" variant="dark" >
                 <Container fluid>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
                     <Navbar.Collapse style={{padding: "5px"}}>
                         <Nav className="justify-content-end" style={{ width: "100%" }}>
-
+                            { (membership < today) &&  <Button variant="primary" as={Link} to="/membership" style={{  width: "auto", position: "relative", borderRadius: "5rem", marginRight: "1rem" }}> Tagság vásárlása</Button>}
+                            { (membership >= today) &&  <Button variant="outline-primary" as={Link} to="/membership" style={{  width: "auto", position: "relative", borderRadius: "5rem", marginRight: "1rem" }}> Tagság megújítása</Button>}
                             <Button variant="dark" as={Link} to="/programbrowser" style={{  width: "6.4em", position: "relative" }}> Programok</Button>
                             {(this.props.user.isTrainer || this.props.user.isAdmin) && 
                                 <Dropdown > 
@@ -30,11 +32,11 @@ class Header extends React.Component{
                                     <Dropdown.Item as={Link} to="/my_exercises">Gyakorlatok</Dropdown.Item>
                                     <Dropdown.Item as={Link} to="/add_exercise">Új gyakorlat</Dropdown.Item>
                                     <Dropdown.Divider/>
-                                    <Dropdown.Item href="/my_workouts">Edzések</Dropdown.Item>
-                                    <Dropdown.Item href="/add_workout">Új edzés</Dropdown.Item>
+                                    <Dropdown.Item as={Link} to="/my_workouts">Edzések</Dropdown.Item>
+                                    <Dropdown.Item as={Link} to="/add_workout">Új edzés</Dropdown.Item>
                                     <Dropdown.Divider/> 
-                                    <Dropdown.Item href="/my_programs">Porgramok</Dropdown.Item>
-                                    <Dropdown.Item href="/add_program">Új program</Dropdown.Item>
+                                    <Dropdown.Item as={Link} to="/my_programs">Porgramok</Dropdown.Item>
+                                    <Dropdown.Item as={Link} to="/add_program">Új program</Dropdown.Item>
                                 </>}
                                 {this.props.user.isAdmin && <>
                                     <NavDropdown.Divider /> 

@@ -38,7 +38,7 @@ class UpdateExercisePage extends React.Component {
         <h1 >Gyakorlat módosítása</h1>
         <hr />
 
-        {loading && !success && <Spinner id="lodaing-spinner" animation="border" size="xxl" role="status"  aria-hidden="true"/>}
+        {loading && !success && <Spinner id="loading-spinner" animation="border" size="xxl" role="status"  aria-hidden="true"/>}
 
         {!loading && !success && errors.global && <Alert variant="danger"> {errors.global} </Alert>}
                   

@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import { uploadFile, deleteFile } from "../../actions/programs";
 import {getWorkouts} from "../../actions/workouts";
 import WorkoutSelectorModal from "../modals/WorkoutSelectorModal";
-
+import TrainerWorkoutCard from "../cards/TrainerWorkoutCard";
 
 
 class NewProgramForm extends React.Component {
@@ -21,7 +21,7 @@ class NewProgramForm extends React.Component {
       owner: this.props.user,
       workouts: [],
       thumbnailPath: "",
-      isfree: false
+      isFree: false
     },
     modal: false,
     loading: false,
@@ -206,42 +206,35 @@ class NewProgramForm extends React.Component {
             </Dropzone>)
             :
             (
-            <div className="program-thumbnail">
-              <img src={"http://localhost:8080/"+program.thumbnailPath} alt="thumbnail"/>
-              <div className="program-cancel" onClick={this.deleteThumbnail}>
-                <MdOutlineCancel id="program-cancel-icon" />
+            <div className="program-thumbnail-container" >
+              <div className="program-thumbnail" >
+                  <Button variant="outline-secondary" id="program-cancel-button" onClick={() => this.deleteThumbnail()}>
+                      <MdOutlineCancel id="program-cancel-icon"/>
+                  </Button>
+                  <img src={"http://localhost:8080/"+program.thumbnailPath} alt="thumbnail"/>
               </div>
             </div>
             )}
           </div>
 
-        <h6>Edzések</h6>
-        <Container fluid id="training-container" >
+          <h6>Edzések</h6>
+        <Container fluid id="workout-container">
             <div className="add-button-container" >
                 <Button variant="outline-secondary" onClick={this.showModal} >
                   <FiPlus />
                 </Button>
             </div>
-        <Row xs ={1} md={2} lg={4} xl={4} className="g-4" >
+        <div className="workout-flexbox-container">
             {
           // A programm.workouts változóban tárolt elemeket a map() függvény segtségével összekapcsoljuk az alább található HTML komponenssel
-          // A React megköveteli az egyedi key értékek használatát a map() függvény használata esetén. Az egyedi kulcsok generálása az "index" paraméterrel történt.
+          // Megkövetelt az egyedi key értékek használata a map() függvény használata esetén. Az egyedi kulcsok generálása az "index" paraméterrel történt.
           program.workouts.map((workout, index) => {
             return (
-                <Col key={`col-${index}`}>
-                    <Card index={index}>
-                        <Card.Img variant="top" src={`http://127.0.0.1:8080/${workout.thumbnailPath}`} />
-                        <div className="workout-cancel" ><MdOutlineCancel id="workout-cancel-icon" onClick={() => this.removeWorkout(index)}/></div>
-                        <div className="workout-index" > <p>{`${index+1}. nap`}</p></div>
-                        <Card.Body>
-                            <Card.Title>{workout.name}</Card.Title>
-                        </Card.Body>
-                    </Card>
-                </Col>
+              <TrainerWorkoutCard key={index} workout={workout.workout} index={index} />
             );
         })
             } 
-        </Row>
+        </div>
         </Container>
         {!loading ? (
           <Button id="save-button" variant="primary" type="submit"> Mentés </Button>

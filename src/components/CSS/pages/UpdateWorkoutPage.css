@@ -76,3 +76,166 @@
     position: absolute;
     right: 1.5rem;
 }
+
+#loading-spinner{
+    margin: 5% 50% 0;
+}
+
+#workoutName, #workoutDesc{
+    padding-bottom: 1.5rem;
+}
+
+#workoutName .form-control, #workoutDesc .form-control{
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.workout-dropzone-container{
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    width: 100%; 
+    border: 1px solid lightgray;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+}
+
+.plus-button-container{
+    width: 320px;
+    height: 240px;
+    border: 1px solid lightgray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.plus-button-container #plus-button{
+    font-size: 3rem; 
+}
+
+.workout-thumbnail-container{
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    border: 1px solid lightgray;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+}
+
+.workout-thumbnail-container .workout-thumbnail{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 344px;
+    height: 264px;
+    background-color: black;
+    border-radius: 11px;
+    box-shadow: 0 0 9px 7px black;
+}
+
+.workout-thumbnail-container .workout-thumbnail #workout-cancel-button{
+    border-radius: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1rem;
+    height: 1rem;
+    padding: 0;
+    border-style: none;
+    right: 0rem;
+    top: 0rem;
+}
+
+.workout-thumbnail-container .workout-thumbnail img{
+    width: 320px;
+    height: 240px;
+    border-radius: 11px;
+}
+
+#exercise-container{
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.list-group{
+    margin: 2rem 0.25rem 2rem 0.25rem;
+    border-radius: 10px;
+    box-shadow: 0 0 7px 7px rgba(190, 183, 183, 0.829);
+    width: auto;
+}
+
+#workoutRounds{
+    margin: 1.5rem 0rem 0.5rem 0rem;
+}
+
+#workoutRounds .form-label{
+    margin: 1.5rem 0rem 0.5rem 0rem;
+}
+#workoutRounds .form-control{
+    margin: 0rem 0rem 0rem 1.5rem;
+    border-radius: "5px";
+}
+
+.exercise-container .form-check{
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.exercise-container .input-group{
+    margin: 0;
+}
+
+#workoutReps, #workoutRest{
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.add-exercise-button-container{
+    margin: 0.5rem 0rem 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.add-exercise-button-container #exercise-button{
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-group-button-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.add-group-button-container #group-button{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.workout-command-button-container{
+    position: absolute;
+    right: 25px;
+}
+
+.workout-command-button-container .btn{
+    margin-left: 1rem;
+    margin-bottom: 1.5rem;
+}

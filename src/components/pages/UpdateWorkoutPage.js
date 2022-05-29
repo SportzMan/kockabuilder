@@ -32,12 +32,10 @@ class UpdateWorkoutPage extends React.Component {
     const {workout, loading, success, errors} = this.state;
     return (
 
-      <Container fluid style={{ paddingTop: "0.4rem" }}>
-        <div id="title-container" style={{ marginBottom: "1rem" }}>
-          <h1>Edzés módosítása</h1>
-          <hr />
-        </div>
-        {loading && !success && <Spinner animation="border" size="xxl" role="status"  aria-hidden="true" style={{margin: "5% 50% 0"}}/> }
+      <Container fluid >
+        <h1>Edzés módosítása</h1>
+        <hr />
+        {loading && !success && <Spinner id="loading-spinner" animation="border" size="xxl" role="status"  aria-hidden="true" /> }
         {!loading && success && <UpdateWorkoutForm submit={this.submit} workout={workout} deleteItem={this.deleteItem}/>}
         {!loading && !success && errors.global && <Alert variant="danger"> <p>{errors.global}</p></Alert>}
       </Container>

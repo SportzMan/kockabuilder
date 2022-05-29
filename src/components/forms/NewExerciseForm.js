@@ -125,9 +125,13 @@ class NewExerciseForm extends React.Component{
                     </Dropzone>)
                     :
                     (
-                    <div className="exercise-thumbnail" >
-                        <img src={"http://localhost:8080/"+exercise.thumbnailPath} alt="thumbnail" />
-                        <div className="exercise-cancel"  onClick={this.deleteThumbnail}><MdOutlineCancel id="exercise-cancel-icon" /></div>
+                    <div className="exercise-thumbnail-container" >
+                        <div className="exercise-thumbnail" >
+                            <Button variant="outline-secondary" id="exercise-cancel-button" onClick={() => this.deleteThumbnail()}>
+                                <MdOutlineCancel id="exercise-cancel-icon"/>
+                            </Button>
+                            <img src={"http://localhost:8080/"+exercise.thumbnailPath} alt="thumbnail"/>
+                        </div>
                     </div>
                     )}
                 </div>

@@ -17,3 +17,21 @@
     width: 320px;
     height: 240px;
 }
+
+.program-info{
+    width: 80%;
+    height: 70px;
+    margin: 0 10% 0 10%;
+    bottom: 4%;
+    position: absolute;
+    color: white;
+    background-color: black;
+    opacity: 0.73;
+    border-radius: 5%;
+    box-shadow: 0 0 10px 7px black;
+}
+
+.programCard:hover{
+    box-shadow: 0 0 10px 7px black;
+    border-radius: 11px;
+}

@@ -7,6 +7,7 @@ import {connect} from "react-redux";
 import {addExercise, uploadFile, createThumbnail, deleteFiles} from '../../actions/exercises';
 import {MdOutlineCancel} from "react-icons/md";
 import ItemDeleteModal from "../modals/ItemDeleteModal";
+import {Link} from 'react-router-dom';
 
 class NewExerciseForm extends React.Component{
 
@@ -104,7 +105,7 @@ class NewExerciseForm extends React.Component{
         return(
 
             <Form noValidate onSubmit={this.onSubmit} >
-            <ItemDeleteModal modal={modal} name=" gyakorlatot" item={exercise} buttonName="Gyakorlat" hideModal={this.hideModal} deleteItem={this.props.deleteItem}/>
+            <ItemDeleteModal modal={modal} name="a gyakorlatot" item={exercise} buttonName="Gyakorlat" hideModal={this.hideModal} deleteItem={this.props.deleteItem}/>
 
                 {!loading&&success &&<Alert variant="success" >A gyakorlat sikeresen módosítva!</Alert>}
 
@@ -133,7 +134,7 @@ class NewExerciseForm extends React.Component{
                 </InputGroup>
 
                 <h6>Videófájl</h6>
-                <div className="dropzone-container" >
+                <div className="exercise-dropzone-container" >
                 {!exercise.thumbnailPath ? 
                     (<Dropzone onDrop={this.onDrop} multiple={false} maxSize={500000000} >
                     {({ getRootProps, getInputProps }) => (
@@ -147,7 +148,7 @@ class NewExerciseForm extends React.Component{
                     (
                     <div className="exercise-thumbnail-container" >
                         <div className="exercise-thumbnail" >
-                            <Button variant="outline-secondary" id="exercise-cancel-button" onClick={() => this.deleteThumbnail}>
+                            <Button variant="outline-secondary" id="exercise-cancel-button" onClick={() => this.deleteThumbnail()}>
                                 <MdOutlineCancel id="exercise-cancel-icon"/>
                             </Button>
                             <img src={"http://localhost:8080/"+exercise.thumbnailPath} alt="thumbnail"/>
@@ -171,8 +172,8 @@ class NewExerciseForm extends React.Component{
                             <span className="sr-only">Módosít...</span>
                         </Button>
                     )  }
-                    <Button variant="danger" onClick={this.showModal}>Törlés</Button>
-                    <Button variant="secondary">Vissza</Button>
+                    <Button variant="outline-danger" onClick={this.showModal}>Törlés</Button>
+                    <Button variant="outline-secondary" as={Link} to="/my_exercises">Vissza</Button>
                 </div>
             </Form> )
 

@@ -28,7 +28,7 @@ const WorkoutSelectorModal = (props) => {
     return (
         <Modal show={props.modal} onHide={closeModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Gyakorlat kiválasztása</Modal.Title>
+          <Modal.Title>Edzés kiválasztása</Modal.Title>
         </Modal.Header>
         <Modal.Body className="show-grid" style={{ height: "20rem", overflowY: "auto" }}
         >
