@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert, Container, Row, Col, Spinner} from "react-bootstrap"
+import {Alert, Container, Spinner} from "react-bootstrap"
 import {getProgram} from "../../actions/programs";
 import {connect} from "react-redux";
 import WorkoutCard from "../cards/WorkoutCard";
@@ -45,18 +45,16 @@ class ProgramPage extends React.Component{
                     </div>
                     <div className="workouts-container" >
                         <h5> Edzések </h5>
-                        <Row xs={1} md={2} lg={2} xl={4}>
+                        <div className="workouts-flexbox-container">
                         {
                             program.workouts.map((workout, index) =>{
                                 return(
-                                <Col key={`col-${index}`}>
-                                    <WorkoutCard workout={workout.workout} open={this.props.history.push} index={index}/>
-                                </Col>
+                                    <WorkoutCard workout={workout} open={this.props.history.push} index={index}/>
                                 )
 
                             })
                         }
-                        </Row>
+                        </div>
                     </div>
                 </> 
             }

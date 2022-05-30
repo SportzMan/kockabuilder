@@ -1,7 +1,9 @@
 import React from "react";
 import {getWorkout} from "../../actions/workouts";
 import {connect} from "react-redux";
-import {Spinner} from "react-bootstrap";
+import {Button, Spinner} from "react-bootstrap";
+import {MdOutlineCancel} from "react-icons/md";
+import "../CSS/cards/TrainerWorkoutCard.css";
 
 class TrainerWorkoutCard extends React.Component{
 
@@ -24,17 +26,20 @@ class TrainerWorkoutCard extends React.Component{
         const {workout, loading} = this.state;
 
         return(
-            <div style={{ margin: "1rem", width: "240px", position: "relative",  marginBottom: "1rem" }} className="workoutCard" >
-                {loading ? (<Spinner animation="border" size="xxl" role="status"  aria-hidden="true" style={{margin: "5% 50% 0"}}/>) 
+            <div className="workoutCard" >
+                {loading ? (<Spinner id="loading-spinner" animation="border" size="xxl" role="status"  aria-hidden="true"/>) 
             : (
-                <div>
-                <img  className="card-img" src={`http://localhost:8080/${workout.thumbnailPath}`} alt="thumbnail" style={{width: "240px", height:"160px"}}/>
-                <div  className="workout-info">
-                    <h4> {`${this.props.index+1}. nap`} </h4>
-                    <h5> {`${workout.name}`} </h5>
+                <>
+                    <Button variant="outline-danger" id="workout-remove-button" onClick={() => this.props.removeWorkout(this.props.index)}>
+                        <MdOutlineCancel id="workout-remove-icon"/>
+                    </Button>
+                    <img  className="card-img" src={`http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/${workout.thumbnailPath}`} alt="thumbnail" />
+                    <div  className="workout-info">
+                        <h4> {`${this.props.index+1}. nap`} </h4>
+                        <h5> {`${workout.name}`} </h5>
 
-                </div>
-                </div> )}
+                    </div>
+                </> )}
             </div>
         )
     }

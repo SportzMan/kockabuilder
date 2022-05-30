@@ -10,10 +10,9 @@ import {getWorkouts} from "../../actions/workouts";
 import WorkoutSelectorModal from "../modals/WorkoutSelectorModal";
 import ItemDeleteModal from "../modals/ItemDeleteModal";
 import TrainerWorkoutCard from "../cards/TrainerWorkoutCard";
-
+import {Link} from 'react-router-dom';
 
 class NewProgramForm extends React.Component {
-  _isMounted = false;
 
   state = {
     program: {
@@ -75,7 +74,7 @@ class NewProgramForm extends React.Component {
     if (Object.keys(errors).length > 0){
         this.setState({errors});
 
-    } else if(this._isMounted){
+    } else{
         this.setState({loading: true});
           this.props.submit(program)
           .then(() => this.setState({ loading: false}))
@@ -130,7 +129,6 @@ class NewProgramForm extends React.Component {
   // Az új edzés hozzáadásáért felelős függvény
   addWorkout = (workout) => {
       var add = this.state.program.workouts;
-      console.log(workout)
       add.push(workout);
       this.setState({program: {...this.state.program, workouts: add }})
   };
@@ -179,15 +177,9 @@ class NewProgramForm extends React.Component {
 
     return (
       <Form noValidate onSubmit={this.onSubmit}>
+        {errors.global && <Alert variant="danger"> {errors.global} </Alert>}
+        <ItemDeleteModal modal={deleteModal} name="a programot" item={program} buttonName="Program" hideModal={this.hideDeleteModal} deleteItem={this.props.deleteItem}/>
 
-        <ItemDeleteModal modal={deleteModal} name=" programot" item={program} buttonName="Program" hideModal={this.hideDeleteModal} deleteItem={this.props.deleteItem}/>
-
-        {!loading && !success && errors.global && (
-          <Alert variant="danger">
-            <Alert.Heading>Hiba!</Alert.Heading>
-            <p>{errors.global}</p>
-          </Alert>
-        )}
         <WorkoutSelectorModal modal={modal} Workouts={Workouts} hideModal={this.hideModal} addWorkout={this.addWorkout}/>
 
         <InputGroup controlid="programName" id="programName">
@@ -246,7 +238,7 @@ class NewProgramForm extends React.Component {
                   <Button variant="outline-secondary" id="program-cancel-button" onClick={() => this.deleteThumbnail()}>
                       <MdOutlineCancel id="program-cancel-icon"/>
                   </Button>
-                  <img src={"http://localhost:8080/"+program.thumbnailPath} alt="thumbnail"/>
+                  <img src={`http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/${program.thumbnailPath}`} alt="thumbnail"/>
               </div>
             </div>
             )}
@@ -265,7 +257,7 @@ class NewProgramForm extends React.Component {
           // Megkövetelt az egyedi key értékek használata a map() függvény használata esetén. Az egyedi kulcsok generálása az "index" paraméterrel történt.
           program.workouts.map((workout, index) => {
             return (
-              <TrainerWorkoutCard key={index} workout={workout.workout} index={index} />
+              <TrainerWorkoutCard key={index} workout={workout} index={index} removeWorkout={this.removeWorkout}/>
             );
         })
             } 
@@ -273,7 +265,7 @@ class NewProgramForm extends React.Component {
         </Container>
         <div className="command-button-container">
           {!loading ? (
-            <Button variant="primary" type="submit"> Mentés </Button>
+            <Button variant="primary" type="submit" > Mentés </Button>
           ) : (
             <Button variant="primary" disabled >
               <Spinner
@@ -287,7 +279,7 @@ class NewProgramForm extends React.Component {
             </Button>
           )}
           <Button variant="outline-danger" onClick={this.showDeleteModal}>Törlés</Button>
-          <Button variant="outline-secondary" >Vissza</Button>
+          <Button variant="outline-secondary" as={Link} to="/my_programs">Vissza</Button>
         </div>
       </Form>
     );

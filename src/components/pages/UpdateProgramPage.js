@@ -27,7 +27,7 @@ class UpdateProgramPage extends React.Component {
   deleteItem = (program) => 
   this.props.deleteProgram(program).then(() =>{
     this.props.deleteFile({thumbnailPath: program.thumbnailPath})
-  })
+  }).then(() => this.props.history.push(`/my_programs`))
 
   render(){
     const {program, loading, success, errors} = this.state;

@@ -307,7 +307,7 @@ class NewWorkoutForm extends React.Component {
                   <Button variant="outline-secondary" id="workout-cancel-button" onClick={() => this.deleteThumbnail()}>
                       <MdOutlineCancel id="workout-cancel-icon"/>
                   </Button>
-                  <img src={"http://localhost:8080/"+workout.thumbnailPath} alt="thumbnail"/>
+                  <img src={`http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/${workout.thumbnailPath}`} alt="thumbnail"/>
               </div>
             </div>
             )}
@@ -353,7 +353,7 @@ class NewWorkoutForm extends React.Component {
                         </div>   
                         <div className="exercise-header-container">
                           <div className="exercise-img-container">
-                            <img className="exercise-thumbnail" src={`http://127.0.0.1:8080/${exercise.exercise.thumbnailPath}`}/>
+                            <img className="exercise-thumbnail" src={`http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/${exercise.exercise.thumbnailPath}`}/>
                             <p className="exercise-name-paragraph">{exercise.exercise.name}</p>
                           </div>
                         </div>

@@ -72,8 +72,8 @@ class NewProgramForm extends React.Component {
     } else if(this._isMounted){
         this.setState({loading: true});
           this.props.submit(program)
-          .then(() => this.setState({ loading: false}))
-          .catch(err => this.setState({errors: { ...this.state.errors, errors: err.response.data.errors}, loading: false}));
+          .then(() => this.setState({ loading: false, success: true}))
+          .catch(err => this.setState({errors: { ...this.state.errors, errors: err.response.data.errors}, loading: false, success: true}));
 
     }
   }
@@ -133,16 +133,11 @@ class NewProgramForm extends React.Component {
   };
 
   render() {
-    const { program, errors, loading, Workouts, modal } = this.state;
+    const { program, errors, loading, success, Workouts, modal } = this.state;
 
     return (
       <Form noValidate onSubmit={this.onSubmit}>
-        {errors.global && (
-          <Alert variant="danger">
-            <Alert.Heading>Hiba!</Alert.Heading>
-            <p>{errors.global}</p>
-          </Alert>
-        )}
+        {errors.global && <Alert variant="danger"> {errors.global} </Alert>}
         <WorkoutSelectorModal modal={modal} Workouts={Workouts} hideModal={this.hideModal} addWorkout={this.addWorkout}/>
 
         <InputGroup controlid="programName" id="programName">
@@ -188,7 +183,7 @@ class NewProgramForm extends React.Component {
                 type="checkbox"
                 label="Érvényes tagság nélkül is megtekinthetik a felhasználók"
                 onChange={this.checkChange}
-                checked={program.isfree}
+                checked={program.isFree}
               />
         </Form.Group>
           <h6>Borítókép</h6>
@@ -211,7 +206,7 @@ class NewProgramForm extends React.Component {
                   <Button variant="outline-secondary" id="program-cancel-button" onClick={() => this.deleteThumbnail()}>
                       <MdOutlineCancel id="program-cancel-icon"/>
                   </Button>
-                  <img src={"http://localhost:8080/"+program.thumbnailPath} alt="thumbnail"/>
+                  <img src={`http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/${program.thumbnailPath}`} alt="thumbnail"/>
               </div>
             </div>
             )}
@@ -230,7 +225,7 @@ class NewProgramForm extends React.Component {
           // Megkövetelt az egyedi key értékek használata a map() függvény használata esetén. Az egyedi kulcsok generálása az "index" paraméterrel történt.
           program.workouts.map((workout, index) => {
             return (
-              <TrainerWorkoutCard key={index} workout={workout.workout} index={index} />
+              <TrainerWorkoutCard key={index} workout={workout} index={index} />
             );
         })
             } 

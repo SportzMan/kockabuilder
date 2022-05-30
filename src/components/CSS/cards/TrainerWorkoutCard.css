@@ -1,0 +1,47 @@
+.workoutCard{
+    margin: 1rem;
+    width: 240px;
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.workoutCard:hover{
+    box-shadow: 0 0 10px 7px black;
+    border-radius: 11px;
+}
+
+.workoutCard .workout-info{
+    width: 80%;
+    height: 70px;
+    margin: 0 10% 0 10%;
+    bottom: 4%;
+    position: absolute;
+    color: white;
+    background-color: black;
+    opacity: 0.73;
+    border-radius: 5%;
+    box-shadow: 0 0 10px 7px black;
+}
+
+.workoutCard .card-img{
+    width: 240px;
+    height: 160px;
+}
+
+.workoutCard #workout-remove-button{
+    position: absolute;
+    right: 0.2rem;
+    top: 0.2rem;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 100%;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-style: none;
+}
+
+#loading-spinner{
+    margin: 5% 50% 0;
+}

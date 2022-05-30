@@ -8,3 +8,38 @@
     border-radius: 5%;
 
 }
+
+#loading-spinner{
+    margin: 5% 50% 0;
+}
+
+.description-container{
+    margin: 2rem 5% 0 5%;
+    padding: 5px 15px;
+    background-color: rgba(255, 255, 255, 0.76);
+    border-radius: 15px;
+    box-shadow: 0 0 7px 7px rgba(190, 183, 183, 0.829);
+}
+
+.description-container h5{
+    padding: 0;
+}
+
+.description-container p{
+    word-wrap: break-word;
+}
+
+#workout-browser-group{
+    margin: 2rem 1rem  2rem 1rem;
+    border-radius: 10px;
+    box-shadow: 0 0 7px 7px rgba(190, 183, 183, 0.829);
+    width: auto;
+}
+
+#workout-browser-group h5{
+    padding: 0;
+}
+
+.stopwatch h5{
+    padding: 0;
+}

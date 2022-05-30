@@ -13,6 +13,7 @@ import decode from 'jwt-decode';
 import { userLoggedIn } from './actions/auth';
 
 
+
 const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(thunk))

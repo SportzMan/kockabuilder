@@ -28,7 +28,7 @@ class UpdateExercisePage extends React.Component {
     this.props.deleteExercise(exercise)
       .then(() =>{
         this.props.deleteFiles({thumbnailPath: exercise.thumbnailPath, filePath: exercise.filePath})
-      }).then(() => this.props.history.push(`/`))
+      }).then(() => this.props.history.push(`/my_exercises`))
 
   render() {
     const {exercise, loading, success, errors} = this.state;

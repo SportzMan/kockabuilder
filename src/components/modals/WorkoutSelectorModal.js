@@ -54,7 +54,7 @@ const WorkoutSelectorModal = (props) => {
                         <div style={{ width: "300px", position: "relative" }}>
                           <img
                             className="card-img"
-                            src={`http://127.0.0.1:8080/${workout.thumbnailPath}`}
+                            src={`http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/${workout.thumbnailPath}`}
                             alt="thumbnail"
                           />
                           <div className="workout-name">

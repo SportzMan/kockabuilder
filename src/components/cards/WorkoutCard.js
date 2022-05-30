@@ -29,7 +29,7 @@ class WorkoutCard extends React.Component{
                 {loading ? (<Spinner animation="border" size="xxl" role="status"  aria-hidden="true" style={{margin: "5% 50% 0"}}/>) 
             : (
                 <div>
-                <img  className="card-img" src={`http://localhost:8080/${workout.thumbnailPath}`} alt="thumbnail" style={{width: "240px", height:"160px"}}/>
+                <img  className="card-img" src={`http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/${workout.thumbnailPath}`} alt="thumbnail" style={{width: "240px", height:"160px"}}/>
                 <div  className="workout-info">
                     <h4> {`${this.props.index+1}. nap`} </h4>
                     <h5> {`${workout.name}`} </h5>

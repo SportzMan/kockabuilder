@@ -7,7 +7,7 @@ const ItemDeleteModal = (props) => {
         <Modal show={props.modal} onHide={props.hideModal}>
             <Modal.Title>{props.exercise.name} </Modal.Title>
 
-            <video src={`http://127.0.0.1:8080/${props.exercise.filePath}`} style={{width: "100%"}} controls />
+            <video src={`http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/${props.exercise.filePath}`} style={{width: "100%"}} controls />
 
         </Modal>
     )

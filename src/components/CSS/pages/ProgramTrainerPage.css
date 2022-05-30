@@ -6,10 +6,11 @@
     margin-top: 2%;
 }
 
-.programCard{
+.programs-flexbox-container .programCard{
     width: 320px;
     position: relative;
     margin-bottom: 1rem;
+    margin-right: 2.5rem;
     border: 1px;
 }
 
@@ -34,4 +35,9 @@
 .programCard:hover{
     box-shadow: 0 0 10px 7px black;
     border-radius: 11px;
+}
+
+.programs-flexbox-container{
+    display: flex;
+    flex-wrap: wrap;
 }

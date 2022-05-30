@@ -26,7 +26,7 @@ class UpdateWorkoutPage extends React.Component {
   deleteItem = (workout) => 
   this.props.deleteWorkout(workout).then(() =>{
     this.props.deleteFile({thumbnailPath: workout.thumbnailPath})
-  })
+  }).then(() => this.props.history.push(`/my_workouts`))
 
   render(){
     const {workout, loading, success, errors} = this.state;
