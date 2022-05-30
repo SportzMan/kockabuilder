@@ -40,7 +40,7 @@ class ProgramPage extends React.Component{
             {!loading && success &&
                 <>          
                     <div className="program-header">
-                        <h5> Leírás </h5>
+                        <h5> Leírás: </h5>
                         <p>{program.description}</p>
                     </div>
                     <div className="workouts-container" >

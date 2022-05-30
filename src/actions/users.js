@@ -1,6 +1,6 @@
 import api from "../api";
 import {userLoggedIn} from './auth';
-import {USER_UPDATED, USERS_FETCHED} from "../types";
+import {USER_UPDATED} from "../types";
 
 export const ProfileUpdated = (user) => ({
     type: USER_UPDATED,
@@ -24,3 +24,5 @@ export const updateUserProfile = (data) => (dispatch) => api.user.updateUserProf
 export const updateMembership = (data) => (dispatch) => api.user.updateMembership(data);
 
 export const getAllUsers = () => (dispatch) => api.user.getAllUsers();
+
+export const deleteUser = (user) => (dispatch) => api.user.deleteUser(user);

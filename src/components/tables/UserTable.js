@@ -33,7 +33,7 @@ const UserTable = ({columns, data, setSelectedMail}) => {
   };
 
   return (
-    <Container fluid>      
+    <Container fluid>
       <input
       value={filterInput}
       onChange={handleFilterChange}

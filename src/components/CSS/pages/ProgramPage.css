@@ -27,3 +27,7 @@ p{
     display: flex;
     flex-wrap: wrap;
 }
+
+.program-header h5, .workouts-container h5{
+    padding: 0;
+}

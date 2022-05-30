@@ -40,6 +40,9 @@ const api = {
         updateMembership: (data) =>
         axios.post("api/users/membership", {data}).then(res => res.data.user),
 
+        deleteUser: (user) => 
+        axios.post("/api/users/delete_user", {user}),
+
     },
     // A gyakorlat objektumhoz köthető API hívások
     exercise: {

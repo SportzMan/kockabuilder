@@ -1,8 +1,9 @@
 import React from "react";
-import { Alert, Form, Button, Spinner } from "react-bootstrap";
+import { Alert, Form, Button, Spinner, InputGroup } from "react-bootstrap";
 import Validator from "validator";
 import PropTypes from "prop-types";
 import api from "../../api";
+import ItemDeleteModal from "../modals/ItemDeleteModal";
 
 class UserProfileForm extends React.Component {
   state = {
@@ -13,6 +14,7 @@ class UserProfileForm extends React.Component {
       isTrainer: null,
       membership: "",
     },
+    modal: false,
     loading: true,
     success: false,
     mLoading: false,
@@ -24,18 +26,10 @@ class UserProfileForm extends React.Component {
     api.user
       .getUserInfo(this.state.data)
       .then((user) => {
-        this.setState({
-          ...this.state.data,
-          data: user,
-          loading: false,
-          success: true
-        });
+        this.setState({...this.state.data, data: user, loading: false, success: true});
       })
       .catch(() =>
-        this.setState({
-          loading: false,
-          success: false
-        })
+        this.setState({loading: false,success: false})
       );
   }
 
@@ -54,6 +48,14 @@ class UserProfileForm extends React.Component {
     this.setState({
       data: { ...this.state.data, isTrainer: !this.state.data.isTrainer },
     });
+  };
+
+  hideModal = () => {
+    this.setState({modal: false})
+  };
+
+  showModal = () => {
+    this.setState({modal: true})
   };
 
   onSubmit = (e) => {
@@ -81,11 +83,11 @@ class UserProfileForm extends React.Component {
   };
 
   render() {
-    const { data, loading, success, mLoading, mSuccess, errors } = this.state;
+    const { data, loading, success, mLoading, mSuccess, errors, modal } = this.state;
 
     return (
       <Form noValidate onSubmit={this.onSubmit}>
-
+        <ItemDeleteModal modal={modal} name="a felhasználót" item={data} buttonName="Felhasználó" hideModal={this.hideModal} deleteItem={this.props.deleteItem}/>
         {errors.global && 
           <Alert  variant="success"> 
             <Alert.Heading> Hiba! </Alert.Heading>
@@ -105,8 +107,8 @@ class UserProfileForm extends React.Component {
         )}
         {!loading && success && (
           <>
-            <Form.Group controlId="formUsername">
-              <Form.Label>Felhasználónév</Form.Label>
+            <InputGroup controlid="formUsername">
+              <InputGroup.Text>Felhasználónév</InputGroup.Text>
               <Form.Control
                 name="username"
                 type="username"
@@ -115,9 +117,9 @@ class UserProfileForm extends React.Component {
                 disabled
               />
               <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email</Form.Label>
+            </InputGroup>
+            <InputGroup controlid="formBasicEmail">
+              <InputGroup.Text>Email</InputGroup.Text>
               <Form.Control
                 name="email"
                 type="email"
@@ -127,9 +129,9 @@ class UserProfileForm extends React.Component {
                 disabled
               />
               <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group controlId="formMembership">
-              <Form.Label>Tagság érvényessége</Form.Label>
+            </InputGroup>
+            <InputGroup controlid="formMembership">
+              <InputGroup.Text>Tagság érvényessége</InputGroup.Text>
               <br></br>
 
               <Form.Control
@@ -139,10 +141,9 @@ class UserProfileForm extends React.Component {
                 onChange={this.onChange}
                 isInvalid={!!errors.membership}
               />
-            </Form.Group>
-            <Form.Group controlId="formUserRights">
-              <Form.Label>Jogosultságok</Form.Label>
-              <br></br>
+            </InputGroup>
+            <h6>Jogosultságok</h6>
+            <InputGroup controlid="formUserRights">
               <Form.Check
                 inline
                 name="isAdmin"
@@ -159,27 +160,26 @@ class UserProfileForm extends React.Component {
                 checked={this.state.data.isTrainer}
                 onChange={this.handleTrainerChange}
               />
-            </Form.Group>
+            </InputGroup>
             <br></br>
-            {!mLoading ? (
-              <Button variant="primary" type="submit">
-                Módosít
-              </Button>
-            ) : (
-              <Button variant="primary" disabled>
-                <Spinner
-                  as="span"
-                  animation="border"
-                  size="sm"
-                  role="status"
-                  aria-hidden="true"
-                />
-                <span className="sr-only">Módosít...</span>
-              </Button>
-            )}{" "}
-            <Button variant="secondary" onClick={this.props.resetSelectedMail}>
-              Mégse
-            </Button>
+            <div className="manage-control-buttons">
+              {!mLoading ? (
+                <Button variant="primary" type="submit"> Módosít </Button>
+              ) : (
+                <Button variant="primary" disabled>
+                  <Spinner
+                    as="span"
+                    animation="border"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                  <span className="sr-only">Módosít...</span>
+                </Button>
+              )}
+              <Button variant="outline-danger" onClick={this.showModal}> Törlés </Button>
+              <Button variant="outline-secondary" onClick={this.props.resetSelectedMail}> Mégse </Button>
+            </div>
           </>
         )}
       </Form>

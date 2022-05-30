@@ -2,9 +2,9 @@ import React from 'react';
 import { Alert, Badge, Container, Form, Spinner } from 'react-bootstrap';
 import UserTable from "../tables/UserTable";
 import UserProfileForm from "../forms/UserProfileForm";
-import {getAllUsers, updateUserProfile} from "../../actions/users";
+import {getAllUsers, updateUserProfile, deleteUser} from "../../actions/users";
 import {connect} from 'react-redux';
-
+import "../CSS/pages/UserManagementPage.css";
 
 class UserManagementPage extends React.Component {
 
@@ -33,13 +33,17 @@ class UserManagementPage extends React.Component {
       .catch((err) => this.setState({ errors: err.response.data.errors, loading: false, success: false }))
   };
 
+  deleteItem = (user) => {
+    this.props.deleteUser(user).then(() => this.resetSelectedMail())
+  };
+
   submit = (data) => 
     this.props.updateUserProfile(data)
   
-render(){
+  render(){
   const {data, selectedMail, loading, success, errors} = this.state; 
   // A táblázat oszlopainak és fejlécének definiálása
-const columns =  [
+  const columns =  [
     {
       Header: "Felhasználónév",
       accessor: "username"
@@ -81,13 +85,10 @@ const columns =  [
   ];
 
     return(
-
       <Container fluid>
 
-        {!(selectedMail === null) ? (
-          <h1>Felhasználó adatai</h1> )
-        : (<h1>Felhasználók kezelése</h1>)}
-
+        {!(selectedMail === null) ? (<h1>Felhasználó adatai</h1> ) : (<h1>Felhasználók kezelése</h1>)}
+        <hr/>
         { errors.global&& 
           <Alert  variant="danger">
             <Alert.Heading> Hiba! </Alert.Heading>
@@ -96,7 +97,7 @@ const columns =  [
         }
         
         { (loading && !success) ? (
-          <div style={{display: 'flex', justifyContent: 'center', alignItems: "center" }}>          
+          <div className="spinner-container">          
           <Spinner
               as="span"
               animation="border"
@@ -107,7 +108,7 @@ const columns =  [
           </div> ):(
               <>
                 {!(selectedMail === null) ? (
-                <UserProfileForm email={selectedMail} resetSelectedMail={this.resetSelectedMail} submit={this.submit}/> )
+                <UserProfileForm email={selectedMail} resetSelectedMail={this.resetSelectedMail} submit={this.submit} deleteItem={this.deleteItem}/> )
               : (<UserTable columns={columns} data={data} setSelectedMail={this.setSelectedMail} />)}
               </>
             )}
@@ -120,4 +121,4 @@ const columns =  [
 }
 
 
-export default connect(null, {getAllUsers, updateUserProfile})(UserManagementPage);
+export default connect(null, {getAllUsers, updateUserProfile, deleteUser})(UserManagementPage);

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert, Container, Row, Col, Spinner} from "react-bootstrap"
+import {Alert, Container, Spinner} from "react-bootstrap"
 import {getPrograms} from "../../actions/programs";
 import {connect} from "react-redux";
 import "../CSS/pages/ProgramTrainerPage.css";
@@ -29,7 +29,7 @@ class ProgramTrainerPage extends React.Component{
             <h1>Programok</h1>
             <hr />
             {!loading && errors.global && <Alert> <p>{errors.global}</p> </Alert>}
-
+            {!loading && success && (programs.length === 0) && <Alert variant='warning'> Még nem töltött fel programot a rendszerbe!</Alert>}
             {loading && !success && <Spinner id="loading-spinner" animation="border" size="xxl" role="status"  aria-hidden="true"/> }
             
             {!loading && success &&
@@ -49,7 +49,6 @@ class ProgramTrainerPage extends React.Component{
                     }
                 </div>
             }
-        {!loading && success && (programs.length === 0) && <Alert variant='warning'> Még nem töltött fel programot a rendszerbe!</Alert>}
 
         </Container>
         )

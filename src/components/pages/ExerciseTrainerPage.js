@@ -33,22 +33,20 @@ class ExerciseTrainerPage extends React.Component{
             {loading && !success && <Spinner animation="border" size="xxl" role="status"  aria-hidden="true" style={{margin: "5% 50% 0"}}/> }
             
             {!loading && success &&
-                <Row xs={1} md={2} lg={2} xl={4} style={{ marginTop: "2%"}}>
+                <div className="exercise-flexbox-container">
                     {
                         exercises.map((exercise, index) => {
                             return (
-                            <Col key={`col-${index}`}>
-                                <div className="exerciseCard"  index={index} onClick={() => this.props.history.push("/edit_exercise/"+exercise._id)}>
+                                <div className="exerciseCard"  key={index} index={index} onClick={() => this.props.history.push("/edit_exercise/"+exercise._id)}>
                                     <img  className="card-img" src={exercise.thumbnailPath} alt="thumbnail"/>
                                     <div  className="exercise-info">
                                         <h4 > {`${exercise.name}`} </h4>
                                     </div>
                                 </div>
-                            </Col>
                             )
                         })
                     }
-                </Row>
+                </div>
             }
 
             {!loading && success && (exercises.length === 0) && <Alert variant='warning'> Még nem töltött fel gyakorlatot a rendszerbe!</Alert>}

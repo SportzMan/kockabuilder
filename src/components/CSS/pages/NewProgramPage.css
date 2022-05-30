@@ -2,6 +2,11 @@
     padding-bottom: 1.5rem;
 }
 
+#programName .from-control, #programDesc .form-control{
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
 .thumbnail-container{
     padding: 1rem;
     display: flex;
@@ -100,4 +105,8 @@
 
 .btn #save-button, .btn #loading-save-button{
     margin-bottom: 4rem;
+}
+
+.form-check{
+    margin: 1rem 0 2rem
 }

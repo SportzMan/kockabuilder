@@ -43,26 +43,24 @@ const MembershipPage = (props) => {
                 <hr />
             </div>
             {successPayment &&<Alert variant="success"> Sikeres tranzakció!</Alert>}
-            <Row xs={1} md={2} lg={2} xl={4} >
+            <div className="membership-flexbox-container">
                 {
                     Memberships.map((membership, index) => {
                         const className = (activeIndex === index) ? "activeMembershipCard" : "membershipCard"
                         return (
-                            <Col key={`col-${index}`}>
-                                <div className={className}  index={index} onClick={() => selectItem(membership, index)}>
-                                    <img  className="card-img" src={membership.img} alt="thumbnail"/>
-                                    <div  className="membership-info">
-                                        <h2> {`${membership.duration} nap`} </h2>
-                                        <br/>
-                                        <h5>{`${membership.price} Ft`}</h5>
-                                    </div>
+                            <div className={className} id="membership-card" key={index} index={index} onClick={() => selectItem(membership, index)}>
+                                <img  className="card-img" src={membership.img} alt="thumbnail"/>
+                                <div  className="membership-info">
+                                    <h2> {`${membership.duration} nap`} </h2>
+                                    <br/>
+                                    <h5>{`${membership.price} Ft`}</h5>
                                 </div>
-                            </Col>
+                            </div>
                         )
                     })
 
                 }
-            </Row>
+            </div>
 
             {!!selectedMembership &&
                 <div style={{marginTop: "5rem", justifyContent: "center", alignItems: "center", display: "flex"}}  >

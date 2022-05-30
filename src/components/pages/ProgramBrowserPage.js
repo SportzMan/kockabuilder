@@ -29,7 +29,7 @@ class ProgramBrowserPage extends React.Component{
             <h1>Programtár</h1>
             <hr />
             {!loading && errors.global && <Alert> <p>{errors.global}</p> </Alert>}
-
+            {!loading && success && (programs.length === 0) && <Alert variant='warning'> Még nincsenek programok a rendszerbe feltöltve!</Alert>}
             {loading && !success && <Spinner id="loading-spinner" animation="border" size="xxl" role="status"  aria-hidden="true"/> }
             
             {!loading && success &&

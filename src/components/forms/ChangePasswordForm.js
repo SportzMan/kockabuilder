@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Alert, Form, Button, Spinner } from "react-bootstrap";
+import { Alert, Form, Button, Spinner, InputGroup, FormControl } from "react-bootstrap";
 
 class ResetPasswordForm extends React.Component {
   state = {
@@ -62,9 +62,9 @@ class ResetPasswordForm extends React.Component {
             <p>{errors.global}</p>
           </Alert>
         )}
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Új jelszó</Form.Label>
-          <Form.Control
+        <InputGroup controlId="formBasicPassword">
+          <InputGroup.Text>Új jelszó</InputGroup.Text>
+          <FormControl
             name="password"
             type="password"
             placeholder="******"
@@ -72,13 +72,13 @@ class ResetPasswordForm extends React.Component {
             onChange={this.onChange}
             isInvalid={!!errors.password}
           />
-          <Form.Control.Feedback type="invalid">
+          <FormControl.Feedback type="invalid">
             {errors.password}
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Új jelszó ismét</Form.Label>
-          <Form.Control
+          </FormControl.Feedback>
+        </InputGroup>
+        <InputGroup controlId="formBasicPassword">
+          <InputGroup.Text>Új jelszó ismét</InputGroup.Text>
+          <FormControl
             name="passwordConfirmation"
             type="password"
             placeholder="******"
@@ -86,10 +86,10 @@ class ResetPasswordForm extends React.Component {
             onChange={this.onChange}
             isInvalid={!!errors.passwordConfirmation}
           />
-          <Form.Control.Feedback type="invalid">
+          <FormControl.Feedback type="invalid">
             {errors.passwordConfirmation}
-          </Form.Control.Feedback>
-        </Form.Group>
+          </FormControl.Feedback>
+        </InputGroup>
         <br></br>
         {!loading ? (
           <Button variant="primary" type="submit">

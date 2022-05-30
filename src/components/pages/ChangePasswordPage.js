@@ -20,16 +20,16 @@ componentDidMount(){
 
 submit = (data) => this.props.changePassword(data)
 
-
     render(){
         const {loading, success} = this.state;
         const token = this.props.token;
         return(
             <Container fluid>
+                <h1>Jelszócsere</h1>
+                <hr/>
                 {loading && <Spinner as="span" animation="border" size="xl" role="status" aria-hidden="true" />}
-                {!loading && success && <h1>Jelszócsere</h1>}
                 {!loading && success && <ChangePasswordForm submit={this.submit} token={token}/>}
-                {!loading && ! success && <Alert variant="danger">Érvénytelen kérés.</Alert>}
+                {!loading && !success && <Alert variant="danger">Érvénytelen kérés.</Alert>}
             </Container>
         );
     }

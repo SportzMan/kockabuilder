@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Button, Alert, Spinner} from 'react-bootstrap';
+import {Form, Button, Alert, Spinner, InputGroup, FormControl} from 'react-bootstrap';
 import Validator from 'validator';
 import PropTypes from 'prop-types';
 
@@ -8,7 +8,8 @@ class ProfileForm extends React.Component{
     state = {
         data: {
             email: this.props.user.email,
-            username: this.props.user.username
+            username: this.props.user.username,
+            membership: this.props.user.membership
         },
         success: false,
         loading: false,
@@ -59,22 +60,22 @@ class ProfileForm extends React.Component{
                     </Alert>}
                 {!loading&&success&&<Alert variant="success"> Sikeresen frissítette a profilját! </Alert>}
                 
-                <Form.Group controlId="formUsername">
-                    <Form.Label >Felhasználónév</Form.Label>
-                    <Form.Control
+                <InputGroup controlId="formUsername">
+                    <InputGroup.Text >Felhasználónév</InputGroup.Text>
+                    <FormControl
                         name="username"
                         type="username" 
                         value={data.username} 
                         onChange={this.onChange}
                         isInvalid={!!errors.username}
                     />
-                    <Form.Control.Feedback type='invalid'>
+                    <FormControl.Feedback type='invalid'>
                         {errors.email}
-                    </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group controlId="formBasicEmail">
-                    <Form.Label >Email</Form.Label>
-                    <Form.Control
+                    </FormControl.Feedback>
+                </InputGroup>
+                <InputGroup controlId="formBasicEmail">
+                    <InputGroup.Text >Email</InputGroup.Text>
+                    <FormControl
                         name="email"
                         type="email" 
                         value={data.email} 
@@ -82,11 +83,21 @@ class ProfileForm extends React.Component{
                         isInvalid={!!errors.email}
                         disabled
                     />
-                    <Form.Control.Feedback type='invalid'>
+                    <FormControl.Feedback type='invalid'>
                         {errors.email}
-                    </Form.Control.Feedback>
-                </Form.Group>
-                <br></br>
+                    </FormControl.Feedback>
+                </InputGroup>
+                <InputGroup controlid="formMembership">
+                    <InputGroup.Text>Tagság érvényessége</InputGroup.Text>
+                    <Form.Control
+                        name="membership"
+                        type="date"
+                        value={data.membership.split("T")[0]}
+                        onChange={this.onChange}
+                        isInvalid={!!errors.membership}
+                        disabled
+                    />
+                </InputGroup>
                 {!loading ? (
                     <Button variant="primary" type="submit">Módosít</Button>
                   ) : (

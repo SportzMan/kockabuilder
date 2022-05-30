@@ -97,8 +97,6 @@ class NewExerciseForm extends React.Component{
         this.setState({modal: true})
     };
 
-
-
     render(){
         const {exercise, errors, loading, success, modal} = this.state;
 

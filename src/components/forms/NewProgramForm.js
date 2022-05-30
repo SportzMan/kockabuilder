@@ -1,6 +1,6 @@
 import React from "react";
 import Dropzone from "react-dropzone";
-import {Card, Container, Form,Button,Alert,Spinner,InputGroup,FormControl, Row, Col} from "react-bootstrap";
+import {Container, Form,Button,Alert,Spinner,InputGroup,FormControl} from "react-bootstrap";
 import { FiPlus } from "react-icons/fi";
 import {MdOutlineCancel} from "react-icons/md";
 import PropTypes from "prop-types";
@@ -52,7 +52,7 @@ class NewProgramForm extends React.Component {
 
   checkChange = () => {
       this.setState({
-        program: { ...this.state.program, isfree: !this.state.program.isfree },
+        program: { ...this.state.program, isFree: !this.state.program.isFree },
       })
   };
 
@@ -149,10 +149,6 @@ class NewProgramForm extends React.Component {
             value={program.name}
             onChange={this.onChange}
             isInvalid={!!errors.name}
-            style={{
-              borderTopRightRadius: "5px",
-              borderBottomRightRadius: "5px",
-            }}
           />
           <FormControl.Feedback type="invalid">
             {errors.name}
@@ -168,16 +164,12 @@ class NewProgramForm extends React.Component {
             value={program.description}
             onChange={this.onChange}
             isInvalid={!!errors.description}
-            style={{
-              borderTopRightRadius: "5px",
-              borderBottomRightRadius: "5px",
-            }}
           />
           <FormControl.Feedback type="invalid">
             {errors.description}
           </FormControl.Feedback>
         </InputGroup>
-        <Form.Group controlId="formUserRights" style={{margin: "1rem 0 2rem"}}>
+        <Form.Group controlId="formUserRights">
               <Form.Check
                 name="isFree"
                 type="checkbox"
