@@ -49,7 +49,7 @@ class ProgramPage extends React.Component{
                         {
                             program.workouts.map((workout, index) =>{
                                 return(
-                                    <WorkoutCard workout={workout} open={this.props.history.push} index={index}/>
+                                    <WorkoutCard key={index} workout={workout} open={this.props.history.push} index={index}/>
                                 )
 
                             })
